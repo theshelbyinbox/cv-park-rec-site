@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Christmas Valley Park &amp; Recreation — Redesign Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --sand:#F7F0E3; --cream:#FBF7EF; --paper:#FFFFFF;
+  --sage:#7E8E6A; --sage-deep:#566248; --sage-soft:#DDE3D0;
+  --sky:#8FB3C6; --sky-deep:#4F7E96;
+  --gold:#D9954B; --gold-deep:#BE7B33;
+  --ink:#2B2924; --muted:#6E6757; --line:#E6DCC9;
+  --crit:#B4452F;
+  --shadow:0 24px 60px -28px rgba(60,48,28,.45);
+  --shadow-soft:0 16px 40px -26px rgba(60,48,28,.4);
+  --ease:cubic-bezier(.32,.72,0,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+  background:var(--sand); color:var(--ink);
+  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif; font-weight:600; line-height:1.05; letter-spacing:-.01em}
+img,svg{display:block; max-width:100%}
+a{color:inherit; text-decoration:none}
+
+/* film grain overlay */
+.grain{position:fixed; inset:0; z-index:60; pointer-events:none; opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* eyebrow */
+.eyebrow{display:inline-flex; align-items:center; gap:.5em;
+  font-size:11px; text-transform:uppercase; letter-spacing:.22em; font-weight:600;
+  color:var(--sage-deep); background:var(--sage-soft);
+  padding:.5em 1em; border-radius:999px;}
+.eyebrow.gold{color:var(--gold-deep); background:#F3E3CC}
+.eyebrow.sky{color:var(--sky-deep); background:#DCE9EF}
+
+/* ---------- NAV ---------- */
+.nav-wrap{position:fixed; top:0; left:0; right:0; z-index:50; display:flex; justify-content:center; padding:18px 16px;}
+.nav{display:flex; align-items:center; gap:8px; width:min(1080px,100%);
+  background:rgba(251,247,239,.82); backdrop-filter:blur(18px) saturate(1.4);
+  border:1px solid rgba(120,100,60,.12); border-radius:999px;
+  padding:9px 9px 9px 20px; box-shadow:var(--shadow-soft);}
+.brand{display:flex; align-items:center; gap:11px; margin-right:auto; cursor:pointer}
+.brand .mark{width:34px; height:34px; border-radius:11px; flex:none;
+  background:linear-gradient(150deg,var(--gold) 0%,var(--gold-deep) 60%,var(--sage-deep) 130%);
+  display:grid; place-items:center; box-shadow:inset 0 1px 1px rgba(255,255,255,.35);}
+.brand .mark svg{width:20px;height:20px}
+.brand b{font-family:'Fraunces',serif; font-weight:600; font-size:15px; letter-spacing:-.01em; line-height:1}
+.brand span{display:block; font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-top:2px}
+.links{display:flex; align-items:center; gap:2px}
+.links a{font-size:13.5px; font-weight:500; color:var(--muted); padding:9px 14px; border-radius:999px;
+  transition:color .4s var(--ease), background .4s var(--ease);}
+.links a:hover{color:var(--ink); background:rgba(126,142,106,.14)}
+.links a.active{color:#fff; background:var(--sage-deep)}
+.nav-cta{display:inline-flex; align-items:center; gap:9px; background:var(--ink); color:var(--cream);
+  font-size:13px; font-weight:600; padding:10px 8px 10px 18px; border-radius:999px; cursor:pointer;
+  transition:transform .4s var(--ease); white-space:nowrap;}
+.nav-cta:hover{transform:translateY(-1px)} .nav-cta:active{transform:scale(.98)}
+.nav-cta .circ{width:26px;height:26px;border-radius:999px;background:rgba(255,255,255,.16);display:grid;place-items:center;
+  transition:transform .4s var(--ease)}
+.nav-cta:hover .circ{transform:translate(2px,-1px)}
+.burger{display:none; width:42px;height:42px;border:none;background:var(--ink);border-radius:999px;cursor:pointer;
+  position:relative; flex:none}
+.burger span{position:absolute; left:11px; width:20px; height:1.8px; background:var(--cream); border-radius:2px;
+  transition:transform .5s var(--ease), opacity .3s var(--ease)}
+.burger span:nth-child(1){top:16px} .burger span:nth-child(2){top:22px} .burger span:nth-child(3){top:28px}
+body.menu-open .burger span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+body.menu-open .burger span:nth-child(2){opacity:0}
+body.menu-open .burger span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+/* mobile overlay */
+.overlay{position:fixed; inset:0; z-index:45; background:rgba(43,41,36,.55);
+  backdrop-filter:blur(22px); display:flex; flex-direction:column; justify-content:center; gap:6px; padding:40px;
+  opacity:0; pointer-events:none; transition:opacity .5s var(--ease)}
+body.menu-open .overlay{opacity:1; pointer-events:auto}
+.overlay a{font-family:'Fraunces',serif; font-size:34px; color:var(--cream); padding:8px 0;
+  transform:translateY(28px); opacity:0; transition:transform .6s var(--ease),opacity .6s var(--ease)}
+body.menu-open .overlay a{transform:none; opacity:1}
+body.menu-open .overlay a:nth-child(1){transition-delay:.08s}
+body.menu-open .overlay a:nth-child(2){transition-delay:.14s}
+body.menu-open .overlay a:nth-child(3){transition-delay:.2s}
+body.menu-open .overlay a:nth-child(4){transition-delay:.26s}
+body.menu-open .overlay a:nth-child(5){transition-delay:.32s}
+.overlay small{color:var(--sage-soft); letter-spacing:.2em; text-transform:uppercase; font-size:11px; margin-top:26px}
+
+/* ---------- PAGE SYSTEM ---------- */
+.page{display:none; animation:fade .7s var(--ease)}
+.page.show{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.wrap{width:min(1120px,92%); margin:0 auto}
+section{padding:84px 0}
+.reveal{opacity:0; transform:translateY(34px); filter:blur(6px); transition:all .8s var(--ease)}
+.reveal.in{opacity:1; transform:none; filter:none}
+
+/* ---------- HERO ---------- */
+.hero{position:relative; padding:150px 0 0; overflow:hidden}
+.hero-scene{position:absolute; inset:0; z-index:0}
+.hero .wrap{position:relative; z-index:2}
+.hero h1{font-size:clamp(44px,8.5vw,104px); font-weight:600; max-width:14ch; color:#fff;
+  text-shadow:0 2px 30px rgba(40,30,10,.25)}
+.hero p.lede{max-width:48ch; margin-top:22px; font-size:clamp(16px,2.2vw,20px); color:#fff; opacity:.95;
+  text-shadow:0 1px 16px rgba(40,30,10,.3)}
+.hero .ctas{display:flex; gap:14px; flex-wrap:wrap; margin-top:34px; padding-bottom:120px}
+.btn{display:inline-flex; align-items:center; gap:11px; font-weight:600; font-size:15px; border-radius:999px;
+  padding:14px 12px 14px 24px; cursor:pointer; border:none; transition:transform .4s var(--ease)}
+.btn:hover{transform:translateY(-2px)} .btn:active{transform:scale(.98)}
+.btn .circ{width:30px;height:30px;border-radius:999px;display:grid;place-items:center;transition:transform .4s var(--ease)}
+.btn:hover .circ{transform:translate(3px,-1px)}
+.btn-gold{background:var(--gold); color:#fff} .btn-gold .circ{background:rgba(255,255,255,.22)}
+.btn-light{background:rgba(255,255,255,.9); color:var(--ink)} .btn-light .circ{background:rgba(43,41,36,.08)}
+.btn-ink{background:var(--ink); color:var(--cream)} .btn-ink .circ{background:rgba(255,255,255,.16)}
+.btn-sage{background:var(--sage-deep); color:#fff} .btn-sage .circ{background:rgba(255,255,255,.2)}
+
+.hero-stats{position:relative; z-index:2; background:var(--cream);
+  border-radius:30px 30px 0 0; margin-top:-40px; padding:34px 0}
+.hero-stats .row{display:flex; gap:14px; flex-wrap:wrap; justify-content:space-between}
+.stat{flex:1; min-width:150px}
+.stat b{font-family:'Fraunces',serif; font-size:34px; color:var(--sage-deep); display:block; line-height:1}
+.stat span{font-size:13px; color:var(--muted)}
+
+/* section head */
+.shead{display:flex; flex-direction:column; gap:16px; margin-bottom:40px; max-width:60ch}
+.shead h2{font-size:clamp(30px,5vw,52px)}
+.shead p{color:var(--muted); font-size:17px}
+
+/* bento facilities */
+.bento{display:grid; grid-template-columns:repeat(12,1fr); gap:18px}
+.card{position:relative; border-radius:26px; overflow:hidden; background:var(--paper);
+  border:1px solid var(--line); box-shadow:var(--shadow-soft); min-height:230px;
+  display:flex; flex-direction:column; justify-content:flex-end; transition:transform .6s var(--ease),box-shadow .6s var(--ease)}
+.card:hover{transform:translateY(-6px); box-shadow:var(--shadow)}
+.card .scene{position:absolute; inset:0; z-index:0}
+.card .body{position:relative; z-index:2; padding:22px}
+.card h3{color:#fff; font-size:24px; text-shadow:0 2px 16px rgba(30,22,8,.4)}
+.card p{color:#fff; opacity:.92; font-size:14px; margin-top:5px; text-shadow:0 1px 12px rgba(30,22,8,.45); max-width:34ch}
+.card .tag{position:absolute; top:18px; left:18px; z-index:2}
+.c-lake{grid-column:span 7} .c-golf{grid-column:span 5}
+.c-rodeo{grid-column:span 4} .c-hall{grid-column:span 4} .c-air{grid-column:span 4}
+.c-field{grid-column:span 12; min-height:160px}
+
+/* two-col feature */
+.feat{display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center}
+.feat .panel{border-radius:28px; overflow:hidden; box-shadow:var(--shadow); min-height:380px; position:relative; border:1px solid var(--line)}
+.news-list{display:flex; flex-direction:column; gap:12px; margin-top:8px}
+.news-item{display:flex; gap:16px; align-items:center; background:var(--paper); border:1px solid var(--line);
+  border-radius:18px; padding:16px 18px; transition:transform .5s var(--ease),box-shadow .5s var(--ease); cursor:pointer}
+.news-item:hover{transform:translateX(5px); box-shadow:var(--shadow-soft)}
+.news-item .date{flex:none; width:54px; text-align:center; font-family:'Fraunces',serif}
+.news-item .date b{display:block; font-size:22px; color:var(--gold-deep); line-height:1}
+.news-item .date span{font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted)}
+.news-item h4{font-size:16px; font-weight:600} .news-item p{font-size:13px; color:var(--muted)}
+.news-item .arr{margin-left:auto; color:var(--sage); font-size:18px; transition:transform .4s var(--ease)}
+.news-item:hover .arr{transform:translateX(4px)}
+
+/* generic content section */
+.lead-band{background:var(--sage-deep); color:var(--cream); border-radius:32px; padding:54px; position:relative; overflow:hidden}
+.lead-band h2{font-size:clamp(28px,4.5vw,46px); max-width:18ch; color:#fff}
+.lead-band p{margin-top:18px; max-width:54ch; opacity:.9}
+.lead-band .scene{position:absolute; right:-40px; bottom:-30px; width:340px; opacity:.5; z-index:0}
+
+/* ---------- GOLF ---------- */
+.subhero{position:relative; padding:138px 0 60px; overflow:hidden; border-radius:0 0 32px 32px}
+.subhero .scene{position:absolute; inset:0; z-index:0}
+.subhero .wrap{position:relative; z-index:2}
+.subhero h1{color:#fff; font-size:clamp(38px,7vw,76px); text-shadow:0 2px 28px rgba(40,30,10,.3); max-width:16ch}
+.subhero p{color:#fff; opacity:.95; max-width:46ch; margin-top:16px; text-shadow:0 1px 14px rgba(40,30,10,.3)}
+.split{display:grid; grid-template-columns:1.3fr .7fr; gap:40px; align-items:start}
+.prose p{margin-bottom:18px; color:#4a4537}
+.prose h3{font-size:26px; margin:14px 0 14px}
+.ratecard{background:var(--paper); border:1px solid var(--line); border-radius:26px; box-shadow:var(--shadow-soft); overflow:hidden; position:sticky; top:96px}
+.ratecard .top{background:linear-gradient(150deg,var(--sage) 0%,var(--sage-deep) 100%); color:#fff; padding:24px}
+.ratecard .top h3{color:#fff; font-size:22px} .ratecard .top span{font-size:13px; opacity:.85}
+.ratecard ul{list-style:none; padding:8px 24px 18px}
+.ratecard li{display:flex; justify-content:space-between; padding:13px 0; border-bottom:1px dashed var(--line); font-size:14.5px}
+.ratecard li:last-child{border:none} .ratecard li b{font-family:'Fraunces',serif; color:var(--gold-deep)}
+.ratecard .cta{padding:0 24px 24px}
+.ratecard .cta .btn{width:100%; justify-content:center}
+table.score{width:100%; border-collapse:collapse; margin-top:14px; background:var(--paper); border-radius:18px; overflow:hidden; box-shadow:var(--shadow-soft); font-size:13.5px}
+table.score th,table.score td{padding:11px 10px; text-align:center; border-bottom:1px solid var(--line)}
+table.score thead th{background:var(--sage-deep); color:#fff; font-weight:600; font-family:'Plus Jakarta Sans'}
+table.score td:first-child,table.score th:first-child{text-align:left; font-weight:600}
+table.score tr:last-child td{border:none; font-weight:700; background:var(--sand)}
+.amen{display:flex; gap:12px; flex-wrap:wrap; margin-top:8px}
+.amen .pill{display:inline-flex; align-items:center; gap:8px; background:var(--paper); border:1px solid var(--line);
+  border-radius:999px; padding:10px 16px; font-size:13.5px; font-weight:500; box-shadow:var(--shadow-soft)}
+.amen .pill svg{width:16px;height:16px}
+
+/* ---------- DESERT WHISPERS ---------- */
+.chips{display:flex; gap:9px; flex-wrap:wrap; margin:6px 0 30px}
+.chip{font-size:13px; font-weight:600; padding:9px 17px; border-radius:999px; cursor:pointer;
+  background:var(--paper); border:1px solid var(--line); color:var(--muted); transition:all .4s var(--ease)}
+.chip:hover{border-color:var(--sage)}
+.chip.active{background:var(--ink); color:var(--cream); border-color:var(--ink)}
+.issues{display:grid; grid-template-columns:repeat(auto-fill,minmax(184px,1fr)); gap:18px}
+.issue{background:var(--paper); border:1px solid var(--line); border-radius:20px; overflow:hidden;
+  box-shadow:var(--shadow-soft); cursor:pointer; transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.issue:hover{transform:translateY(-5px); box-shadow:var(--shadow)}
+.issue .cover{height:150px; position:relative; display:grid; place-items:center}
+.issue .cover .yr{font-family:'Fraunces',serif; font-size:30px; color:#fff; text-shadow:0 2px 12px rgba(30,22,8,.4)}
+.issue .meta{padding:14px 16px}
+.issue .meta b{font-size:14.5px; display:block}
+.issue .meta span{font-size:12px; color:var(--muted)}
+.issue .meta .dl{display:inline-flex; align-items:center; gap:6px; margin-top:9px; font-size:12px; font-weight:600; color:var(--gold-deep)}
+
+/* ---------- BOARD / CONTACT ---------- */
+.boardgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:18px}
+.member{background:var(--paper); border:1px solid var(--line); border-radius:22px; padding:24px; text-align:center; box-shadow:var(--shadow-soft)}
+.member .av{width:74px;height:74px;border-radius:999px;margin:0 auto 14px;display:grid;place-items:center;
+  font-family:'Fraunces',serif; font-size:26px; color:#fff;}
+.member b{display:block; font-size:16px} .member span{font-size:12.5px; color:var(--muted)}
+.info-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:10px}
+.infobox{background:var(--paper); border:1px solid var(--line); border-radius:22px; padding:26px; box-shadow:var(--shadow-soft)}
+.infobox h4{font-size:19px; margin-bottom:10px}
+.infobox p{font-size:14.5px; color:#4a4537; margin-bottom:4px}
+.infobox a{color:var(--sky-deep); font-weight:600}
+.minutes-list{display:flex; flex-direction:column; gap:10px; margin-top:8px}
+.minrow{display:flex; align-items:center; gap:14px; background:var(--paper); border:1px solid var(--line);
+  border-radius:16px; padding:14px 18px; cursor:pointer; transition:transform .4s var(--ease)}
+.minrow:hover{transform:translateX(5px)}
+.minrow .ic{width:36px;height:36px;border-radius:11px;background:var(--sage-soft);display:grid;place-items:center;flex:none}
+.minrow b{font-size:14.5px} .minrow span{font-size:12.5px;color:var(--muted)}
+.minrow .arr{margin-left:auto;color:var(--sage)}
+
+/* footer */
+.foot{background:var(--ink); color:var(--sand); padding:64px 0 30px; border-radius:36px 36px 0 0; margin-top:40px}
+.foot .cols{display:flex; gap:40px; flex-wrap:wrap; justify-content:space-between}
+.foot .brand b{color:#fff} .foot .brand span{color:var(--sage-soft)}
+.foot h5{font-size:12px; text-transform:uppercase; letter-spacing:.18em; color:var(--sage-soft); margin-bottom:14px}
+.foot a{display:block; color:var(--sand); opacity:.8; font-size:14px; padding:4px 0; cursor:pointer}
+.foot a:hover{opacity:1}
+.foot .bottom{border-top:1px solid rgba(255,255,255,.12); margin-top:40px; padding-top:22px;
+  display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; font-size:12.5px; opacity:.7}
+.demo-ribbon{position:fixed; bottom:14px; left:14px; z-index:55; background:var(--gold); color:#fff;
+  font-size:11px; font-weight:600; padding:7px 14px; border-radius:999px; box-shadow:var(--shadow-soft); letter-spacing:.02em}
+
+@media(max-width:860px){
+  .links,.nav-cta{display:none}
+  .burger{display:block}
+  .feat,.split{grid-template-columns:1fr; gap:28px}
+  .ratecard{position:static}
+  .bento>*{grid-column:span 12 !important}
+  .info-grid{grid-template-columns:1fr}
+  section{padding:60px 0}
+  .hero{padding-top:120px}
+  .hero .ctas{padding-bottom:80px}
+  .lead-band{padding:36px}
+}
+
+/* ---- real photo slots (auto-overlay illustrations when an image exists) ---- */
+[data-photo]{position:relative}
+[data-photo] img.photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:0;transition:opacity .7s var(--ease)}
+[data-photo].has-photo img.photo{opacity:1}
+.hero-scene.has-photo::after,.subhero .scene.has-photo::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(38,30,18,.18),rgba(38,30,18,.5))}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+<div class="demo-ribbon">Proposed redesign — preview</div>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <nav class="nav">
+    <div class="brand" onclick="go('home')">
+      <div class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19l5-9 3 5 2-3 6 7z" fill="#fff"/><circle cx="17" cy="6.5" r="2.4" fill="#fff"/></svg></div>
+      <div><b>Christmas Valley</b><span>Park &amp; Recreation</span></div>
+    </div>
+    <div class="links">
+      <a data-nav="home" onclick="go('home')">Home</a>
+      <a data-nav="golf" onclick="go('golf')">Golf Course</a>
+      <a data-nav="news" onclick="go('news')">Desert Whispers</a>
+      <a data-nav="board" onclick="go('board')">Board &amp; Minutes</a>
+      <a data-nav="contact" onclick="go('contact')">Contact</a>
+    </div>
+    <div class="nav-cta" onclick="go('contact')">Plan a Visit <span class="circ"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#FBF7EF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    <button class="burger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+</div>
+
+<!-- MOBILE OVERLAY -->
+<div class="overlay">
+  <a onclick="go('home')">Home</a>
+  <a onclick="go('golf')">Golf Course</a>
+  <a onclick="go('news')">Desert Whispers</a>
+  <a onclick="go('board')">Board &amp; Minutes</a>
+  <a onclick="go('contact')">Contact</a>
+  <small>Christmas Valley, Oregon · Est. 1963</small>
+</div>
+
+<!-- =================== HOME =================== -->
+<main id="home" class="page show">
+  <header class="hero">
+    <div class="hero-scene" data-photo="hero-home">
+      <svg width="100%" height="100%" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#9FC2D4"/><stop offset=".5" stop-color="#C7D8DC"/><stop offset="1" stop-color="#F2E3C7"/>
+          </linearGradient>
+          <linearGradient id="dune1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E7C892"/><stop offset="1" stop-color="#D9A968"/></linearGradient>
+          <linearGradient id="dune2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C99A5C"/><stop offset="1" stop-color="#B07F45"/></linearGradient>
+          <linearGradient id="sage1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8A9A6F"/><stop offset="1" stop-color="#5C6A45"/></linearGradient>
+        </defs>
+        <rect width="1440" height="720" fill="url(#sky1)"/>
+        <circle cx="1080" cy="190" r="78" fill="#F6E7C2" opacity=".9"/>
+        <circle cx="1080" cy="190" r="120" fill="#F6E7C2" opacity=".25"/>
+        <path d="M0 430 Q260 360 520 420 T1040 410 T1440 440 V720 H0Z" fill="url(#dune1)"/>
+        <path d="M0 520 Q320 450 680 510 T1440 520 V720 H0Z" fill="url(#dune2)"/>
+        <path d="M0 600 Q360 560 760 600 T1440 600 V720 H0Z" fill="url(#sage1)"/>
+        <g fill="#4E5A3A" opacity=".8">
+          <path d="M210 588c0-14 4-26 4-26s4 12 4 26-2 22-4 22-4-8-4-22z"/><path d="M198 592c4-8 12-12 12-12s-2 10-6 16-10 8-12 6 2-6 6-10z"/>
+          <path d="M250 596c0-12 4-22 4-22s4 10 4 22-2 18-4 18-4-6-4-18z"/>
+        </g>
+      </svg>
+    </div>
+    <div class="wrap">
+      <span class="eyebrow" style="background:rgba(255,255,255,.25);color:#fff">Christmas Valley, Oregon · Est. 1963</span>
+      <h1>Your high desert, kept wild &amp; welcoming.</h1>
+      <p class="lede">A 9-hole golf course, Baert Lake, the rodeo grounds, community hall, airport, and ball fields — cared for by your neighbors, for this generation and the next.</p>
+      <div class="ctas">
+        <button class="btn btn-gold" onclick="go('golf')">Explore the Course <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        <button class="btn btn-light" onclick="go('news')">Read the Desert Whispers <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#2B2924" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="wrap"><div class="row">
+        <div class="stat"><b>6</b><span>facilities &amp; properties</span></div>
+        <div class="stat"><b>1963</b><span>serving the community since</span></div>
+        <div class="stat"><b>9</b><span>holes in the high desert</span></div>
+        <div class="stat"><b>60+</b><span>years of Desert Whispers</span></div>
+      </div></div>
+    </div>
+  </header>
+
+  <section><div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">Facilities &amp; Properties</span>
+      <h2>Six places that make this valley home.</h2>
+      <p>Every one is open to the public and maintained by the District. Tap any to learn more.</p>
+    </div>
+    <div class="bento">
+      <div class="card c-lake reveal" onclick="go('home')">
+        <div class="scene" data-photo="baert-lake"><svg width="100%" height="100%" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid slice">
+          <defs><linearGradient id="lk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A9CBDA"/><stop offset="1" stop-color="#6FA0B6"/></linearGradient></defs>
+          <rect width="600" height="300" fill="url(#lk)"/><circle cx="470" cy="70" r="40" fill="#F4E6C6" opacity=".9"/>
+          <path d="M0 175 Q150 150 320 172 T600 168 V300 H0Z" fill="#5E8AA0"/>
+          <path d="M0 210 Q200 188 380 208 T600 205 V300 H0Z" fill="#4B7286"/>
+          <g stroke="#dCeaf0" stroke-width="2" opacity=".5"><path d="M120 235h70"/><path d="M260 252h90"/><path d="M400 240h60"/></g>
+        </svg></div>
+        <span class="eyebrow sky tag">Spring–Fall</span>
+        <div class="body"><h3>Baert Lake</h3><p>Catch-and-release fishing, non-motorized boating, and winter ice skating when the ice runs thick.</p></div>
+      </div>
+      <div class="card c-golf reveal" onclick="go('golf')">
+        <div class="scene" data-photo="golf"><svg width="100%" height="100%" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <defs><linearGradient id="gf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BFD3C8"/><stop offset="1" stop-color="#7E9A78"/></linearGradient></defs>
+          <rect width="400" height="300" fill="#CFE0D2"/><path d="M0 120 Q200 80 400 130 V300 H0Z" fill="url(#gf)"/>
+          <ellipse cx="250" cy="210" rx="90" ry="34" fill="#6E8C68"/><circle cx="250" cy="205" r="6" fill="#fff"/>
+          <rect x="249" y="150" width="2.5" height="56" fill="#7a6a52"/><path d="M251 150l20 7-20 7z" fill="#D9954B"/>
+        </svg></div>
+        <span class="eyebrow tag">Public · 9 Holes</span>
+        <div class="body"><h3>Golf Course</h3><p>The high desert's emerald — built 1964.</p></div>
+      </div>
+      <div class="card c-rodeo reveal">
+        <div class="scene" data-photo="rodeo"><svg width="100%" height="100%" viewBox="0 0 300 260" preserveAspectRatio="xMidYMid slice"><rect width="300" height="260" fill="#E2C58E"/><path d="M0 150 Q150 120 300 152 V260 H0Z" fill="#C79A5C"/><g stroke="#8a6a3e" stroke-width="4"><path d="M40 150v40M100 150v40M160 150v40M220 150v40M280 150v40"/><path d="M30 162h260"/></g></svg></div>
+        <div class="body"><h3>Rodeo Grounds</h3><p>Arena &amp; horse shows.</p></div>
+      </div>
+      <div class="card c-hall reveal">
+        <div class="scene" data-photo="community-hall"><svg width="100%" height="100%" viewBox="0 0 300 260" preserveAspectRatio="xMidYMid slice"><rect width="300" height="260" fill="#D9DDCB"/><rect x="80" y="120" width="140" height="90" fill="#B7855A"/><path d="M70 120l80-46 80 46z" fill="#8E5E3C"/><rect x="135" y="160" width="30" height="50" fill="#6b4a30"/></svg></div>
+        <div class="body"><h3>Community Hall</h3><p>2,100 sq ft for rent.</p></div>
+      </div>
+      <div class="card c-air reveal">
+        <div class="scene" data-photo="airport"><svg width="100%" height="100%" viewBox="0 0 300 260" preserveAspectRatio="xMidYMid slice"><rect width="300" height="260" fill="#BFD2DB"/><path d="M0 175 Q150 160 300 178 V260 H0Z" fill="#9DB07E"/><rect x="60" y="150" width="200" height="16" rx="3" fill="#6b7280" transform="rotate(-6 150 158)"/><path d="M150 95l34 60h-68z" fill="#fff" opacity=".9"/></svg></div>
+        <div class="body"><h3>Airport</h3><p>5,200' runway (62-S).</p></div>
+      </div>
+      <div class="card c-field reveal">
+        <div class="scene" data-photo="field"><svg width="100%" height="100%" viewBox="0 0 900 200" preserveAspectRatio="xMidYMid slice"><rect width="900" height="200" fill="#AEC79E"/><circle cx="150" cy="120" r="60" fill="#9BB98A"/><rect x="600" y="70" width="120" height="80" fill="#9BB98A"/></svg></div>
+        <div class="body"><h3>Multipurpose Field</h3><p>Baseball diamond, volleyball court &amp; the children's playground.</p></div>
+      </div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:20px"><div class="wrap">
+    <div class="feat">
+      <div class="reveal">
+        <span class="eyebrow gold">From the Desert Whispers</span>
+        <h2 style="font-size:clamp(28px,4.5vw,46px); margin:16px 0">Sixty years of valley news, in one place.</h2>
+        <p style="color:var(--muted)">Our community newspaper has chronicled life in Christmas Valley since the 1960s. Browse every issue — now easy to find and open on any device.</p>
+        <div class="news-list">
+          <div class="news-item" onclick="go('news')"><div class="date"><b>Dec</b><span>2024</span></div><div><h4>Holiday Edition</h4><p>Season events, board notes &amp; the parade recap.</p></div><span class="arr">→</span></div>
+          <div class="news-item" onclick="go('news')"><div class="date"><b>Jun</b><span>2024</span></div><div><h4>Summer at the Lake</h4><p>Fishing report, golf league &amp; rodeo season.</p></div><span class="arr">→</span></div>
+          <div class="news-item" onclick="go('news')"><div class="date"><b>Feb</b><span>1963</span></div><div><h4>Christmas Valley Gazette</h4><p>From the archive — where it all began.</p></div><span class="arr">→</span></div>
+        </div>
+        <button class="btn btn-sage" style="margin-top:24px" onclick="go('news')">Open the full archive <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      </div>
+      <div class="panel reveal" data-photo="newspaper">
+        <svg width="100%" height="100%" viewBox="0 0 500 460" preserveAspectRatio="xMidYMid slice">
+          <defs><linearGradient id="np" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3E7CE"/><stop offset="1" stop-color="#E2CBA0"/></linearGradient></defs>
+          <rect width="500" height="460" fill="url(#np)"/>
+          <rect x="60" y="60" width="380" height="340" rx="6" fill="#fff" stroke="#E6DCC9"/>
+          <text x="250" y="118" text-anchor="middle" font-family="Fraunces,serif" font-size="30" fill="#566248">Desert Whispers</text>
+          <line x1="90" y1="138" x2="410" y2="138" stroke="#D9954B" stroke-width="2"/>
+          <rect x="90" y="160" width="150" height="100" rx="4" fill="#CFE0D2"/>
+          <g fill="#cbb890"><rect x="252" y="160" width="158" height="9" rx="3"/><rect x="252" y="178" width="158" height="9" rx="3"/><rect x="252" y="196" width="120" height="9" rx="3"/><rect x="252" y="220" width="158" height="9" rx="3"/><rect x="252" y="238" width="140" height="9" rx="3"/></g>
+          <g fill="#d8c7a0"><rect x="90" y="284" width="320" height="8" rx="3"/><rect x="90" y="300" width="320" height="8" rx="3"/><rect x="90" y="316" width="280" height="8" rx="3"/><rect x="90" y="340" width="320" height="8" rx="3"/><rect x="90" y="356" width="200" height="8" rx="3"/></g>
+        </svg>
+      </div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap"><div class="lead-band reveal">
+    <svg class="scene" viewBox="0 0 340 240"><path d="M0 150 Q120 110 240 150 T340 150 V240 H0Z" fill="#fff" opacity=".5"/><circle cx="270" cy="70" r="40" fill="#fff" opacity=".4"/></svg>
+    <span class="eyebrow gold">Public Meetings</span>
+    <h2 style="margin-top:14px">The Board meets the 2nd Tuesday of every month, 9:00 a.m.</h2>
+    <p>Held at the Christmas Valley Community Hall and open to all. Public comment is welcome — we'd love to see you there.</p>
+    <button class="btn btn-light" style="margin-top:26px" onclick="go('board')">See the Board &amp; minutes <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#2B2924" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+  </div></div></section>
+
+  <div id="footer-home"></div>
+</main>
+
+<!-- =================== GOLF =================== -->
+<main id="golf" class="page">
+  <header class="subhero">
+    <div class="scene" data-photo="golf-hero"><svg width="100%" height="100%" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice">
+      <defs><linearGradient id="gsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A6C6D6"/><stop offset="1" stop-color="#E7DCC2"/></linearGradient>
+      <linearGradient id="green" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9FBE92"/><stop offset="1" stop-color="#5E7A52"/></linearGradient></defs>
+      <rect width="1440" height="560" fill="url(#gsky)"/><circle cx="1180" cy="140" r="64" fill="#F4E6C6" opacity=".85"/>
+      <path d="M0 320 Q360 270 760 320 T1440 320 V560 H0Z" fill="url(#green)"/>
+      <ellipse cx="900" cy="450" rx="220" ry="60" fill="#6E8C68"/><circle cx="900" cy="442" r="9" fill="#fff"/>
+      <rect x="898" y="360" width="3.4" height="82" fill="#7a6a52"/><path d="M901 360l26 9-26 9z" fill="#D9954B"/>
+    </svg></div>
+    <div class="wrap">
+      <span class="eyebrow" style="background:rgba(255,255,255,.25);color:#fff">Public · 9 Holes · Built 1964</span>
+      <h1>Christmas Valley Golf Course</h1>
+      <p>Long, narrow fairways and quick desert greens — once the longest nine in Oregon. No tee times needed.</p>
+    </div>
+  </header>
+  <section><div class="wrap"><div class="split">
+    <div class="prose reveal">
+      <h3>An emerald in the high desert</h3>
+      <p>Located in the heart of Christmas Valley, the course features long fairways, challenging greens, and roughs that quickly transition to native desert habitat. Golfers mix and match tee boxes for a fun, challenging 18-hole round.</p>
+      <p>We're a public nine-hole course — no tee times required. Large groups planning a tournament are asked to call the office to reserve. Power carts are welcome on the fairways; we just ask you give the greens and tee boxes a wide berth.</p>
+      <h3>Scorecard</h3>
+      <table class="score">
+        <thead><tr><th>Hole</th><th>Par</th><th>Men's</th><th>Champ</th><th>Ladies</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>3</td><td>170</td><td>180</td><td>140</td></tr>
+          <tr><td>2</td><td>4</td><td>340</td><td>350</td><td>332</td></tr>
+          <tr><td>3</td><td>4</td><td>425</td><td>450</td><td>357</td></tr>
+          <tr><td>4</td><td>5</td><td>500</td><td>510</td><td>450</td></tr>
+          <tr><td>5</td><td>3</td><td>192</td><td>202</td><td>180</td></tr>
+          <tr><td>6</td><td>5</td><td>577</td><td>600</td><td>515</td></tr>
+          <tr><td>7</td><td>4</td><td>400</td><td>410</td><td>350</td></tr>
+          <tr><td>8</td><td>4</td><td>364</td><td>380</td><td>356</td></tr>
+          <tr><td>9</td><td>4</td><td>425</td><td>435</td><td>390</td></tr>
+          <tr><td>Total</td><td>36</td><td>3393</td><td>3517</td><td>3070</td></tr>
+        </tbody>
+      </table>
+      <h3 style="margin-top:30px">Amenities</h3>
+      <div class="amen">
+        <span class="pill">⛳ Loaner clubs (men's, women's, junior)</span>
+        <span class="pill">🛒 Pull carts available anytime</span>
+        <span class="pill">🚙 Power carts welcome</span>
+        <span class="pill">🏌️ No tee times needed</span>
+      </div>
+    </div>
+    <aside class="ratecard reveal">
+      <div class="top"><h3>Fees &amp; Memberships</h3><span>Season: March 1 – February 28</span></div>
+      <ul>
+        <li>9 Holes <b>$25</b></li>
+        <li>18 Holes (all day) <b>$35</b></li>
+        <li>Annual — Single <b>$250</b></li>
+        <li>Annual — Family <b>$350</b></li>
+        <li>Golf Cart Rental (18) <b>$30</b></li>
+      </ul>
+      <div class="cta"><button class="btn btn-gold" onclick="go('contact')">Call the office <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+    </aside>
+  </div></div></section>
+  <div id="footer-golf"></div>
+</main>
+
+<!-- =================== DESERT WHISPERS =================== -->
+<main id="news" class="page">
+  <section style="padding-top:140px"><div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow gold">The Desert Whispers &amp; CV Gazette</span>
+      <h2>The whole archive, finally easy to browse.</h2>
+      <p>Every surviving issue from 1962 to today — filter by decade and open any edition in a tap. (In the live site, each cover links straight to its PDF.)</p>
+    </div>
+    <div class="chips" id="chips">
+      <span class="chip active" data-f="all" onclick="filterIssues('all',this)">All years</span>
+      <span class="chip" data-f="2020" onclick="filterIssues('2020',this)">2020s</span>
+      <span class="chip" data-f="2010" onclick="filterIssues('2010',this)">2010s</span>
+      <span class="chip" data-f="1980" onclick="filterIssues('1980',this)">1980s</span>
+      <span class="chip" data-f="1960" onclick="filterIssues('1960',this)">1960s</span>
+    </div>
+    <div class="issues" id="issues"></div>
+  </div></section>
+  <div id="footer-news"></div>
+</main>
+
+<!-- =================== BOARD & MINUTES =================== -->
+<main id="board" class="page">
+  <section style="padding-top:140px"><div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">Your Board of Directors</span>
+      <h2>Elected neighbors, accountable to the district.</h2>
+      <p>Five directors, elected by the taxing district, charged with preserving these assets for the community. Meetings are the 2nd Tuesday monthly at 9:00 a.m.</p>
+    </div>
+    <div class="boardgrid">
+      <div class="member reveal"><div class="av" style="background:linear-gradient(150deg,#7E8E6A,#566248)">IM</div><b>Ione Maple</b><span>Chair</span></div>
+      <div class="member reveal"><div class="av" style="background:linear-gradient(150deg,#8FB3C6,#4F7E96)">DU</div><b>Dave Uran</b><span>Vice Chair</span></div>
+      <div class="member reveal"><div class="av" style="background:linear-gradient(150deg,#D9954B,#BE7B33)">BF</div><b>Barbara Ferrando</b><span>Director</span></div>
+      <div class="member reveal"><div class="av" style="background:linear-gradient(150deg,#7E8E6A,#566248)">DM</div><b>Dan Maple</b><span>Director</span></div>
+      <div class="member reveal"><div class="av" style="background:linear-gradient(150deg,#8FB3C6,#4F7E96)">SS</div><b>Shara Shumway</b><span>Director</span></div>
+    </div>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap">
+    <div class="shead reveal"><span class="eyebrow sky">Meeting Minutes</span><h2 style="font-size:clamp(26px,4vw,40px)">Recent minutes</h2><p>Posted after the Board reviews and approves them. Always current, always one click away.</p></div>
+    <div class="minutes-list">
+      <div class="minrow reveal"><div class="ic">📄</div><div><b>Regular Board Meeting</b><span>Most recent — posted after approval</span></div><span class="arr">↓</span></div>
+      <div class="minrow reveal"><div class="ic">📄</div><div><b>Regular Board Meeting</b><span>Prior month</span></div><span class="arr">↓</span></div>
+      <div class="minrow reveal"><div class="ic">📄</div><div><b>Budget &amp; Regular Meeting</b><span>Spring session</span></div><span class="arr">↓</span></div>
+      <div class="minrow reveal"><div class="ic">🗂️</div><div><b>Browse the full archive</b><span>2013 – present, by year</span></div><span class="arr">→</span></div>
+    </div>
+  </div></section>
+  <div id="footer-board"></div>
+</main>
+
+<!-- =================== CONTACT =================== -->
+<main id="contact" class="page">
+  <section style="padding-top:140px"><div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow gold">Get in Touch</span>
+      <h2>We're open Tuesday–Friday, 9 to 2.</h2>
+      <p>Questions about rentals, the course, or the lake? Reach the District office — we're happy to help.</p>
+    </div>
+    <div class="info-grid">
+      <div class="infobox reveal">
+        <h4>Office</h4>
+        <p><b>Phone:</b> (541) 576-2216</p>
+        <p><b>Fax:</b> (541) 576-2272</p>
+        <p><b>Email:</b> <a>cvparkrec@yahoo.com</a></p>
+        <p style="margin-top:12px"><b>Hours:</b> Tue–Fri, 9:00 a.m. – 2:00 p.m.</p>
+      </div>
+      <div class="infobox reveal">
+        <h4>Visit / Mail</h4>
+        <p>57334 Christmas Tree Lane</p>
+        <p>P.O. Box 181</p>
+        <p>Christmas Valley, OR 97641</p>
+        <p style="margin-top:12px"><b>Community Hall:</b> 87345 Holly Lane</p>
+      </div>
+    </div>
+    <div class="panel reveal" data-photo="location" style="margin-top:22px; min-height:280px">
+      <svg width="100%" height="100%" viewBox="0 0 1100 300" preserveAspectRatio="xMidYMid slice">
+        <rect width="1100" height="300" fill="#E7DCC2"/>
+        <g stroke="#D3C4A2" stroke-width="2"><path d="M0 90h1100"/><path d="M0 180h1100"/><path d="M380 0v300"/><path d="M760 0v300"/></g>
+        <path d="M120 240 Q400 120 760 200 T1040 120" stroke="#8FB3C6" stroke-width="6" fill="none" opacity=".7"/>
+        <circle cx="560" cy="168" r="13" fill="#D9954B"/><circle cx="560" cy="168" r="26" fill="#D9954B" opacity=".25"/>
+        <text x="590" y="173" font-family="Plus Jakarta Sans" font-size="17" font-weight="600" fill="#566248">Christmas Valley Park &amp; Rec</text>
+      </svg>
+    </div>
+  </div></section>
+  <div id="footer-contact"></div>
+</main>
+
+<script>
+/* ---- footer injected into every page ---- */
+const FOOT = `<footer class="foot"><div class="wrap">
+  <div class="cols">
+    <div style="max-width:260px">
+      <div class="brand" style="display:flex;gap:11px;align-items:center;cursor:pointer" onclick="go('home')">
+        <div class="mark" style="width:38px;height:38px;border-radius:12px;background:linear-gradient(150deg,#D9954B,#BE7B33 60%,#566248);display:grid;place-items:center"><svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M4 19l5-9 3 5 2-3 6 7z" fill="#fff"/><circle cx="17" cy="6.5" r="2.4" fill="#fff"/></svg></div>
+        <div><b style="font-family:Fraunces,serif;font-size:16px">Christmas Valley</b><span style="display:block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#DDE3D0">Park &amp; Recreation</span></div>
+      </div>
+      <p style="margin-top:16px;font-size:13.5px;opacity:.75">A special taxing district preserving the assets of Christmas Valley for this generation and the next. Established 1963.</p>
+    </div>
+    <div><h5>Explore</h5>
+      <a onclick="go('home')">Home</a><a onclick="go('golf')">Golf Course</a><a onclick="go('news')">Desert Whispers</a>
+    </div>
+    <div><h5>District</h5>
+      <a onclick="go('board')">Board &amp; Minutes</a><a onclick="go('board')">Transparency</a><a onclick="go('contact')">Contact</a>
+    </div>
+    <div><h5>Office</h5>
+      <a>(541) 576-2216</a><a>cvparkrec@yahoo.com</a><a>Tue–Fri · 9–2</a>
+    </div>
+  </div>
+  <div class="bottom"><span>© 2026 Christmas Valley Park &amp; Recreation District. All rights reserved.</span><span>Christmas Valley, Oregon 97641</span></div>
+</div></footer>`;
+['home','golf','news','board','contact'].forEach(p=>{document.getElementById('footer-'+p).innerHTML=FOOT;});
+
+/* ---- page nav ---- */
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
+  document.getElementById(id).classList.add('show');
+  document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('active',a.dataset.nav===id));
+  document.body.classList.remove('menu-open');
+  window.scrollTo({top:0,behavior:'instant'});
+  runReveals();
+}
+function toggleMenu(){document.body.classList.toggle('menu-open');}
+
+/* ---- scroll reveal ---- */
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
+function runReveals(){document.querySelectorAll('.page.show .reveal:not(.in)').forEach(el=>io.observe(el));}
+
+/* ---- Desert Whispers data ---- */
+const ISSUES=[
+  {y:'2024',t:'Dec · Holiday Edition',d:'2020',c:'#8FB3C6'},
+  {y:'2024',t:'Jun · Summer at the Lake',d:'2020',c:'#7E8E6A'},
+  {y:'2023',t:'Nov · Fall Roundup',d:'2020',c:'#D9954B'},
+  {y:'2022',t:'Apr · Spring Opening',d:'2020',c:'#7E8E6A'},
+  {y:'2020',t:'Jul · Mid-Summer',d:'2020',c:'#8FB3C6'},
+  {y:'2019',t:'Dec · Year in Review',d:'2010',c:'#566248'},
+  {y:'2016',t:'Aug · Rodeo Special',d:'2010',c:'#D9954B'},
+  {y:'2014',t:'May · Budget Notes',d:'2010',c:'#7E8E6A'},
+  {y:'2012',t:'Mar · Course Reopens',d:'2010',c:'#8FB3C6'},
+  {y:'1987',t:'Spring Quarterly',d:'1980',c:'#BE7B33'},
+  {y:'1982',t:'Jan / Feb Issue',d:'1980',c:'#566248'},
+  {y:'1981',t:'Oct · Special Issue',d:'1980',c:'#7E8E6A'},
+  {y:'1980',t:'Sep · Autumn',d:'1980',c:'#8FB3C6'},
+  {y:'1967',t:'CV Gazette · Feb',d:'1960',c:'#D9954B'},
+  {y:'1963',t:'CV Gazette · Oct',d:'1960',c:'#566248'},
+  {y:'1962',t:'CV Gazette · Aug',d:'1960',c:'#BE7B33'},
+];
+function renderIssues(f='all'){
+  const wrap=document.getElementById('issues');
+  wrap.innerHTML=ISSUES.filter(i=>f==='all'||i.d===f).map(i=>`
+    <div class="issue reveal">
+      <div class="cover" style="background:linear-gradient(150deg,${i.c},${shade(i.c)})"><span class="yr">${i.y}</span></div>
+      <div class="meta"><b>${i.t}</b><span>Desert Whispers</span><br><span class="dl">↓ Open PDF</span></div>
+    </div>`).join('');
+  runReveals();
+}
+function shade(hex){const n=parseInt(hex.slice(1),16);const r=Math.max(0,(n>>16)-40),g=Math.max(0,((n>>8)&255)-40),b=Math.max(0,(n&255)-40);return `rgb(${r},${g},${b})`;}
+function filterIssues(f,el){document.querySelectorAll('#chips .chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderIssues(f);}
+renderIssues();
+
+window.addEventListener('load',runReveals);
+runReveals();
+
+/* ---- swap in real photos from /images when present ---- */
+document.querySelectorAll('[data-photo]').forEach(function(el){
+  var name=el.dataset.photo, img=new Image();
+  img.onload=function(){img.className='photo';img.alt='';el.appendChild(img);el.classList.add('has-photo');};
+  img.onerror=function(){if(!img._png){img._png=1;img.src='images/'+name+'.png';}};
+  img.src='images/'+name+'.jpg';
+});
+</script>
+</body>
+</html>

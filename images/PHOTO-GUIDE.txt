@@ -1,0 +1,21 @@
+HOW TO ADD REAL PHOTOS
+======================
+Drop a photo into this /images folder using the EXACT filename below, and it
+will automatically appear on the site (replacing the illustration). Use .jpg
+(or .png). Landscape photos look best. Suggested size ~1600x1000 px.
+
+FILENAME              WHERE IT SHOWS
+--------              --------------
+hero-home.jpg         Home page — big top banner (wide landscape shot)
+baert-lake.jpg        Home — Baert Lake card
+golf.jpg              Home — Golf Course card
+rodeo.jpg             Home — Rodeo Grounds card
+community-hall.jpg    Home — Community Hall card
+airport.jpg           Home — Airport card
+field.jpg             Home — Multipurpose Field card
+golf-hero.jpg         Golf page — big top banner (wide)
+newspaper.jpg         Home — Desert Whispers feature image
+location.jpg          Contact page — location/aerial image (optional)
+
+Tip: until a photo is added, a hand-drawn illustration shows instead, so the
+site always looks finished. Add photos whenever you're ready, one at a time.
