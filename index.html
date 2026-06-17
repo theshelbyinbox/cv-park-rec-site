@@ -3,72 +3,98 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Christmas Valley Park &amp; Recreation — Redesign Prototype</title>
+<title>Christmas Valley Park &amp; Recreation District</title>
+<meta name="description" content="The Christmas Valley Park & Recreation District — golf, Baert Lake, the rodeo grounds, community hall, events, rentals, the Desert Whispers archive, and your guide to visiting Oregon's high desert. Serving the community since 1963." />
+<meta name="theme-color" content="#2B593E" />
+<link rel="icon" href="images/logo.png" />
+<meta property="og:title" content="Christmas Valley Park &amp; Recreation District" />
+<meta property="og:description" content="Golf, Baert Lake, the rodeo grounds, community hall, events, rentals, and your guide to visiting Oregon's high desert. Serving the community since 1963." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://theshelbyinbox.github.io/cv-park-rec-site/" />
+<meta property="og:image" content="https://theshelbyinbox.github.io/cv-park-rec-site/images/hero-home.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <style>
 :root{
   --sand:#F7F0E3; --cream:#FBF7EF; --paper:#FFFFFF;
+  --canvas:#FCFAF5;                          /* Travel-Oregon warm white page */
   --sage:#7E8E6A; --sage-deep:#566248; --sage-soft:#DDE3D0;
+  --forest:#2B593E; --forest-deep:#183118; --forest-soft:#DEE7DF;  /* District green + near-black green */
+  --berry:#8E2F44; --berry-deep:#6F2335;
   --sky:#8FB3C6; --sky-deep:#4F7E96;
-  --gold:#D9954B; --gold-deep:#BE7B33;
-  --ink:#2B2924; --muted:#6E6757; --line:#E6DCC9;
+  --gold:#C9AE77; --gold-deep:#8A6F3A;       /* warm tan + a darker tan for legible text/buttons */
+  --ink:#26302C; --muted:#6E6757; --line:#EAE2D2;
   --crit:#B4452F;
-  --shadow:0 24px 60px -28px rgba(60,48,28,.45);
-  --shadow-soft:0 16px 40px -26px rgba(60,48,28,.4);
+  --shadow:0 18px 38px -30px rgba(40,40,28,.28);
+  --shadow-soft:0 1px 2px rgba(40,40,28,.05);
   --ease:cubic-bezier(.32,.72,0,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
   font-family:'Plus Jakarta Sans',system-ui,sans-serif;
-  background:var(--sand); color:var(--ink);
+  background:var(--canvas); color:var(--ink);
   font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
-h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif; font-weight:600; line-height:1.05; letter-spacing:-.01em}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif; font-weight:600; line-height:1.04; letter-spacing:-.015em; text-wrap:balance}
+.accent{color:var(--forest)}            /* Travel-Oregon green keyword in headlines */
+p{text-wrap:pretty}
 img,svg{display:block; max-width:100%}
 a{color:inherit; text-decoration:none}
+/* tabular figures for data */
+.stat b,.ratecard li b,.event-row .when b,table.score td,table.score th{font-variant-numeric:tabular-nums}
 
-/* film grain overlay */
-.grain{position:fixed; inset:0; z-index:60; pointer-events:none; opacity:.035;
+/* keyboard focus ring (accessibility) */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible,.card:focus-visible,.news-item:focus-visible{
+  outline:3px solid var(--gold); outline-offset:3px; border-radius:8px}
+
+/* skip-to-content link (accessibility) */
+.skip-link{position:fixed; top:-70px; left:14px; z-index:100; background:var(--ink); color:#fff;
+  padding:11px 20px; border-radius:0 0 12px 12px; font-weight:600; font-size:14px; transition:top .3s var(--ease)}
+.skip-link:focus{top:0}
+
+/* film grain overlay — very subtle warmth (Travel Oregon stays clean) */
+.grain{position:fixed; inset:0; z-index:60; pointer-events:none; opacity:.02;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
-/* eyebrow */
-.eyebrow{display:inline-flex; align-items:center; gap:.5em;
-  font-size:11px; text-transform:uppercase; letter-spacing:.22em; font-weight:600;
-  color:var(--sage-deep); background:var(--sage-soft);
-  padding:.5em 1em; border-radius:999px;}
-.eyebrow.gold{color:var(--gold-deep); background:#F3E3CC}
-.eyebrow.sky{color:var(--sky-deep); background:#DCE9EF}
+/* editorial kicker (no pill) — hairline rule + tracked label */
+.eyebrow{display:inline-flex; align-items:center; gap:.85em;
+  font-size:12px; text-transform:uppercase; letter-spacing:.26em; font-weight:700;
+  color:var(--forest-deep); background:none; padding:0; border-radius:0;}
+.eyebrow::before{content:""; width:34px; height:2px; background:var(--gold); flex:none}
+.eyebrow.gold{color:var(--gold-deep)}
+.eyebrow.sky{color:var(--forest)} .eyebrow.sky::before{background:var(--gold)}
+.eyebrow.light{color:#fff} .eyebrow.light::before{background:rgba(255,255,255,.85)}
 
 /* ---------- NAV ---------- */
-.nav-wrap{position:fixed; top:0; left:0; right:0; z-index:50; display:flex; justify-content:center; padding:18px 16px;}
-.nav{display:flex; align-items:center; gap:8px; width:min(1080px,100%);
-  background:rgba(251,247,239,.82); backdrop-filter:blur(18px) saturate(1.4);
-  border:1px solid rgba(120,100,60,.12); border-radius:999px;
-  padding:9px 9px 9px 20px; box-shadow:var(--shadow-soft);}
+.nav-wrap{position:fixed; top:0; left:0; right:0; z-index:50; display:flex; justify-content:center;
+  background:rgba(252,250,245,.93); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); padding:0 28px;}
+.nav{display:flex; align-items:center; gap:6px; width:min(1240px,100%);
+  background:none; border:none; border-radius:0; box-shadow:none; padding:15px 0;}
 .brand{display:flex; align-items:center; gap:11px; margin-right:auto; cursor:pointer}
-.brand .mark{width:34px; height:34px; border-radius:11px; flex:none;
-  background:linear-gradient(150deg,var(--gold) 0%,var(--gold-deep) 60%,var(--sage-deep) 130%);
+.brand .mark{width:34px; height:34px; border-radius:10px; flex:none;
+  background:linear-gradient(150deg,var(--forest) 0%,var(--forest-deep) 120%);
   display:grid; place-items:center; box-shadow:inset 0 1px 1px rgba(255,255,255,.35);}
 .brand .mark svg{width:20px;height:20px}
+.brand-logo{width:48px;height:48px;object-fit:contain;flex:none;display:block}
 .brand b{font-family:'Fraunces',serif; font-weight:600; font-size:15px; letter-spacing:-.01em; line-height:1}
 .brand span{display:block; font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-top:2px}
-.links{display:flex; align-items:center; gap:2px}
-.links a{font-size:13.5px; font-weight:500; color:var(--muted); padding:9px 14px; border-radius:999px;
-  transition:color .4s var(--ease), background .4s var(--ease);}
-.links a:hover{color:var(--ink); background:rgba(126,142,106,.14)}
-.links a.active{color:#fff; background:var(--sage-deep)}
-.nav-cta{display:inline-flex; align-items:center; gap:9px; background:var(--ink); color:var(--cream);
-  font-size:13px; font-weight:600; padding:10px 8px 10px 18px; border-radius:999px; cursor:pointer;
+.links{display:flex; align-items:center; gap:1px}
+.links a{font-size:13px; font-weight:500; color:var(--muted); padding:9px 13px; border-radius:5px;
+  transition:color .4s var(--ease), background .4s var(--ease); white-space:nowrap; cursor:pointer}
+.links a:hover{color:var(--ink); background:var(--forest-soft)}
+.links a.active{color:#fff; background:var(--forest)}
+.nav-cta{display:inline-flex; align-items:center; gap:9px; background:var(--forest); color:#fff;
+  font-size:13px; font-weight:600; padding:11px 16px; border-radius:5px; cursor:pointer;
   transition:transform .4s var(--ease); white-space:nowrap;}
 .nav-cta:hover{transform:translateY(-1px)} .nav-cta:active{transform:scale(.98)}
-.nav-cta .circ{width:26px;height:26px;border-radius:999px;background:rgba(255,255,255,.16);display:grid;place-items:center;
+.nav-cta .circ{width:auto;height:auto;background:none;display:grid;place-items:center;
   transition:transform .4s var(--ease)}
 .nav-cta:hover .circ{transform:translate(2px,-1px)}
-.burger{display:none; width:42px;height:42px;border:none;background:var(--ink);border-radius:999px;cursor:pointer;
+.burger{display:none; width:44px;height:44px;border:none;background:var(--ink);border-radius:8px;cursor:pointer;
   position:relative; flex:none}
 .burger span{position:absolute; left:11px; width:20px; height:1.8px; background:var(--cream); border-radius:2px;
   transition:transform .5s var(--ease), opacity .3s var(--ease)}
@@ -79,77 +105,102 @@ body.menu-open .burger span:nth-child(3){transform:translateY(-6px) rotate(-45de
 
 /* mobile overlay */
 .overlay{position:fixed; inset:0; z-index:45; background:rgba(43,41,36,.55);
-  backdrop-filter:blur(22px); display:flex; flex-direction:column; justify-content:center; gap:6px; padding:40px;
-  opacity:0; pointer-events:none; transition:opacity .5s var(--ease)}
+  backdrop-filter:blur(22px); display:flex; flex-direction:column; justify-content:center; gap:2px; padding:40px;
+  opacity:0; pointer-events:none; transition:opacity .5s var(--ease); overflow-y:auto}
 body.menu-open .overlay{opacity:1; pointer-events:auto}
-.overlay a{font-family:'Fraunces',serif; font-size:34px; color:var(--cream); padding:8px 0;
+.overlay a{font-family:'Fraunces',serif; font-size:30px; color:var(--cream); padding:7px 0; cursor:pointer;
   transform:translateY(28px); opacity:0; transition:transform .6s var(--ease),opacity .6s var(--ease)}
 body.menu-open .overlay a{transform:none; opacity:1}
-body.menu-open .overlay a:nth-child(1){transition-delay:.08s}
-body.menu-open .overlay a:nth-child(2){transition-delay:.14s}
-body.menu-open .overlay a:nth-child(3){transition-delay:.2s}
-body.menu-open .overlay a:nth-child(4){transition-delay:.26s}
-body.menu-open .overlay a:nth-child(5){transition-delay:.32s}
-.overlay small{color:var(--sage-soft); letter-spacing:.2em; text-transform:uppercase; font-size:11px; margin-top:26px}
+body.menu-open .overlay a:nth-child(1){transition-delay:.06s}
+body.menu-open .overlay a:nth-child(2){transition-delay:.1s}
+body.menu-open .overlay a:nth-child(3){transition-delay:.14s}
+body.menu-open .overlay a:nth-child(4){transition-delay:.18s}
+body.menu-open .overlay a:nth-child(5){transition-delay:.22s}
+body.menu-open .overlay a:nth-child(6){transition-delay:.26s}
+body.menu-open .overlay a:nth-child(7){transition-delay:.3s}
+body.menu-open .overlay a:nth-child(8){transition-delay:.34s}
+.overlay small{color:var(--sage-soft); letter-spacing:.2em; text-transform:uppercase; font-size:11px; margin-top:22px}
 
 /* ---------- PAGE SYSTEM ---------- */
 .page{display:none; animation:fade .7s var(--ease)}
 .page.show{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.wrap{width:min(1120px,92%); margin:0 auto}
+.wrap{width:min(1140px,92%); margin:0 auto}
 section{padding:84px 0}
-.reveal{opacity:0; transform:translateY(34px); filter:blur(6px); transition:all .8s var(--ease)}
-.reveal.in{opacity:1; transform:none; filter:none}
+.reveal{opacity:0; transform:translateY(20px); transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1; transform:none}
+/* staggered cascade for card grids */
+.bento>.reveal:nth-child(2),.things>.reveal:nth-child(2),.seasons>.reveal:nth-child(2){transition-delay:.07s}
+.bento>.reveal:nth-child(3),.things>.reveal:nth-child(3),.seasons>.reveal:nth-child(3){transition-delay:.14s}
+.bento>.reveal:nth-child(4),.things>.reveal:nth-child(4),.seasons>.reveal:nth-child(4){transition-delay:.21s}
+.bento>.reveal:nth-child(5),.seasons>.reveal:nth-child(5){transition-delay:.28s}
+.bento>.reveal:nth-child(6){transition-delay:.35s}
+@media(prefers-reduced-motion:reduce){
+  .reveal{transition:none;opacity:1;transform:none;filter:none}
+  *{animation-duration:.001ms!important;scroll-behavior:auto!important}
+}
 
 /* ---------- HERO ---------- */
-.hero{position:relative; padding:150px 0 0; overflow:hidden}
-.hero-scene{position:absolute; inset:0; z-index:0}
+.hero{position:relative; padding:172px 0 0; overflow:hidden; min-height:78dvh; display:flex; flex-direction:column; justify-content:flex-end}
+.hero .hero-scene{position:absolute; inset:0; z-index:0}
 .hero .wrap{position:relative; z-index:2}
-.hero h1{font-size:clamp(44px,8.5vw,104px); font-weight:600; max-width:14ch; color:#fff;
-  text-shadow:0 2px 30px rgba(40,30,10,.25)}
-.hero p.lede{max-width:48ch; margin-top:22px; font-size:clamp(16px,2.2vw,20px); color:#fff; opacity:.95;
-  text-shadow:0 1px 16px rgba(40,30,10,.3)}
-.hero .ctas{display:flex; gap:14px; flex-wrap:wrap; margin-top:34px; padding-bottom:120px}
-.btn{display:inline-flex; align-items:center; gap:11px; font-weight:600; font-size:15px; border-radius:999px;
-  padding:14px 12px 14px 24px; cursor:pointer; border:none; transition:transform .4s var(--ease)}
+.hero h1{font-size:clamp(40px,6.4vw,80px); font-weight:600; max-width:16ch; color:#fff;
+  text-shadow:0 2px 26px rgba(16,20,12,.55)}
+.hero h1 .accent{color:#D6BC83}
+.hero p.lede{max-width:50ch; margin-top:20px; font-size:clamp(16px,2.1vw,20px); color:#fff; opacity:.98;
+  text-shadow:0 1px 18px rgba(16,20,12,.7)}
+.hero .ctas{display:flex; gap:14px; flex-wrap:wrap; margin-top:30px; padding-bottom:70px}
+/* torn-paper deckle into the white canvas (Travel Oregon signature) */
+.torn{position:absolute; left:0; right:0; top:-28px; width:100%; height:30px; z-index:3; display:block}
+.btn{display:inline-flex; align-items:center; gap:10px; font-weight:600; font-size:15px; border-radius:5px;
+  padding:14px 20px; cursor:pointer; border:none; transition:transform .4s var(--ease); font-family:inherit}
 .btn:hover{transform:translateY(-2px)} .btn:active{transform:scale(.98)}
-.btn .circ{width:30px;height:30px;border-radius:999px;display:grid;place-items:center;transition:transform .4s var(--ease)}
+.btn .circ{width:auto;height:auto;background:none!important;border-radius:0;display:grid;place-items:center;transition:transform .4s var(--ease)}
 .btn:hover .circ{transform:translate(3px,-1px)}
-.btn-gold{background:var(--gold); color:#fff} .btn-gold .circ{background:rgba(255,255,255,.22)}
-.btn-light{background:rgba(255,255,255,.9); color:var(--ink)} .btn-light .circ{background:rgba(43,41,36,.08)}
+.btn-gold{background:var(--gold-deep); color:#fff} .btn-gold .circ{background:rgba(255,255,255,.22)}
+.btn-green{background:var(--forest); color:#fff} .btn-green .circ{background:rgba(255,255,255,.22)}
+.btn-light{background:#fff; color:var(--ink)} .btn-light .circ{background:rgba(43,41,36,.08)}
 .btn-ink{background:var(--ink); color:var(--cream)} .btn-ink .circ{background:rgba(255,255,255,.16)}
-.btn-sage{background:var(--sage-deep); color:#fff} .btn-sage .circ{background:rgba(255,255,255,.2)}
+.btn-sage{background:var(--forest); color:#fff} .btn-sage .circ{background:rgba(255,255,255,.2)}
+.btn-outline{background:transparent;border:1.5px solid var(--line);color:var(--ink)} .btn-outline .circ{background:rgba(43,41,36,.06)}
 
-.hero-stats{position:relative; z-index:2; background:var(--cream);
-  border-radius:30px 30px 0 0; margin-top:-40px; padding:34px 0}
+.hero-stats{position:relative; z-index:2; background:var(--canvas);
+  margin-top:0; padding:54px 0 30px}
 .hero-stats .row{display:flex; gap:14px; flex-wrap:wrap; justify-content:space-between}
 .stat{flex:1; min-width:150px}
-.stat b{font-family:'Fraunces',serif; font-size:34px; color:var(--sage-deep); display:block; line-height:1}
+.stat b{font-family:'Fraunces',serif; font-size:38px; color:var(--forest); display:block; line-height:1}
 .stat span{font-size:13px; color:var(--muted)}
 
 /* section head */
-.shead{display:flex; flex-direction:column; gap:16px; margin-bottom:40px; max-width:60ch}
+.shead{display:flex; flex-direction:column; gap:16px; margin-bottom:40px; max-width:62ch}
 .shead h2{font-size:clamp(30px,5vw,52px)}
 .shead p{color:var(--muted); font-size:17px}
 
 /* bento facilities */
 .bento{display:grid; grid-template-columns:repeat(12,1fr); gap:18px}
-.card{position:relative; border-radius:26px; overflow:hidden; background:var(--paper);
+.card{position:relative; border-radius:14px; overflow:hidden; background:var(--paper);
   border:1px solid var(--line); box-shadow:var(--shadow-soft); min-height:230px;
-  display:flex; flex-direction:column; justify-content:flex-end; transition:transform .6s var(--ease),box-shadow .6s var(--ease)}
+  display:flex; flex-direction:column; justify-content:flex-end; transition:transform .6s var(--ease),box-shadow .6s var(--ease); cursor:pointer}
 .card:hover{transform:translateY(-6px); box-shadow:var(--shadow)}
+.card::after{content:""; position:absolute; right:16px; bottom:16px; z-index:4; width:34px; height:34px; border-radius:6px;
+  background:rgba(255,255,255,.95) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6' stroke='%23183118' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/15px no-repeat;
+  box-shadow:0 4px 12px -6px rgba(20,30,16,.35); transition:transform .5s var(--ease)}
+.card:hover::after{transform:translate(3px,-3px)}
 .card .scene{position:absolute; inset:0; z-index:0}
-.card .body{position:relative; z-index:2; padding:22px}
-.card h3{color:#fff; font-size:24px; text-shadow:0 2px 16px rgba(30,22,8,.4)}
-.card p{color:#fff; opacity:.92; font-size:14px; margin-top:5px; text-shadow:0 1px 12px rgba(30,22,8,.45); max-width:34ch}
-.card .tag{position:absolute; top:18px; left:18px; z-index:2}
+.card .scene.has-photo::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(38,30,18,.05) 30%,rgba(38,30,18,.62))}
+.card .body{position:relative; z-index:3; padding:22px}
+.card h3{color:#fff; font-size:24px; text-shadow:0 2px 16px rgba(30,22,8,.5)}
+.card p{color:#fff; opacity:.94; font-size:14px; margin-top:5px; text-shadow:0 1px 12px rgba(30,22,8,.55); max-width:34ch}
+.card .tag{position:absolute; top:18px; left:18px; z-index:3}
 .c-lake{grid-column:span 7} .c-golf{grid-column:span 5}
 .c-rodeo{grid-column:span 4} .c-hall{grid-column:span 4} .c-air{grid-column:span 4}
 .c-field{grid-column:span 12; min-height:160px}
+.c-6{grid-column:span 6} .c-4{grid-column:span 4} .c-8{grid-column:span 8} .c-12{grid-column:span 12}
 
 /* two-col feature */
 .feat{display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center}
-.feat .panel{border-radius:28px; overflow:hidden; box-shadow:var(--shadow); min-height:380px; position:relative; border:1px solid var(--line)}
+.feat.rev{grid-template-columns:.95fr 1.05fr}
+.feat .panel{border-radius:14px; overflow:hidden; box-shadow:none; min-height:400px; position:relative; border:1px solid var(--line)}
 .news-list{display:flex; flex-direction:column; gap:12px; margin-top:8px}
 .news-item{display:flex; gap:16px; align-items:center; background:var(--paper); border:1px solid var(--line);
   border-radius:18px; padding:16px 18px; transition:transform .5s var(--ease),box-shadow .5s var(--ease); cursor:pointer}
@@ -162,22 +213,23 @@ section{padding:84px 0}
 .news-item:hover .arr{transform:translateX(4px)}
 
 /* generic content section */
-.lead-band{background:var(--sage-deep); color:var(--cream); border-radius:32px; padding:54px; position:relative; overflow:hidden}
+.lead-band{background:linear-gradient(145deg,var(--forest) 0%,var(--forest-deep) 120%); color:var(--cream); border-radius:16px; padding:58px; position:relative; overflow:hidden}
 .lead-band h2{font-size:clamp(28px,4.5vw,46px); max-width:18ch; color:#fff}
 .lead-band p{margin-top:18px; max-width:54ch; opacity:.9}
 .lead-band .scene{position:absolute; right:-40px; bottom:-30px; width:340px; opacity:.5; z-index:0}
 
-/* ---------- GOLF ---------- */
-.subhero{position:relative; padding:138px 0 60px; overflow:hidden; border-radius:0 0 32px 32px}
+/* ---------- SUBHERO (interior pages) ---------- */
+.subhero{position:relative; padding:184px 0 92px; overflow:hidden; min-height:600px; display:flex; flex-direction:column; justify-content:center}
 .subhero .scene{position:absolute; inset:0; z-index:0}
 .subhero .wrap{position:relative; z-index:2}
-.subhero h1{color:#fff; font-size:clamp(38px,7vw,76px); text-shadow:0 2px 28px rgba(40,30,10,.3); max-width:16ch}
-.subhero p{color:#fff; opacity:.95; max-width:46ch; margin-top:16px; text-shadow:0 1px 14px rgba(40,30,10,.3)}
+.subhero h1{color:#fff; font-size:clamp(38px,7vw,76px); text-shadow:0 2px 28px rgba(40,30,10,.45); max-width:16ch}
+.subhero p{color:#fff; opacity:.96; max-width:48ch; margin-top:16px; text-shadow:0 1px 14px rgba(40,30,10,.45)}
 .split{display:grid; grid-template-columns:1.3fr .7fr; gap:40px; align-items:start}
+.prose{max-width:68ch}
 .prose p{margin-bottom:18px; color:#4a4537}
 .prose h3{font-size:26px; margin:14px 0 14px}
-.ratecard{background:var(--paper); border:1px solid var(--line); border-radius:26px; box-shadow:var(--shadow-soft); overflow:hidden; position:sticky; top:96px}
-.ratecard .top{background:linear-gradient(150deg,var(--sage) 0%,var(--sage-deep) 100%); color:#fff; padding:24px}
+.ratecard{background:var(--paper); border:1px solid var(--line); border-radius:14px; box-shadow:none; overflow:hidden; position:sticky; top:96px}
+.ratecard .top{background:linear-gradient(150deg,var(--forest) 0%,var(--forest-deep) 110%); color:#fff; padding:24px}
 .ratecard .top h3{color:#fff; font-size:22px} .ratecard .top span{font-size:13px; opacity:.85}
 .ratecard ul{list-style:none; padding:8px 24px 18px}
 .ratecard li{display:flex; justify-content:space-between; padding:13px 0; border-bottom:1px dashed var(--line); font-size:14.5px}
@@ -186,52 +238,92 @@ section{padding:84px 0}
 .ratecard .cta .btn{width:100%; justify-content:center}
 table.score{width:100%; border-collapse:collapse; margin-top:14px; background:var(--paper); border-radius:18px; overflow:hidden; box-shadow:var(--shadow-soft); font-size:13.5px}
 table.score th,table.score td{padding:11px 10px; text-align:center; border-bottom:1px solid var(--line)}
-table.score thead th{background:var(--sage-deep); color:#fff; font-weight:600; font-family:'Plus Jakarta Sans'}
+table.score thead th{background:var(--forest-deep); color:#fff; font-weight:600; font-family:'Plus Jakarta Sans'}
 table.score td:first-child,table.score th:first-child{text-align:left; font-weight:600}
 table.score tr:last-child td{border:none; font-weight:700; background:var(--sand)}
-.amen{display:flex; gap:12px; flex-wrap:wrap; margin-top:8px}
-.amen .pill{display:inline-flex; align-items:center; gap:8px; background:var(--paper); border:1px solid var(--line);
-  border-radius:999px; padding:10px 16px; font-size:13.5px; font-weight:500; box-shadow:var(--shadow-soft)}
-.amen .pill svg{width:16px;height:16px}
+.amen{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px}
+.amen .pill{display:inline-flex; align-items:center; background:none; border:1px solid var(--line);
+  border-radius:6px; padding:9px 14px; font-size:13.5px; font-weight:500; color:#4a4537}
 
-/* ---------- DESERT WHISPERS ---------- */
+/* ---------- LAKE conditions banner ---------- */
+.status-banner{display:flex; gap:16px; align-items:center; background:var(--forest-soft);
+  color:var(--forest-deep); border-radius:10px; padding:20px 26px; border:1px solid #C9DCCB}
+.status-banner b{color:var(--forest-deep)} .status-banner span{color:#4a4537}
+.status-banner .dot{width:13px; height:13px; border-radius:999px; background:#3E9D54; box-shadow:0 0 0 4px rgba(62,157,84,.18); flex:none}
+.status-banner .dot.warn{background:#D8932E; box-shadow:0 0 0 4px rgba(216,147,46,.18)} .status-banner .dot.closed{background:#C0492F; box-shadow:0 0 0 4px rgba(192,73,47,.18)}
+.status-banner b{font-family:'Fraunces',serif; font-size:18px; display:block; color:var(--forest-deep)}
+.status-banner span{font-size:13.5px; color:#4a4537}
+
+/* ---------- SEASONS strip ---------- */
+.seasons{display:grid; grid-template-columns:repeat(4,1fr); gap:16px}
+.seasons .card{min-height:300px}
+.seasons .card .body small{display:block;color:#fff;opacity:.85;font-size:11px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:4px;text-shadow:0 1px 10px rgba(30,22,8,.5)}
+
+/* ---------- EVENTS ---------- */
+.event-list{display:flex; flex-direction:column; gap:14px}
+.event-row{display:flex; gap:22px; align-items:center; background:var(--paper); border:1px solid var(--line);
+  border-radius:12px; padding:20px 24px; box-shadow:none; transition:transform .5s var(--ease),border-color .5s var(--ease)}
+.event-row:hover{border-color:var(--sage)}
+.event-row:hover{transform:translateY(-3px); box-shadow:var(--shadow)}
+.event-row .when{flex:none; width:80px; text-align:center; background:var(--forest-soft); border-radius:7px; padding:12px 6px}
+.event-row .when b{font-family:'Fraunces',serif; font-size:26px; color:var(--forest-deep); display:block; line-height:1}
+.event-row .when span{font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:var(--muted)}
+.event-row .ev-main{flex:1; min-width:0}
+.event-row .ev-main h4{font-size:18px} .event-row .ev-main p{font-size:13.5px; color:var(--muted); margin-top:3px}
+.event-row .ev-where{flex:none; font-size:12.5px; font-weight:600; color:var(--gold-deep); text-align:right; max-width:170px}
+@media(max-width:680px){.event-row{flex-wrap:wrap} .event-row .ev-where{width:100%; text-align:left}}
+
+/* ---------- THINGS TO DO ---------- */
+.things{display:grid; grid-template-columns:repeat(3,1fr); gap:0; counter-reset:thing; border-top:1px solid var(--line)}
+.thing{counter-increment:thing; background:none; border-bottom:1px solid var(--line); border-right:1px solid var(--line); padding:30px 30px 34px}
+.things .thing:nth-child(3n){border-right:none}
+.thing::before{content:"0" counter(thing); display:block; font-family:'Fraunces',serif; font-size:16px; color:var(--gold-deep); letter-spacing:.04em; margin-bottom:18px}
+.thing h4{font-size:21px; margin-bottom:8px} .thing p{font-size:14.5px; color:#4a4537; max-width:34ch}
+@media(max-width:860px){.things{grid-template-columns:1fr} .thing,.things .thing:nth-child(3n){border-right:none}}
+
+/* ---------- EMBED / FORM card ---------- */
+.embed-card{background:var(--paper); border:1px solid var(--line); border-radius:14px; box-shadow:none; overflow:hidden}
+.embed-head{padding:24px 28px; border-bottom:1px solid var(--line)}
+.embed-head h3{font-size:22px} .embed-head p{color:var(--muted); font-size:14px; margin-top:5px}
+.formgrid{padding:26px 28px; display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.field{display:flex; flex-direction:column; gap:6px}
+.field.full{grid-column:span 2}
+.field label{font-size:12.5px; font-weight:600; color:var(--sage-deep); letter-spacing:.02em}
+.field input,.field select,.field textarea{font-family:inherit; font-size:14.5px; color:var(--ink); background:var(--cream);
+  border:1px solid var(--line); border-radius:13px; padding:13px 15px; outline:none; transition:border .3s var(--ease)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--sage)}
+.field textarea{resize:vertical; min-height:96px}
+.form-foot{padding:0 28px 28px; display:flex; align-items:center; gap:16px; flex-wrap:wrap}
+.form-note{font-size:12.5px; color:var(--muted); max-width:42ch}
+@media(max-width:620px){.formgrid{grid-template-columns:1fr} .field.full{grid-column:span 1}}
+
+/* newsletter inline */
+.signup{display:flex; gap:12px; flex-wrap:wrap; margin-top:8px; max-width:520px}
+.signup input{flex:1; min-width:200px; font-family:inherit; font-size:15px; background:var(--paper);
+  border:1px solid var(--line); border-radius:6px; padding:14px 18px; outline:none}
+.signup input:focus{border-color:var(--sage)}
+
+/* ---------- DESERT WHISPERS / archive chips ---------- */
 .chips{display:flex; gap:9px; flex-wrap:wrap; margin:6px 0 30px}
-.chip{font-size:13px; font-weight:600; padding:9px 17px; border-radius:999px; cursor:pointer;
+.chip{font-size:13px; font-weight:600; padding:9px 15px; border-radius:5px; cursor:pointer;
   background:var(--paper); border:1px solid var(--line); color:var(--muted); transition:all .4s var(--ease)}
 .chip:hover{border-color:var(--sage)}
 .chip.active{background:var(--ink); color:var(--cream); border-color:var(--ink)}
-.issues{display:grid; grid-template-columns:repeat(auto-fill,minmax(184px,1fr)); gap:18px}
-.issue{background:var(--paper); border:1px solid var(--line); border-radius:20px; overflow:hidden;
-  box-shadow:var(--shadow-soft); cursor:pointer; transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
-.issue:hover{transform:translateY(-5px); box-shadow:var(--shadow)}
-.issue .cover{height:150px; position:relative; display:grid; place-items:center}
-.issue .cover .yr{font-family:'Fraunces',serif; font-size:30px; color:#fff; text-shadow:0 2px 12px rgba(30,22,8,.4)}
-.issue .meta{padding:14px 16px}
-.issue .meta b{font-size:14.5px; display:block}
-.issue .meta span{font-size:12px; color:var(--muted)}
-.issue .meta .dl{display:inline-flex; align-items:center; gap:6px; margin-top:9px; font-size:12px; font-weight:600; color:var(--gold-deep)}
 
 /* ---------- BOARD / CONTACT ---------- */
 .boardgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:18px}
-.member{background:var(--paper); border:1px solid var(--line); border-radius:22px; padding:24px; text-align:center; box-shadow:var(--shadow-soft)}
-.member .av{width:74px;height:74px;border-radius:999px;margin:0 auto 14px;display:grid;place-items:center;
+.member{background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:26px 24px; text-align:center; box-shadow:none}
+.member .av{width:74px;height:74px;border-radius:14px;margin:0 auto 14px;display:grid;place-items:center;
   font-family:'Fraunces',serif; font-size:26px; color:#fff;}
 .member b{display:block; font-size:16px} .member span{font-size:12.5px; color:var(--muted)}
 .info-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:10px}
-.infobox{background:var(--paper); border:1px solid var(--line); border-radius:22px; padding:26px; box-shadow:var(--shadow-soft)}
+.infobox{background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:28px; box-shadow:none}
 .infobox h4{font-size:19px; margin-bottom:10px}
 .infobox p{font-size:14.5px; color:#4a4537; margin-bottom:4px}
-.infobox a{color:var(--sky-deep); font-weight:600}
-.minutes-list{display:flex; flex-direction:column; gap:10px; margin-top:8px}
-.minrow{display:flex; align-items:center; gap:14px; background:var(--paper); border:1px solid var(--line);
-  border-radius:16px; padding:14px 18px; cursor:pointer; transition:transform .4s var(--ease)}
-.minrow:hover{transform:translateX(5px)}
-.minrow .ic{width:36px;height:36px;border-radius:11px;background:var(--sage-soft);display:grid;place-items:center;flex:none}
-.minrow b{font-size:14.5px} .minrow span{font-size:12.5px;color:var(--muted)}
-.minrow .arr{margin-left:auto;color:var(--sage)}
+.infobox a{color:var(--forest); font-weight:600}
 
 /* footer */
-.foot{background:var(--ink); color:var(--sand); padding:64px 0 30px; border-radius:36px 36px 0 0; margin-top:40px}
+.foot{background:var(--ink); color:var(--sand); padding:72px 0 32px; border-radius:0; margin-top:0; border-top:3px solid var(--forest)}
 .foot .cols{display:flex; gap:40px; flex-wrap:wrap; justify-content:space-between}
 .foot .brand b{color:#fff} .foot .brand span{color:var(--sage-soft)}
 .foot h5{font-size:12px; text-transform:uppercase; letter-spacing:.18em; color:var(--sage-soft); margin-bottom:14px}
@@ -239,30 +331,58 @@ table.score tr:last-child td{border:none; font-weight:700; background:var(--sand
 .foot a:hover{opacity:1}
 .foot .bottom{border-top:1px solid rgba(255,255,255,.12); margin-top:40px; padding-top:22px;
   display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; font-size:12.5px; opacity:.7}
-.demo-ribbon{position:fixed; bottom:14px; left:14px; z-index:55; background:var(--gold); color:#fff;
-  font-size:11px; font-weight:600; padding:7px 14px; border-radius:999px; box-shadow:var(--shadow-soft); letter-spacing:.02em}
+.demo-ribbon{position:fixed; bottom:14px; left:14px; z-index:55; background:var(--forest-deep); color:var(--cream);
+  font-size:11px; font-weight:600; padding:7px 13px; border-radius:5px; box-shadow:var(--shadow-soft); letter-spacing:.02em}
 
-@media(max-width:860px){
+@media(max-width:980px){ .links a{padding:9px 9px} }
+@media(max-width:880px){
   .links,.nav-cta{display:none}
   .burger{display:block}
-  .feat,.split{grid-template-columns:1fr; gap:28px}
+  .feat,.feat.rev,.split{grid-template-columns:1fr; gap:28px}
   .ratecard{position:static}
   .bento>*{grid-column:span 12 !important}
   .info-grid{grid-template-columns:1fr}
+  .things{grid-template-columns:1fr}
+  .seasons{grid-template-columns:1fr 1fr}
   section{padding:60px 0}
   .hero{padding-top:120px}
   .hero .ctas{padding-bottom:80px}
   .lead-band{padding:36px}
 }
+@media(max-width:520px){ .seasons{grid-template-columns:1fr} }
 
 /* ---- real photo slots (auto-overlay illustrations when an image exists) ---- */
 [data-photo]{position:relative}
 [data-photo] img.photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:0;transition:opacity .7s var(--ease)}
 [data-photo].has-photo img.photo{opacity:1}
-.hero-scene.has-photo::after,.subhero .scene.has-photo::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(38,30,18,.18),rgba(38,30,18,.5))}
+.hero-scene.has-photo::after,.subhero .scene.has-photo::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,14,8,.62) 0%,rgba(10,14,8,.40) 45%,rgba(10,14,8,.78) 100%)}
+/* per-image hero focal points so faces/subjects aren't cropped out */
+.subhero .scene[data-photo="community-hall-interior"] img.photo{object-position:50% 30%}
+.subhero .scene[data-photo="dunes-ohv"] img.photo{object-position:50% 26%}
+.subhero .scene[data-photo="events"] img.photo{object-position:50% 32%}
+.subhero .scene[data-photo="sign"] img.photo{object-position:50% 44%}
+.subhero .scene[data-photo="baert-lake"] img.photo{object-position:50% 58%}
+.subhero .scene[data-photo="golf-hero"] img.photo{object-position:50% 60%}
+.card .scene[data-photo="field"] img.photo{object-position:50% 72%}
+.card .scene[data-photo="golfing"] img.photo{object-position:50% 66%}
+.card .scene[data-photo="dark-sky"] img.photo{object-position:50% 38%}
+/* ---- document archive ---- */
+#min-years,#news-years{margin-bottom:26px}
+.yrblock{margin-bottom:30px}
+.yrhead{font-family:'Fraunces',serif;font-size:25px;color:var(--forest-deep);display:flex;align-items:baseline;gap:12px;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.yrhead span{font-family:'Plus Jakarta Sans',sans-serif;font-size:11.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.filegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:12px}
+.filecard{display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:var(--shadow-soft);transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+.filecard:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.fc-ic{width:34px;height:34px;border-radius:9px;background:var(--sage-soft);color:var(--sage-deep);display:grid;place-items:center;flex:none;font-size:15px}
+.fc-t{flex:1;min-width:0}
+.fc-t b{display:block;font-size:13.5px;color:var(--ink);line-height:1.18}
+.fc-t span{font-size:11.5px;color:var(--muted)}
+.fc-dl{font-size:11px;font-weight:700;color:var(--gold-deep);white-space:nowrap}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#home" onclick="go('home')">Skip to content</a>
 <div class="grain"></div>
 <div class="demo-ribbon">Proposed redesign — preview</div>
 
@@ -270,17 +390,18 @@ table.score tr:last-child td{border:none; font-weight:700; background:var(--sand
 <div class="nav-wrap">
   <nav class="nav">
     <div class="brand" onclick="go('home')">
-      <div class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19l5-9 3 5 2-3 6 7z" fill="#fff"/><circle cx="17" cy="6.5" r="2.4" fill="#fff"/></svg></div>
+      <img class="brand-logo" src="images/logo.png" alt="Christmas Valley Park &amp; Recreation" />
       <div><b>Christmas Valley</b><span>Park &amp; Recreation</span></div>
     </div>
     <div class="links">
-      <a data-nav="home" onclick="go('home')">Home</a>
-      <a data-nav="golf" onclick="go('golf')">Golf Course</a>
-      <a data-nav="news" onclick="go('news')">Desert Whispers</a>
-      <a data-nav="board" onclick="go('board')">Board &amp; Minutes</a>
-      <a data-nav="contact" onclick="go('contact')">Contact</a>
+      <a data-nav="parks" onclick="go('parks')">Parks &amp; Facilities</a>
+      <a data-nav="events" onclick="go('events')">Events</a>
+      <a data-nav="rentals" onclick="go('rentals')">Rentals</a>
+      <a data-nav="visit" onclick="go('visit')">Visit</a>
+      <a data-nav="news" onclick="go('news')">News</a>
+      <a data-nav="district" onclick="go('district')">The District</a>
     </div>
-    <div class="nav-cta" onclick="go('contact')">Plan a Visit <span class="circ"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#FBF7EF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    <div class="nav-cta" onclick="go('contact')">Contact <span class="circ"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#FBF7EF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
     <button class="burger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
   </nav>
 </div>
@@ -288,9 +409,13 @@ table.score tr:last-child td{border:none; font-weight:700; background:var(--sand
 <!-- MOBILE OVERLAY -->
 <div class="overlay">
   <a onclick="go('home')">Home</a>
-  <a onclick="go('golf')">Golf Course</a>
-  <a onclick="go('news')">Desert Whispers</a>
-  <a onclick="go('board')">Board &amp; Minutes</a>
+  <a onclick="go('parks')">Parks &amp; Facilities</a>
+  <a onclick="go('events')">Events</a>
+  <a onclick="go('rentals')">Rentals</a>
+  <a onclick="go('visit')">Visit Christmas Valley</a>
+  <a onclick="go('news')">News &amp; Desert Whispers</a>
+  <a onclick="go('district')">The District</a>
+  <a onclick="go('links')">Links &amp; Resources</a>
   <a onclick="go('contact')">Contact</a>
   <small>Christmas Valley, Oregon · Est. 1963</small>
 </div>
@@ -314,19 +439,15 @@ table.score tr:last-child td{border:none; font-weight:700; background:var(--sand
         <path d="M0 430 Q260 360 520 420 T1040 410 T1440 440 V720 H0Z" fill="url(#dune1)"/>
         <path d="M0 520 Q320 450 680 510 T1440 520 V720 H0Z" fill="url(#dune2)"/>
         <path d="M0 600 Q360 560 760 600 T1440 600 V720 H0Z" fill="url(#sage1)"/>
-        <g fill="#4E5A3A" opacity=".8">
-          <path d="M210 588c0-14 4-26 4-26s4 12 4 26-2 22-4 22-4-8-4-22z"/><path d="M198 592c4-8 12-12 12-12s-2 10-6 16-10 8-12 6 2-6 6-10z"/>
-          <path d="M250 596c0-12 4-22 4-22s4 10 4 22-2 18-4 18-4-6-4-18z"/>
-        </g>
       </svg>
     </div>
     <div class="wrap">
-      <span class="eyebrow" style="background:rgba(255,255,255,.25);color:#fff">Christmas Valley, Oregon · Est. 1963</span>
-      <h1>Your high desert, kept wild &amp; welcoming.</h1>
-      <p class="lede">A 9-hole golf course, Baert Lake, the rodeo grounds, community hall, airport, and ball fields — cared for by your neighbors, for this generation and the next.</p>
+      <span class="eyebrow light">Christmas Valley, Oregon · Est. 1963</span>
+      <h1>Your high desert, kept <span class="accent">wild &amp; welcoming.</span></h1>
+      <p class="lede">A nine-hole golf course, Baert Lake, the rodeo grounds, community hall, airport, and ball fields — cared for by your neighbors, for this generation and the next.</p>
       <div class="ctas">
-        <button class="btn btn-gold" onclick="go('golf')">Explore the Course <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
-        <button class="btn btn-light" onclick="go('news')">Read the Desert Whispers <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#2B2924" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        <button class="btn btn-green" onclick="go('visit')">Plan your visit <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        <button class="btn btn-light" onclick="go('parks')">Explore facilities <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#2B2924" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
       </div>
     </div>
     <div class="hero-stats">
@@ -339,6 +460,7 @@ table.score tr:last-child td{border:none; font-weight:700; background:var(--sand
     </div>
   </header>
 
+  <!-- facilities bento -->
   <section><div class="wrap">
     <div class="shead reveal">
       <span class="eyebrow">Facilities &amp; Properties</span>
@@ -346,58 +468,71 @@ table.score tr:last-child td{border:none; font-weight:700; background:var(--sand
       <p>Every one is open to the public and maintained by the District. Tap any to learn more.</p>
     </div>
     <div class="bento">
-      <div class="card c-lake reveal" onclick="go('home')">
+      <div class="card c-lake reveal" onclick="go('lake')">
         <div class="scene" data-photo="baert-lake"><svg width="100%" height="100%" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid slice">
           <defs><linearGradient id="lk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A9CBDA"/><stop offset="1" stop-color="#6FA0B6"/></linearGradient></defs>
           <rect width="600" height="300" fill="url(#lk)"/><circle cx="470" cy="70" r="40" fill="#F4E6C6" opacity=".9"/>
           <path d="M0 175 Q150 150 320 172 T600 168 V300 H0Z" fill="#5E8AA0"/>
           <path d="M0 210 Q200 188 380 208 T600 205 V300 H0Z" fill="#4B7286"/>
-          <g stroke="#dCeaf0" stroke-width="2" opacity=".5"><path d="M120 235h70"/><path d="M260 252h90"/><path d="M400 240h60"/></g>
         </svg></div>
-        <span class="eyebrow sky tag">Spring–Fall</span>
-        <div class="body"><h3>Baert Lake</h3><p>Catch-and-release fishing, non-motorized boating, and winter ice skating when the ice runs thick.</p></div>
+        <span class="eyebrow sky tag">Spring–Fall &amp; winter ice</span>
+        <div class="body"><h3>Baert Lake</h3><p>Fishing, non-motorized boating, swimming, and ice skating when the ice runs thick.</p></div>
       </div>
       <div class="card c-golf reveal" onclick="go('golf')">
         <div class="scene" data-photo="golf"><svg width="100%" height="100%" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
           <defs><linearGradient id="gf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BFD3C8"/><stop offset="1" stop-color="#7E9A78"/></linearGradient></defs>
           <rect width="400" height="300" fill="#CFE0D2"/><path d="M0 120 Q200 80 400 130 V300 H0Z" fill="url(#gf)"/>
           <ellipse cx="250" cy="210" rx="90" ry="34" fill="#6E8C68"/><circle cx="250" cy="205" r="6" fill="#fff"/>
-          <rect x="249" y="150" width="2.5" height="56" fill="#7a6a52"/><path d="M251 150l20 7-20 7z" fill="#D9954B"/>
         </svg></div>
         <span class="eyebrow tag">Public · 9 Holes</span>
         <div class="body"><h3>Golf Course</h3><p>The high desert's emerald — built 1964.</p></div>
       </div>
-      <div class="card c-rodeo reveal">
+      <div class="card c-rodeo reveal" onclick="go('rodeo')">
         <div class="scene" data-photo="rodeo"><svg width="100%" height="100%" viewBox="0 0 300 260" preserveAspectRatio="xMidYMid slice"><rect width="300" height="260" fill="#E2C58E"/><path d="M0 150 Q150 120 300 152 V260 H0Z" fill="#C79A5C"/><g stroke="#8a6a3e" stroke-width="4"><path d="M40 150v40M100 150v40M160 150v40M220 150v40M280 150v40"/><path d="M30 162h260"/></g></svg></div>
         <div class="body"><h3>Rodeo Grounds</h3><p>Arena &amp; horse shows.</p></div>
       </div>
-      <div class="card c-hall reveal">
+      <div class="card c-hall reveal" onclick="go('hall')">
         <div class="scene" data-photo="community-hall"><svg width="100%" height="100%" viewBox="0 0 300 260" preserveAspectRatio="xMidYMid slice"><rect width="300" height="260" fill="#D9DDCB"/><rect x="80" y="120" width="140" height="90" fill="#B7855A"/><path d="M70 120l80-46 80 46z" fill="#8E5E3C"/><rect x="135" y="160" width="30" height="50" fill="#6b4a30"/></svg></div>
         <div class="body"><h3>Community Hall</h3><p>2,100 sq ft for rent.</p></div>
       </div>
-      <div class="card c-air reveal">
+      <div class="card c-air reveal" onclick="go('airport')">
         <div class="scene" data-photo="airport"><svg width="100%" height="100%" viewBox="0 0 300 260" preserveAspectRatio="xMidYMid slice"><rect width="300" height="260" fill="#BFD2DB"/><path d="M0 175 Q150 160 300 178 V260 H0Z" fill="#9DB07E"/><rect x="60" y="150" width="200" height="16" rx="3" fill="#6b7280" transform="rotate(-6 150 158)"/><path d="M150 95l34 60h-68z" fill="#fff" opacity=".9"/></svg></div>
         <div class="body"><h3>Airport</h3><p>5,200' runway (62-S).</p></div>
       </div>
-      <div class="card c-field reveal">
-        <div class="scene" data-photo="field"><svg width="100%" height="100%" viewBox="0 0 900 200" preserveAspectRatio="xMidYMid slice"><rect width="900" height="200" fill="#AEC79E"/><circle cx="150" cy="120" r="60" fill="#9BB98A"/><rect x="600" y="70" width="120" height="80" fill="#9BB98A"/></svg></div>
+      <div class="card c-field reveal" onclick="go('field')">
+        <div class="scene" data-photo="field"><svg width="100%" height="100%" viewBox="0 0 900 300" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="fld1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9FBE92"/><stop offset="1" stop-color="#6E8C5E"/></linearGradient></defs><rect width="900" height="300" fill="url(#fld1)"/><path d="M450 90 L575 205 L450 262 L325 205 Z" fill="#C9A56B" opacity=".9"/><circle cx="450" cy="205" r="8" fill="#fff"/><g stroke="#EAF1E3" stroke-width="3" opacity=".55"><path d="M450 90 L325 205"/><path d="M450 90 L575 205"/></g></svg></div>
         <div class="body"><h3>Multipurpose Field</h3><p>Baseball diamond, volleyball court &amp; the children's playground.</p></div>
       </div>
     </div>
   </div></section>
 
+  <!-- VISIT teaser -->
   <section style="padding-top:20px"><div class="wrap">
     <div class="feat">
+      <div class="panel reveal" data-photo="dunes-ohv">
+        <svg width="100%" height="100%" viewBox="0 0 500 460" preserveAspectRatio="xMidYMid slice">
+          <rect width="500" height="460" fill="#E7C892"/><circle cx="400" cy="90" r="46" fill="#F6E7C2"/>
+          <path d="M0 250 Q140 200 280 250 T500 250 V460 H0Z" fill="#D2A463"/>
+          <path d="M0 330 Q180 290 360 330 T500 330 V460 H0Z" fill="#BC8B4C"/>
+        </svg>
+      </div>
+      <div class="reveal">
+        <span class="eyebrow gold">Visit Christmas Valley</span>
+        <h2 style="font-size:clamp(28px,4.5vw,46px); margin:16px 0">The largest inland dunes in the Pacific Northwest.</h2>
+        <p style="color:var(--muted)">Just up the road, more than 8,000 acres of shifting sand rise from the high desert — open for riding, hiking, sandboarding, and some of the darkest, most star-filled skies in Oregon. Add a round of golf and a day at the lake, and you've got a weekend.</p>
+        <button class="btn btn-sage" style="margin-top:24px" onclick="go('visit')">See things to do <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- NEWS teaser -->
+  <section style="padding-top:20px"><div class="wrap">
+    <div class="feat rev">
       <div class="reveal">
         <span class="eyebrow gold">From the Desert Whispers</span>
         <h2 style="font-size:clamp(28px,4.5vw,46px); margin:16px 0">Sixty years of valley news, in one place.</h2>
-        <p style="color:var(--muted)">Our community newspaper has chronicled life in Christmas Valley since the 1960s. Browse every issue — now easy to find and open on any device.</p>
-        <div class="news-list">
-          <div class="news-item" onclick="go('news')"><div class="date"><b>Dec</b><span>2024</span></div><div><h4>Holiday Edition</h4><p>Season events, board notes &amp; the parade recap.</p></div><span class="arr">→</span></div>
-          <div class="news-item" onclick="go('news')"><div class="date"><b>Jun</b><span>2024</span></div><div><h4>Summer at the Lake</h4><p>Fishing report, golf league &amp; rodeo season.</p></div><span class="arr">→</span></div>
-          <div class="news-item" onclick="go('news')"><div class="date"><b>Feb</b><span>1963</span></div><div><h4>Christmas Valley Gazette</h4><p>From the archive — where it all began.</p></div><span class="arr">→</span></div>
-        </div>
-        <button class="btn btn-sage" style="margin-top:24px" onclick="go('news')">Open the full archive <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        <p style="color:var(--muted)">Our community newspaper has chronicled life in Christmas Valley since the 1960s. Browse every surviving issue — now easy to find and open on any device — and sign up to get the next one.</p>
+        <button class="btn btn-ink" style="margin-top:24px" onclick="go('news')">Open the archive <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#FBF7EF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
       </div>
       <div class="panel reveal" data-photo="newspaper">
         <svg width="100%" height="100%" viewBox="0 0 500 460" preserveAspectRatio="xMidYMid slice">
@@ -408,21 +543,129 @@ table.score tr:last-child td{border:none; font-weight:700; background:var(--sand
           <line x1="90" y1="138" x2="410" y2="138" stroke="#D9954B" stroke-width="2"/>
           <rect x="90" y="160" width="150" height="100" rx="4" fill="#CFE0D2"/>
           <g fill="#cbb890"><rect x="252" y="160" width="158" height="9" rx="3"/><rect x="252" y="178" width="158" height="9" rx="3"/><rect x="252" y="196" width="120" height="9" rx="3"/><rect x="252" y="220" width="158" height="9" rx="3"/><rect x="252" y="238" width="140" height="9" rx="3"/></g>
-          <g fill="#d8c7a0"><rect x="90" y="284" width="320" height="8" rx="3"/><rect x="90" y="300" width="320" height="8" rx="3"/><rect x="90" y="316" width="280" height="8" rx="3"/><rect x="90" y="340" width="320" height="8" rx="3"/><rect x="90" y="356" width="200" height="8" rx="3"/></g>
         </svg>
       </div>
     </div>
   </div></section>
 
+  <!-- meetings band -->
   <section><div class="wrap"><div class="lead-band reveal">
     <svg class="scene" viewBox="0 0 340 240"><path d="M0 150 Q120 110 240 150 T340 150 V240 H0Z" fill="#fff" opacity=".5"/><circle cx="270" cy="70" r="40" fill="#fff" opacity=".4"/></svg>
-    <span class="eyebrow gold">Public Meetings</span>
+    <span class="eyebrow light">Public Meetings</span>
     <h2 style="margin-top:14px">The Board meets the 2nd Tuesday of every month, 9:00 a.m.</h2>
     <p>Held at the Christmas Valley Community Hall and open to all. Public comment is welcome — we'd love to see you there.</p>
-    <button class="btn btn-light" style="margin-top:26px" onclick="go('board')">See the Board &amp; minutes <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#2B2924" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+    <button class="btn btn-light" style="margin-top:26px" onclick="go('district')">See the Board &amp; minutes <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#2B2924" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
   </div></div></section>
 
   <div id="footer-home"></div>
+</main>
+
+<!-- =================== PARKS & FACILITIES =================== -->
+<main id="parks" class="page">
+  <header class="subhero">
+    <div class="scene" data-photo="baert-lake"><svg width="100%" height="100%" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice">
+      <defs><linearGradient id="psky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A6C6D6"/><stop offset="1" stop-color="#E7DCC2"/></linearGradient></defs>
+      <rect width="1440" height="560" fill="url(#psky)"/><circle cx="1180" cy="140" r="64" fill="#F4E6C6" opacity=".85"/>
+      <path d="M0 360 Q360 300 760 360 T1440 360 V560 H0Z" fill="#6FA0B6"/>
+    </svg></div>
+    <div class="wrap">
+      <span class="eyebrow light">Parks &amp; Facilities</span>
+      <h1>Six properties, one community.</h1>
+      <p>From the golf course to the lake to the rodeo grounds, here's everything the District cares for — and how to use it.</p>
+    </div>
+  </header>
+  <section><div class="wrap">
+    <div class="bento">
+      <div class="card c-6 reveal" style="min-height:280px" onclick="go('lake')">
+        <div class="scene" data-photo="baert-lake"></div>
+        <span class="eyebrow sky tag">Recreation</span>
+        <div class="body"><h3>Baert Lake</h3><p>Fishing, boating, swimming and winter ice. See current conditions &amp; the ice-status note.</p></div>
+      </div>
+      <div class="card c-6 reveal" style="min-height:280px" onclick="go('golf')">
+        <div class="scene" data-photo="golf-hero"></div>
+        <span class="eyebrow tag">Public · 9 Holes</span>
+        <div class="body"><h3>Golf Course</h3><p>Rates, scorecard, and amenities for the high desert's emerald.</p></div>
+      </div>
+      <div class="card c-4 reveal" onclick="go('hall')">
+        <div class="scene" data-photo="community-hall"></div>
+        <div class="body"><h3>Community Hall</h3><p>2,100 sq ft for weddings, meetings &amp; events. Available to rent.</p></div>
+      </div>
+      <div class="card c-4 reveal" onclick="go('rodeo')">
+        <div class="scene" data-photo="rodeo"></div>
+        <div class="body"><h3>Rodeo Grounds &amp; Arena</h3><p>Home of horse shows, rodeos &amp; community gatherings.</p></div>
+      </div>
+      <div class="card c-4 reveal" onclick="go('airport')">
+        <div class="scene" data-photo="airport"></div>
+        <div class="body"><h3>Airport (62-S)</h3><p>Public-use airstrip with a 5,200' runway.</p></div>
+      </div>
+      <div class="card c-12 reveal" style="min-height:200px" onclick="go('field')">
+        <div class="scene" data-photo="field"><svg width="100%" height="100%" viewBox="0 0 1200 260" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="fld2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9FBE92"/><stop offset="1" stop-color="#6E8C5E"/></linearGradient></defs><rect width="1200" height="260" fill="url(#fld2)"/><path d="M600 70 L720 175 L600 226 L480 175 Z" fill="#C9A56B" opacity=".9"/><circle cx="600" cy="175" r="7" fill="#fff"/><g stroke="#EAF1E3" stroke-width="3" opacity=".5"><path d="M600 70 L480 175"/><path d="M600 70 L720 175"/></g></svg></div>
+        <div class="body"><h3>Multipurpose Field &amp; Playground</h3><p>Baseball diamond, volleyball court, and the children's playground — open to all.</p></div>
+      </div>
+    </div>
+  </div></section>
+  <div id="footer-parks"></div>
+</main>
+
+<!-- =================== BAERT LAKE =================== -->
+<main id="lake" class="page">
+  <header class="subhero">
+    <div class="scene" data-photo="baert-lake"><svg width="100%" height="100%" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice">
+      <defs><linearGradient id="lsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A9CBDA"/><stop offset="1" stop-color="#6FA0B6"/></linearGradient></defs>
+      <rect width="1440" height="560" fill="url(#lsky)"/><circle cx="1140" cy="130" r="58" fill="#F4E6C6" opacity=".9"/>
+      <path d="M0 340 Q300 300 720 340 T1440 330 V560 H0Z" fill="#5E8AA0"/>
+      <path d="M0 410 Q360 370 760 410 T1440 405 V560 H0Z" fill="#4B7286"/>
+    </svg></div>
+    <div class="wrap">
+      <span class="eyebrow light">Recreation · Open Spring–Fall</span>
+      <h1>Baert Lake</h1>
+      <p>The valley's gathering place on the water — fishing, paddling, swimming in summer, and skating in winter when the ice runs thick.</p>
+    </div>
+  </header>
+  <section><div class="wrap">
+    <!-- EDIT ME: Lake/ice status. Office can change the text and the dot class:
+         class="dot"  = green/open    class="dot warn" = caution    class="dot closed" = closed -->
+    <div class="status-banner reveal">
+      <span class="dot"></span>
+      <div><b>Open for the summer season</b><span>Lake is open for fishing, boating and swimming. Winter ice-skating status is posted here once the ice is measured safe — never go on the ice until the District posts the all-clear.</span></div>
+    </div>
+    <div class="split" style="margin-top:38px">
+      <div class="prose reveal">
+        <h3>A high-desert oasis</h3>
+        <p>Baert Lake is maintained by the Park &amp; Recreation District and used for fishing, non-motorized boating, and swimming from spring through autumn. In a cold winter, when the ice is measured thick enough, it becomes the community's ice-skating rink.</p>
+        <p>It's a quiet, family-friendly spot — bring a pole, a paddle, or just a picnic. There's no fee to enjoy the lake; we simply ask that you pack out what you pack in and help us keep it beautiful for the next family.</p>
+        <h3>Good to know</h3>
+        <div class="amen">
+          <span class="pill">Fishing — catch &amp; release encouraged</span>
+          <span class="pill">Non-motorized boating</span>
+          <span class="pill">Summer swimming</span>
+          <span class="pill">Winter ice skating, when posted safe</span>
+          <span class="pill">Picnic &amp; day use</span>
+        </div>
+      </div>
+      <aside class="ratecard reveal">
+        <div class="top"><h3>Plan a Lake Day</h3><span>Free &amp; open to the public</span></div>
+        <ul>
+          <li>Season <b>Spring–Fall</b></li>
+          <li>Day-use fee <b>None</b></li>
+          <li>Boating <b>Non-motorized</b></li>
+          <li>Winter <b>Ice when posted</b></li>
+        </ul>
+        <div class="cta"><button class="btn btn-sage" onclick="go('visit')">More to do nearby <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+      </aside>
+    </div>
+  </div></section>
+  <!-- seasons -->
+  <section style="padding-top:0"><div class="wrap">
+    <div class="shead reveal"><span class="eyebrow sky">In Every Season</span><h2 style="font-size:clamp(26px,4vw,40px)">The lake changes with the year.</h2></div>
+    <div class="seasons">
+      <div class="card reveal"><div class="scene" data-photo="baert-lake"></div><div class="body"><small>Summer</small><h3>On the water</h3></div></div>
+      <div class="card reveal"><div class="scene" data-photo="winter-lake"></div><div class="body"><small>Winter</small><h3>Ice &amp; snow</h3></div></div>
+      <div class="card reveal"><div class="scene" data-photo="dunes-stars"></div><div class="body"><small>After dark</small><h3>High-desert stars</h3></div></div>
+      <div class="card reveal"><div class="scene" data-photo="event-community"></div><div class="body"><small>Year-round</small><h3>Community days</h3></div></div>
+    </div>
+  </div></section>
+  <div id="footer-lake"></div>
 </main>
 
 <!-- =================== GOLF =================== -->
@@ -437,7 +680,7 @@ table.score tr:last-child td{border:none; font-weight:700; background:var(--sand
       <rect x="898" y="360" width="3.4" height="82" fill="#7a6a52"/><path d="M901 360l26 9-26 9z" fill="#D9954B"/>
     </svg></div>
     <div class="wrap">
-      <span class="eyebrow" style="background:rgba(255,255,255,.25);color:#fff">Public · 9 Holes · Built 1964</span>
+      <span class="eyebrow light">Public · 9 Holes · Built 1964</span>
       <h1>Christmas Valley Golf Course</h1>
       <p>Long, narrow fairways and quick desert greens — once the longest nine in Oregon. No tee times needed.</p>
     </div>
@@ -465,14 +708,15 @@ table.score tr:last-child td{border:none; font-weight:700; background:var(--sand
       </table>
       <h3 style="margin-top:30px">Amenities</h3>
       <div class="amen">
-        <span class="pill">⛳ Loaner clubs (men's, women's, junior)</span>
-        <span class="pill">🛒 Pull carts available anytime</span>
-        <span class="pill">🚙 Power carts welcome</span>
-        <span class="pill">🏌️ No tee times needed</span>
+        <span class="pill">Loaner clubs — men's, women's &amp; junior</span>
+        <span class="pill">Pull carts available anytime</span>
+        <span class="pill">Power carts welcome</span>
+        <span class="pill">No tee times needed</span>
       </div>
     </div>
     <aside class="ratecard reveal">
       <div class="top"><h3>Fees &amp; Memberships</h3><span>Season: March 1 – February 28</span></div>
+      <!-- EDIT ME: update golf rates here whenever they change -->
       <ul>
         <li>9 Holes <b>$25</b></li>
         <li>18 Holes (all day) <b>$35</b></li>
@@ -486,52 +730,237 @@ table.score tr:last-child td{border:none; font-weight:700; background:var(--sand
   <div id="footer-golf"></div>
 </main>
 
-<!-- =================== DESERT WHISPERS =================== -->
+<!-- =================== EVENTS =================== -->
+<main id="events" class="page">
+  <header class="subhero">
+    <div class="scene" data-photo="events"><svg width="100%" height="100%" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="evsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFB98A"/><stop offset="1" stop-color="#E7DCC2"/></linearGradient></defs><rect width="1440" height="560" fill="url(#evsky)"/><path d="M0 360 Q360 320 760 360 T1440 360 V560 H0Z" fill="#C79A5C"/><g stroke="#8a6a3e" stroke-width="6" opacity=".7"><path d="M260 360v60M520 360v60M780 360v60M1040 360v60M1300 360v60"/><path d="M180 380h1140"/></g></svg></div>
+    <div class="wrap">
+      <span class="eyebrow light">Community Events</span>
+      <h1>What's happening in the valley.</h1>
+      <p>Rodeos, golf scrambles, board meetings, and holiday gatherings — all in one place.</p>
+    </div>
+  </header>
+  <section><div class="wrap">
+    <div class="shead reveal" style="margin-bottom:30px">
+      <p>The Board meets the 2nd Tuesday of every month at 9:00 a.m. in the Community Hall — public comment is always welcome.</p>
+    </div>
+    <!-- ============================================================
+         EDIT ME — UPCOMING EVENTS
+         Events below are drawn from the latest Desert Whispers (May 15, 2026 issue).
+         Refresh this list when each new issue comes out.
+         To add/change an event, copy one "event-row" block below and edit:
+           <b>day number</b><span>month</span>  ·  <h4>title</h4>  ·  <p>description</p>  ·  <div class="ev-where">place</div>
+         Remove old events by deleting their block. (Fully static — no calendar to log into.)
+    ============================================================ -->
+    <div class="event-list">
+      <div class="event-row reveal"><div class="when"><b>15</b><span>Jun</span></div><div class="ev-main"><h4>Vacation Bible School — “Emerald Crossing”</h4><p>An Irish adventure through Psalm 23 for 4th &amp; 5th graders, June 15–19. Registration &amp; transportation: Paulette Warkentin, 541-420-9826.</p></div><div class="ev-where">Community Church · 9 a.m.–12 p.m.</div></div>
+      <div class="event-row reveal"><div class="when"><b>17</b><span>Jun</span></div><div class="ev-main"><h4>High Desert Stitch Rippers</h4><p>Sewing, knitting, crochet &amp; crafts — all crafters welcome. $4. Every 1st &amp; 3rd Wednesday of the month.</p></div><div class="ev-where">CV Boosters Building</div></div>
+      <div class="event-row reveal"><div class="when"><b>18</b><span>Jun</span></div><div class="ev-main"><h4>Bingo Night</h4><p>13 games, 13 prizes, and a cash pot on the blackout game. Food &amp; beverages available. Every 1st &amp; 3rd Thursday of the month.</p></div><div class="ev-where">Community Hall · 6:00 p.m.</div></div>
+      <div class="event-row reveal"><div class="when"><b>24</b><span>Jun</span></div><div class="ev-main"><h4>Bountiful Blessings Food Bank</h4><p>Free food bank at Well in the Wilderness Church. Sign-ups required — call Carmen Cardwell, 541-419-2826. Every 2nd &amp; 4th Wednesday.</p></div><div class="ev-where">Well in the Wilderness · 1–4 p.m.</div></div>
+      <div class="event-row reveal"><div class="when"><b>13</b><span>Jul</span></div><div class="ev-main"><h4>Christmas Valley Boosters Meeting</h4><p>Community boosters get-together — all are welcome. Every 2nd Monday of the month.</p></div><div class="ev-where">Booster’s Building · 6:00 p.m.</div></div>
+      <div class="event-row reveal"><div class="when"><b>14</b><span>Jul</span></div><div class="ev-main"><h4>Park &amp; Recreation Board Meeting</h4><p>Monthly public meeting of the District Board — 2nd Tuesday of every month. Public comment always welcome.</p></div><div class="ev-where">Community Hall · 9:00 a.m.</div></div>
+    </div>
+    <p style="margin-top:26px;color:var(--muted);font-size:14px">Hosting something at a District facility? <a onclick="go('rentals')" style="color:var(--sky-deep);font-weight:600;cursor:pointer">Request a rental →</a></p>
+  </div></section>
+  <div id="footer-events"></div>
+</main>
+
+<!-- =================== RENTALS & RESERVATIONS =================== -->
+<main id="rentals" class="page">
+  <header class="subhero">
+    <div class="scene" data-photo="community-hall-interior"><svg width="100%" height="100%" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice">
+      <rect width="1440" height="560" fill="#D9DDCB"/><rect x="520" y="230" width="420" height="220" fill="#B7855A"/><path d="M480 230l250-120 250 120z" fill="#8E5E3C"/>
+    </svg></div>
+    <div class="wrap">
+      <span class="eyebrow light">Rentals &amp; Reservations</span>
+      <h1>Host it here.</h1>
+      <p>The Community Hall, rodeo grounds, arena, and ball field are available to rent for weddings, reunions, meetings, and shows.</p>
+    </div>
+  </header>
+  <section><div class="wrap">
+    <div class="things reveal" style="margin-bottom:40px">
+      <div class="thing"><h4>Community Hall</h4><p>About 2,100 sq ft with a kitchen — great for weddings, reunions, and meetings. Indoor seating for groups large and small.</p></div>
+      <div class="thing"><h4>Rodeo Grounds &amp; Arena</h4><p>An outdoor arena for horse shows, rodeos, clinics, and large community events.</p></div>
+      <div class="thing"><h4>Ball Field &amp; Field</h4><p>The multipurpose field for tournaments, league play, and gatherings.</p></div>
+    </div>
+
+    <!-- ============================================================
+         EDIT ME — RENTAL RATES (from the District rate schedule). Update if rates change.
+    ============================================================ -->
+    <div class="shead reveal" style="margin-bottom:18px"><span class="eyebrow gold">Rental Rates</span><h2 style="font-size:clamp(24px,3.5vw,34px)">Community Hall &amp; facility rates.</h2></div>
+    <div class="bento reveal" style="margin-bottom:40px">
+      <div class="card c-6" style="cursor:default; padding:26px">
+        <div class="body" style="position:static">
+          <h3>Community Hall</h3>
+          <p style="margin:6px 0 14px">87345 Holly Lane · about 2,100 sq ft. Call <b>(541) 576-2216</b> for availability and reservations.</p>
+          <p style="font-weight:600;color:var(--forest-deep);margin-bottom:4px">Non-profit (clubs, churches, school groups — proof of status required)</p>
+          <p style="margin-bottom:12px">Up to 5 hours — <b>$15</b> · Over 5 hours — <b>$30</b></p>
+          <p style="font-weight:600;color:var(--forest-deep);margin-bottom:4px">Private / for-profit (bazaars, flea markets, etc.)</p>
+          <p style="margin-bottom:12px">Up to 5 hours — <b>$30</b> · Over 5 hours — <b>$60</b></p>
+          <p style="font-size:13px;color:var(--muted)">A <b>$50 refundable cleaning deposit</b> is required, returned if the hall is left in the same or better condition. If the heater isn't turned down per the posted instructions, a <b>$9/hour</b> heating-oil fee applies.</p>
+        </div>
+      </div>
+      <div class="card c-6" style="cursor:default; padding:26px">
+        <div class="body" style="position:static">
+          <h3>Hall Amenities</h3>
+          <ul style="margin:8px 0 18px; padding-left:18px; line-height:1.7">
+            <li>Kitchen — microwave, refrigerator, stove &amp; sink</li>
+            <li>Public restrooms</li>
+            <li>Tables and chairs</li>
+          </ul>
+          <h3>Old Library Conference Room</h3>
+          <p style="margin-top:6px">Also available to rent at the same rates: up to 5 hours — <b>$15</b> · over 5 hours — <b>$30</b>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         RESERVATION REQUEST FORM
+         Shelby approved an embedded Google Form here. When the Google Form
+         is ready, REPLACE the <form>...</form> block below with the embed code:
+           <iframe class="embed-frame" src="PASTE-GOOGLE-FORM-EMBED-URL" width="100%" height="900" frameborder="0">Loading…</iframe>
+         Until then, this static form opens the office email with the details filled in.
+    ============================================================ -->
+    <div class="embed-card reveal">
+      <div class="embed-head"><h3>Request to reserve</h3><p>Tell us what you're planning and we'll get back to you with availability and the rental agreement.</p></div>
+      <form class="formgrid" action="mailto:cvparkrec@yahoo.com" method="post" enctype="text/plain">
+        <div class="field"><label>Your name</label><input type="text" name="Name" placeholder="First &amp; last" required></div>
+        <div class="field"><label>Phone</label><input type="tel" name="Phone" placeholder="(541) 000-0000"></div>
+        <div class="field"><label>Email</label><input type="email" name="Email" placeholder="you@email.com" required></div>
+        <div class="field"><label>Which facility?</label>
+          <select name="Facility"><option>Community Hall</option><option>Rodeo Grounds &amp; Arena</option><option>Ball Field / Multipurpose Field</option><option>Not sure — please advise</option></select>
+        </div>
+        <div class="field"><label>Preferred date(s)</label><input type="text" name="Dates" placeholder="e.g. Sat, Aug 16"></div>
+        <div class="field"><label>Approx. guests</label><input type="text" name="Guests" placeholder="e.g. 60"></div>
+        <div class="field full"><label>Tell us about your event</label><textarea name="Details" placeholder="Wedding, reunion, meeting, rodeo…"></textarea></div>
+        <div class="form-foot full">
+          <button class="btn btn-gold" type="submit">Send request <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+          <span class="form-note">Prefer to call? The office is at <b>(541) 576-2216</b>, Tue–Fri 10–2. A reservation isn't confirmed until you've signed the rental agreement.</span>
+        </div>
+      </form>
+    </div>
+  </div></section>
+  <div id="footer-rentals"></div>
+</main>
+
+<!-- =================== VISIT CHRISTMAS VALLEY =================== -->
+<main id="visit" class="page">
+  <header class="subhero">
+    <div class="scene" data-photo="dunes-ohv"><svg width="100%" height="100%" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice">
+      <defs><linearGradient id="dsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFE0E6"/><stop offset="1" stop-color="#F2E3C7"/></linearGradient></defs>
+      <rect width="1440" height="560" fill="url(#dsky)"/><circle cx="1180" cy="130" r="60" fill="#F6E7C2" opacity=".9"/>
+      <path d="M0 300 Q360 240 760 300 T1440 300 V560 H0Z" fill="#E0BC7E"/>
+      <path d="M0 390 Q400 340 820 390 T1440 390 V560 H0Z" fill="#C99A5C"/>
+    </svg></div>
+    <div class="wrap">
+      <span class="eyebrow light">Visit Christmas Valley</span>
+      <h1>Come see the high desert.</h1>
+      <p>Shifting sand dunes, dark starry skies, a quiet lake, and nine holes of golf — a weekend's worth of Oregon you didn't know was here.</p>
+    </div>
+  </header>
+  <section><div class="wrap">
+    <div class="shead reveal"><span class="eyebrow gold">Things to Do</span><h2>Where to point your weekend.</h2><p>The District cares for the golf course and Baert Lake; the dunes and forests are just minutes away on public land.</p></div>
+    <div class="bento">
+      <div class="card c-8 reveal" style="min-height:320px"><div class="scene" data-photo="dunes-ohv"></div><span class="eyebrow gold tag">8,000+ acres</span><div class="body"><h3>Christmas Valley Sand Dunes</h3><p>The largest inland shifting dunes in the Pacific Northwest — open for OHV riding, hiking, and sandboarding.</p></div></div>
+      <div class="card c-4 reveal" style="min-height:320px"><div class="scene" data-photo="dark-sky"></div><div class="body"><h3>Dark-Sky Stargazing</h3><p>Some of Oregon's darkest skies.</p></div></div>
+      <div class="card c-4 reveal" onclick="go('golf')"><div class="scene" data-photo="golfing"></div><div class="body"><h3>Golf Course</h3><p>Play the public nine — no tee times.</p></div></div>
+      <div class="card c-4 reveal"><div class="scene" data-photo="lost-forest"></div><div class="body"><h3>Lost Forest</h3><p>Ancient ponderosa pines in the desert.</p></div></div>
+      <div class="card c-4 reveal"><div class="scene" data-photo="baert-lake"></div><div class="body"><h3>Baert Lake</h3><p>Fish, paddle, swim, or skate.</p></div></div>
+    </div>
+    <div class="things reveal" style="margin-top:22px">
+      <div class="thing"><h4>Play the nine</h4><p>The public Christmas Valley Golf Course — no tee times, loaner clubs available. <a onclick="go('golf')" style="color:var(--forest-deep);font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px">See rates</a></p></div>
+      <div class="thing"><h4>Stay for the stars</h4><p>Far from city lights, the night sky here is unforgettable. Bring a blanket and look up.</p></div>
+      <div class="thing"><h4>Fossil Lake &amp; Lost Forest</h4><p>Remarkable natural areas nearby — a remnant forest and a century-old fossil site.</p></div>
+    </div>
+    <p style="margin-top:24px;color:var(--muted);font-size:13.5px">Heads up: the dunes, Lost Forest, and Fossil Lake sit on public land managed by the BLM — check current access and conditions before you go.</p>
+  </div></section>
+  <div id="footer-visit"></div>
+</main>
+
+<!-- =================== NEWS & DESERT WHISPERS =================== -->
 <main id="news" class="page">
-  <section style="padding-top:140px"><div class="wrap">
-    <div class="shead reveal">
-      <span class="eyebrow gold">The Desert Whispers &amp; CV Gazette</span>
-      <h2>The whole archive, finally easy to browse.</h2>
-      <p>Every surviving issue from 1962 to today — filter by decade and open any edition in a tap. (In the live site, each cover links straight to its PDF.)</p>
+  <header class="subhero">
+    <div class="scene" data-photo="texture-sage"><svg width="100%" height="100%" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="nwsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9AAE7E"/><stop offset="1" stop-color="#5C6A45"/></linearGradient></defs><rect width="1440" height="560" fill="url(#nwsky)"/></svg></div>
+    <div class="wrap">
+      <span class="eyebrow light">The Desert Whispers &amp; CV Gazette</span>
+      <h1>Sixty years of valley news.</h1>
+      <p>Every surviving issue from 1962 to today — the whole archive, finally easy to browse and open on any device.</p>
     </div>
-    <div class="chips" id="chips">
-      <span class="chip active" data-f="all" onclick="filterIssues('all',this)">All years</span>
-      <span class="chip" data-f="2020" onclick="filterIssues('2020',this)">2020s</span>
-      <span class="chip" data-f="2010" onclick="filterIssues('2010',this)">2010s</span>
-      <span class="chip" data-f="1980" onclick="filterIssues('1980',this)">1980s</span>
-      <span class="chip" data-f="1960" onclick="filterIssues('1960',this)">1960s</span>
+  </header>
+  <section><div class="wrap">
+    <div class="shead reveal" style="margin-bottom:30px">
+      <p>Open any edition as a PDF. Use the year buttons to jump, or sign up below to get the next issue.</p>
     </div>
-    <div class="issues" id="issues"></div>
+
+    <!-- ============================================================
+         NEWSLETTER SIGNUP
+         Shelby approved an embedded signup form here. When ready, REPLACE the
+         <form>…</form> below with your Google Form / Mailchimp embed:
+           <iframe class="embed-frame" src="PASTE-SIGNUP-EMBED-URL" width="100%" height="500" frameborder="0">Loading…</iframe>
+    ============================================================ -->
+    <div class="embed-card reveal" style="margin-bottom:44px">
+      <div class="embed-head"><h3>Get the Desert Whispers</h3><p>Add your email and we'll let you know when the next issue is out.</p></div>
+      <form class="formgrid" action="mailto:cvparkrec@yahoo.com" method="post" enctype="text/plain" style="grid-template-columns:1fr">
+        <div class="signup" style="margin:0;max-width:100%">
+          <input type="email" name="Email" placeholder="you@email.com" required>
+          <button class="btn btn-sage" type="submit">Subscribe <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        </div>
+      </form>
+    </div>
+
+    <div class="chips" id="news-years"></div>
+    <div id="archive-news"></div>
   </div></section>
   <div id="footer-news"></div>
 </main>
 
-<!-- =================== BOARD & MINUTES =================== -->
-<main id="board" class="page">
-  <section style="padding-top:140px"><div class="wrap">
+<!-- =================== THE DISTRICT (About + Board + Minutes) =================== -->
+<main id="district" class="page">
+  <header class="subhero">
+    <div class="scene" data-photo="sign"><svg width="100%" height="100%" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="dssky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A6C6D6"/><stop offset="1" stop-color="#E7DCC2"/></linearGradient></defs><rect width="1440" height="560" fill="url(#dssky)"/><path d="M0 390 Q360 350 760 390 T1440 390 V560 H0Z" fill="#9DB07E"/></svg></div>
+    <div class="wrap">
+      <span class="eyebrow light">The District</span>
+      <h1>Established 1963, run by your neighbors.</h1>
+      <p>A special taxing district in Lake County, Oregon — preserving the community's shared assets for this generation and the next.</p>
+    </div>
+  </header>
+  <section><div class="wrap">
     <div class="shead reveal">
-      <span class="eyebrow">Your Board of Directors</span>
-      <h2>Elected neighbors, accountable to the district.</h2>
-      <p>Five directors, elected by the taxing district, charged with preserving these assets for the community. Meetings are the 2nd Tuesday monthly at 9:00 a.m.</p>
-    </div>
-    <div class="boardgrid">
-      <div class="member reveal"><div class="av" style="background:linear-gradient(150deg,#7E8E6A,#566248)">IM</div><b>Ione Maple</b><span>Chair</span></div>
-      <div class="member reveal"><div class="av" style="background:linear-gradient(150deg,#8FB3C6,#4F7E96)">DU</div><b>Dave Uran</b><span>Vice Chair</span></div>
-      <div class="member reveal"><div class="av" style="background:linear-gradient(150deg,#D9954B,#BE7B33)">BF</div><b>Barbara Ferrando</b><span>Director</span></div>
-      <div class="member reveal"><div class="av" style="background:linear-gradient(150deg,#7E8E6A,#566248)">DM</div><b>Dan Maple</b><span>Director</span></div>
-      <div class="member reveal"><div class="av" style="background:linear-gradient(150deg,#8FB3C6,#4F7E96)">SS</div><b>Shara Shumway</b><span>Director</span></div>
+      <p>The Christmas Valley Park &amp; Recreation District preserves and operates the community's shared assets — the golf course, Baert Lake, the rodeo grounds, community hall, airport, and ball fields.</p>
     </div>
   </div></section>
+
   <section style="padding-top:0"><div class="wrap">
-    <div class="shead reveal"><span class="eyebrow sky">Meeting Minutes</span><h2 style="font-size:clamp(26px,4vw,40px)">Recent minutes</h2><p>Posted after the Board reviews and approves them. Always current, always one click away.</p></div>
-    <div class="minutes-list">
-      <div class="minrow reveal"><div class="ic">📄</div><div><b>Regular Board Meeting</b><span>Most recent — posted after approval</span></div><span class="arr">↓</span></div>
-      <div class="minrow reveal"><div class="ic">📄</div><div><b>Regular Board Meeting</b><span>Prior month</span></div><span class="arr">↓</span></div>
-      <div class="minrow reveal"><div class="ic">📄</div><div><b>Budget &amp; Regular Meeting</b><span>Spring session</span></div><span class="arr">↓</span></div>
-      <div class="minrow reveal"><div class="ic">🗂️</div><div><b>Browse the full archive</b><span>2013 – present, by year</span></div><span class="arr">→</span></div>
+    <div class="shead reveal"><span class="eyebrow sky">Board of Directors</span><h2 style="font-size:clamp(26px,4vw,40px)">Elected neighbors, accountable to the district.</h2><p>Five directors, elected by the taxing district, charged with preserving these assets for the community. Meetings are the 2nd Tuesday monthly at 9:00 a.m. in the Community Hall.</p></div>
+    <!-- EDIT ME: board roster (from the District's current Board Members page). Update after each election. -->
+    <div class="boardgrid">
+      <div class="member reveal"><div class="av" style="background:linear-gradient(150deg,#2B593E,#183118)">SB</div><b>Scott Batson</b><span>Chairperson</span></div>
+      <div class="member reveal"><div class="av" style="background:linear-gradient(150deg,#3A6B4C,#22432C)">DU</div><b>David Uran</b><span>Vice Chairperson</span></div>
+      <div class="member reveal"><div class="av" style="background:linear-gradient(150deg,#2B593E,#183118)">GW</div><b>Glenna Wade</b><span>Director</span></div>
+      <div class="member reveal"><div class="av" style="background:linear-gradient(150deg,#3A6B4C,#22432C)">TC</div><b>Terry Crawford</b><span>Director</span></div>
+      <div class="member reveal"><div class="av" style="background:linear-gradient(150deg,#2B593E,#183118)">GM</div><b>Gari Merrifield</b><span>Director</span></div>
+    </div>
+    <p class="reveal" style="margin-top:16px;color:var(--muted);font-size:13.5px">Reach any director through the District office at <b>(541) 576-2216</b>. Board Chair Scott Batson: (458) 281-5925 · Vice Chair David Uran: (541) 576-4177.</p>
+
+    <div class="shead reveal" style="margin-top:46px"><span class="eyebrow sky">District Staff</span><h2 style="font-size:clamp(24px,3.5vw,34px)">Who keeps things running.</h2></div>
+    <div class="boardgrid">
+      <div class="member reveal"><div class="av" style="background:linear-gradient(150deg,#8A6F3A,#5e4c27)">AA</div><b>Ashley Anderson</b><span>Office Manager &amp; Editor, Desert Whispers</span></div>
     </div>
   </div></section>
-  <div id="footer-board"></div>
+
+  <section style="padding-top:0"><div class="wrap"><div class="lead-band reveal">
+    <svg class="scene" viewBox="0 0 340 240"><path d="M0 150 Q120 110 240 150 T340 150 V240 H0Z" fill="#fff" opacity=".5"/><circle cx="270" cy="70" r="40" fill="#fff" opacity=".4"/></svg>
+    <span class="eyebrow light">Public Meetings &amp; Agendas</span>
+    <h2 style="margin-top:14px">2nd Tuesday of every month, 9:00 a.m.</h2>
+    <p>Held at the Christmas Valley Community Hall and open to all. Agendas are posted ahead of each meeting and minutes are added below once approved.</p>
+  </div></div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="shead reveal"><span class="eyebrow sky">Meeting Minutes</span><h2 style="font-size:clamp(26px,4vw,40px)">Minutes archive — 2013 to today</h2><p>Every available set of board minutes, organized by year. Click any meeting to open the PDF.</p></div>
+    <div class="chips" id="min-years"></div>
+    <div id="archive-minutes"></div>
+  </div></section>
+  <div id="footer-district"></div>
 </main>
 
 <!-- =================== CONTACT =================== -->
@@ -539,7 +968,7 @@ table.score tr:last-child td{border:none; font-weight:700; background:var(--sand
   <section style="padding-top:140px"><div class="wrap">
     <div class="shead reveal">
       <span class="eyebrow gold">Get in Touch</span>
-      <h2>We're open Tuesday–Friday, 9 to 2.</h2>
+      <h2>We're open Tuesday–Friday, 10 to 2.</h2>
       <p>Questions about rentals, the course, or the lake? Reach the District office — we're happy to help.</p>
     </div>
     <div class="info-grid">
@@ -547,8 +976,8 @@ table.score tr:last-child td{border:none; font-weight:700; background:var(--sand
         <h4>Office</h4>
         <p><b>Phone:</b> (541) 576-2216</p>
         <p><b>Fax:</b> (541) 576-2272</p>
-        <p><b>Email:</b> <a>cvparkrec@yahoo.com</a></p>
-        <p style="margin-top:12px"><b>Hours:</b> Tue–Fri, 9:00 a.m. – 2:00 p.m.</p>
+        <p><b>Email:</b> <a href="mailto:cvparkrec@yahoo.com">cvparkrec@yahoo.com</a></p>
+        <p style="margin-top:12px"><b>Hours:</b> Tue–Fri, 10:00 a.m. – 2:00 p.m. · Closed holidays</p>
       </div>
       <div class="infobox reveal">
         <h4>Visit / Mail</h4>
@@ -558,7 +987,7 @@ table.score tr:last-child td{border:none; font-weight:700; background:var(--sand
         <p style="margin-top:12px"><b>Community Hall:</b> 87345 Holly Lane</p>
       </div>
     </div>
-    <div class="panel reveal" data-photo="location" style="margin-top:22px; min-height:280px">
+    <div class="panel reveal" data-photo="sign" style="margin-top:22px; min-height:300px">
       <svg width="100%" height="100%" viewBox="0 0 1100 300" preserveAspectRatio="xMidYMid slice">
         <rect width="1100" height="300" fill="#E7DCC2"/>
         <g stroke="#D3C4A2" stroke-width="2"><path d="M0 90h1100"/><path d="M0 180h1100"/><path d="M380 0v300"/><path d="M760 0v300"/></g>
@@ -567,39 +996,245 @@ table.score tr:last-child td{border:none; font-weight:700; background:var(--sand
         <text x="590" y="173" font-family="Plus Jakarta Sans" font-size="17" font-weight="600" fill="#566248">Christmas Valley Park &amp; Rec</text>
       </svg>
     </div>
+    <div style="margin-top:26px" class="reveal">
+      <button class="btn btn-gold" onclick="go('rentals')">Request a rental <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+    </div>
   </div></section>
   <div id="footer-contact"></div>
 </main>
 
+<!-- =================== LINKS / RESOURCES =================== -->
+<main id="links" class="page">
+  <header class="subhero">
+    <div class="scene"><svg width="100%" height="100%" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="lnsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A6C6D6"/><stop offset="1" stop-color="#E7DCC2"/></linearGradient></defs><rect width="1440" height="560" fill="url(#lnsky)"/><path d="M0 380 Q360 340 760 380 T1440 380 V560 H0Z" fill="#9DB07E"/></svg></div>
+    <div class="wrap">
+      <span class="eyebrow light">Links &amp; Resources</span>
+      <h1>Around the high desert.</h1>
+      <p>Helpful links to local government, public lands, and nearby places to explore. External sites open in a new tab.</p>
+    </div>
+  </header>
+  <section><div class="wrap">
+    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:14px">
+      <a class="filecard" href="https://www.lakecountyor.org/" target="_blank" rel="noopener"><span class="fc-t"><b>Lake County Government</b><span>lakecountyor.org</span></span><span class="fc-dl">↗</span></a>
+      <a class="filecard" href="https://www.blm.gov/" target="_blank" rel="noopener"><span class="fc-t"><b>Bureau of Land Management</b><span>blm.gov</span></span><span class="fc-dl">↗</span></a>
+      <a class="filecard" href="https://www.christmasvalleychamber.net/" target="_blank" rel="noopener"><span class="fc-t"><b>Christmas Valley Chamber of Commerce</b><span>christmasvalleychamber.net</span></span><span class="fc-dl">↗</span></a>
+      <a class="filecard" href="https://lakecountychamber.org/" target="_blank" rel="noopener"><span class="fc-t"><b>Lake County Chamber of Commerce</b><span>lakecountychamber.org</span></span><span class="fc-dl">↗</span></a>
+      <a class="filecard" href="https://www.fs.usda.gov/" target="_blank" rel="noopener"><span class="fc-t"><b>US Forest Service</b><span>fs.usda.gov</span></span><span class="fc-dl">↗</span></a>
+      <a class="filecard" href="https://www.fs.usda.gov/fremont-winema" target="_blank" rel="noopener"><span class="fc-t"><b>Fremont-Winema National Forest</b><span>fs.usda.gov/fremont-winema</span></span><span class="fc-dl">↗</span></a>
+      <a class="filecard" href="https://fortrockoregon.com/" target="_blank" rel="noopener"><span class="fc-t"><b>Fort Rock Historical Museum</b><span>fortrockoregon.com</span></span><span class="fc-dl">↗</span></a>
+      <a class="filecard" href="https://www.lodgeatsummerlake.com/" target="_blank" rel="noopener"><span class="fc-t"><b>Lodge at Summer Lake</b><span>lodgeatsummerlake.com</span></span><span class="fc-dl">↗</span></a>
+      <a class="filecard" href="https://www.summerlakehotsprings.com/" target="_blank" rel="noopener"><span class="fc-t"><b>Summer Lake Hot Springs</b><span>summerlakehotsprings.com</span></span><span class="fc-dl">↗</span></a>
+      <a class="filecard" href="https://www.anareservoirrvpark.com/" target="_blank" rel="noopener"><span class="fc-t"><b>Ana Reservoir RV Park</b><span>anareservoirrvpark.com</span></span><span class="fc-dl">↗</span></a>
+      <a class="filecard" href="https://cityofpaisley.net/" target="_blank" rel="noopener"><span class="fc-t"><b>City of Paisley</b><span>cityofpaisley.net</span></span><span class="fc-dl">↗</span></a>
+      <a class="filecard" href="https://www.duneguide.com/sand_dune_guide_christmas_valley.htm" target="_blank" rel="noopener"><span class="fc-t"><b>Christmas Valley Sand Dunes Guide</b><span>duneguide.com</span></span><span class="fc-dl">↗</span></a>
+    </div>
+    <p style="margin-top:22px;color:var(--muted);font-size:13.5px">Looking for things to do nearby? See the <a onclick="go('visit')" style="color:var(--forest);font-weight:600;cursor:pointer">Visit Christmas Valley page →</a></p>
+  </div></section>
+  <div id="footer-links"></div>
+</main>
+
+<!-- =================== COMMUNITY HALL =================== -->
+<main id="hall" class="page">
+  <header class="subhero">
+    <div class="scene" data-photo="community-hall-interior"><svg width="100%" height="100%" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice"><rect width="1440" height="560" fill="#D9DDCB"/><rect x="520" y="230" width="420" height="220" fill="#B7855A"/><path d="M480 230l250-120 250 120z" fill="#8E5E3C"/></svg></div>
+    <div class="wrap">
+      <span class="eyebrow light">Facilities · Available to Rent</span>
+      <h1>Community Hall</h1>
+      <p>About 2,100 square feet with a full kitchen — the valley's gathering place for weddings, reunions, meetings, and community events.</p>
+    </div>
+  </header>
+  <section><div class="wrap">
+    <div class="split">
+      <div class="prose reveal">
+        <h3>The valley's living room</h3>
+        <p>Located at 87345 Holly Lane in Christmas Valley, the Community Hall is available for rental by the public. It's a flexible, comfortable space for groups large and small — from wedding receptions and family reunions to club meetings and holiday gatherings.</p>
+        <p>Call the District office at <b>(541) 576-2216</b> for availability and to reserve. A reservation isn't confirmed until the rental agreement is signed.</p>
+        <h3>Amenities</h3>
+        <div class="amen">
+          <span class="pill">Kitchen — microwave, fridge, stove &amp; sink</span>
+          <span class="pill">Public restrooms</span>
+          <span class="pill">Tables &amp; chairs</span>
+          <span class="pill">~2,100 sq ft</span>
+        </div>
+      </div>
+      <aside class="ratecard reveal">
+        <div class="top"><h3>Rental Rates</h3><span>Per the District rate schedule</span></div>
+        <ul>
+          <li>Non-profit · ≤5 hrs <b>$15</b></li>
+          <li>Non-profit · &gt;5 hrs <b>$30</b></li>
+          <li>For-profit · ≤5 hrs <b>$30</b></li>
+          <li>For-profit · &gt;5 hrs <b>$60</b></li>
+          <li>Cleaning deposit <b>$50 (refundable)</b></li>
+        </ul>
+        <div class="cta"><button class="btn btn-gold" onclick="go('rentals')">Request a rental <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+      </aside>
+    </div>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap">
+    <div class="bento reveal">
+      <div class="card c-6" style="cursor:default; padding:26px"><div class="body" style="position:static">
+        <h3>Rate details</h3>
+        <p style="font-weight:600;color:var(--forest-deep);margin:8px 0 4px">Non-profit (clubs, churches, school groups — proof of status required)</p>
+        <p style="margin-bottom:12px">Up to 5 hours — <b>$15</b> · Over 5 hours — <b>$30</b></p>
+        <p style="font-weight:600;color:var(--forest-deep);margin-bottom:4px">Private / for-profit (bazaars, flea markets, etc.)</p>
+        <p style="margin-bottom:12px">Up to 5 hours — <b>$30</b> · Over 5 hours — <b>$60</b></p>
+        <p style="font-size:13px;color:var(--muted)">A <b>$50 refundable cleaning deposit</b> is required, returned if the hall is left in the same or better condition. If the heater isn't turned down per the posted instructions, a <b>$9/hour</b> heating-oil fee applies.</p>
+      </div></div>
+      <div class="card c-6" style="cursor:default; padding:26px"><div class="body" style="position:static">
+        <h3>Old Library Conference Room</h3>
+        <p style="margin-top:6px">A smaller meeting space also available to rent at the same rates: up to 5 hours — <b>$15</b> · over 5 hours — <b>$30</b>.</p>
+      </div></div>
+    </div>
+  </div></section>
+  <div id="footer-hall"></div>
+</main>
+
+<!-- =================== RODEO GROUNDS & ARENA =================== -->
+<main id="rodeo" class="page">
+  <header class="subhero">
+    <div class="scene" data-photo="rodeo"><svg width="100%" height="100%" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="rdsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CFB98A"/><stop offset="1" stop-color="#E7DCC2"/></linearGradient></defs><rect width="1440" height="560" fill="url(#rdsky)"/><path d="M0 380 Q360 340 760 380 T1440 380 V560 H0Z" fill="#C79A5C"/></svg></div>
+    <div class="wrap">
+      <span class="eyebrow light">Facilities</span>
+      <h1>Rodeo Grounds &amp; Arena</h1>
+      <p>An outdoor arena for horse shows, rodeos, clinics, and community gatherings — and the one spot where horses and camping are welcome.</p>
+    </div>
+  </header>
+  <section><div class="wrap">
+    <div class="split">
+      <div class="prose reveal">
+        <h3>Where the valley saddles up</h3>
+        <p>The District's rodeo grounds host horse shows, rodeos, riding clinics, and large community events. Horses and camping are permitted only at the Rodeo Grounds — please keep both off the District's other properties.</p>
+        <p>To reserve the arena for an event, contact the office or send a rental request and we'll follow up with availability and the agreement.</p>
+        <h3>On site</h3>
+        <div class="amen">
+          <span class="pill">Outdoor arena</span>
+          <span class="pill">Water</span>
+          <span class="pill">Portable restroom (south of the arena)</span>
+          <span class="pill">Crow's nest</span>
+        </div>
+      </div>
+      <aside class="ratecard reveal">
+        <div class="top"><h3>Rental Fees</h3><span>Call to reserve</span></div>
+        <ul>
+          <li>Horse shows <b>$25</b></li>
+          <li>Arena rental <b>$25</b></li>
+          <li>Horses &amp; camping <b>Here only</b></li>
+        </ul>
+        <div class="cta"><button class="btn btn-gold" onclick="go('rentals')">Request a rental <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+      </aside>
+    </div>
+  </div></section>
+  <div id="footer-rodeo"></div>
+</main>
+
+<!-- =================== AIRPORT =================== -->
+<main id="airport" class="page">
+  <header class="subhero">
+    <div class="scene" data-photo="airport"><svg width="100%" height="100%" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="apsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BFD2DB"/><stop offset="1" stop-color="#E7DCC2"/></linearGradient></defs><rect width="1440" height="560" fill="url(#apsky)"/><path d="M0 400 Q360 370 760 400 T1440 400 V560 H0Z" fill="#9DB07E"/><rect x="430" y="330" width="640" height="22" rx="4" fill="#6b7280" transform="rotate(-4 720 341)"/><g stroke="#fff" stroke-width="3" opacity=".8"><path d="M520 341h120M760 341h120"/></g></svg></div>
+    <div class="wrap">
+      <span class="eyebrow light">Facilities · Public-Use Airstrip</span>
+      <h1>Christmas Valley Airport (62-S)</h1>
+      <p>A public-use airstrip maintained by the District, with a paved 5,200-foot runway serving the high desert.</p>
+    </div>
+  </header>
+  <section><div class="wrap">
+    <div class="split">
+      <div class="prose reveal">
+        <h3>Fly in to the valley</h3>
+        <p>The Christmas Valley Airport (FAA identifier 62-S) is open to public use. For hangar space and tie-down arrangements, contact the District office at <b>(541) 576-2216</b>.</p>
+        <p>Please note: on-site fuel and FBO services are no longer available — plan your fuel stops accordingly.</p>
+        <h3>Runway &amp; field data</h3>
+        <div class="amen">
+          <span class="pill">Runway 7–25: 5,200′ × 60′, asphalt</span>
+          <span class="pill">Field elevation 4,317′</span>
+          <span class="pill">MIRL runway lighting</span>
+          <span class="pill">Visual / GPS approach</span>
+        </div>
+      </div>
+      <aside class="ratecard reveal">
+        <div class="top"><h3>Fees</h3><span>Contact the office</span></div>
+        <ul>
+          <li>Runway access / egress <b>$300 / year</b></li>
+          <li>Tarmac tie-down <b>$25 / month</b></li>
+          <li>Airport code <b>62-S</b></li>
+        </ul>
+        <div class="cta"><button class="btn btn-sage" onclick="go('contact')">Contact the office <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+      </aside>
+    </div>
+  </div></section>
+  <div id="footer-airport"></div>
+</main>
+
+<!-- =================== MULTIPURPOSE FIELD =================== -->
+<main id="field" class="page">
+  <header class="subhero">
+    <div class="scene" data-photo="field"><svg width="100%" height="100%" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="fldsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9FBE92"/><stop offset="1" stop-color="#6E8C5E"/></linearGradient></defs><rect width="1440" height="560" fill="url(#fldsky)"/><path d="M720 150 L900 360 L720 450 L540 360 Z" fill="#C9A56B" opacity=".9"/><circle cx="720" cy="360" r="9" fill="#fff"/></svg></div>
+    <div class="wrap">
+      <span class="eyebrow light">Facilities · Open to All</span>
+      <h1>Multipurpose Field &amp; Playground</h1>
+      <p>Just north of the library — a baseball diamond, a volleyball court, and the children's playground, open to everyone.</p>
+    </div>
+  </header>
+  <section><div class="wrap">
+    <div class="split">
+      <div class="prose reveal">
+        <h3>Room to play</h3>
+        <p>The multipurpose field sits just north of the library and is free and open to the public — just like Baert Lake. It's home to the community's baseball diamond, a volleyball court, and the children's playground — a go-to spot for practice, pickup games, and family afternoons. No reservation needed; just come on out and play.</p>
+        <p>Planning an organized tournament or league and want the field to yourselves? Groups can <a onclick="go('rentals')" style="color:var(--forest);font-weight:600;cursor:pointer">reserve it for an event</a> — but day-to-day use is always open to everyone.</p>
+        <h3>On site</h3>
+        <div class="amen">
+          <span class="pill">Baseball diamond</span>
+          <span class="pill">Volleyball court</span>
+          <span class="pill">Children's playground</span>
+          <span class="pill">Open to the public</span>
+        </div>
+      </div>
+      <aside class="ratecard reveal">
+        <div class="top"><h3>Use the Field</h3><span>Free &amp; open to the public</span></div>
+        <ul>
+          <li>Day-use fee <b>None</b></li>
+          <li>Reservation <b>Not required</b></li>
+          <li>Events / leagues <b>Reservable</b></li>
+          <li>Location <b>North of the library</b></li>
+        </ul>
+        <div class="cta"><button class="btn btn-sage" onclick="go('visit')">More to do nearby <span class="circ"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+      </aside>
+    </div>
+  </div></section>
+  <div id="footer-field"></div>
+</main>
+
+<script src="archive-data.js"></script>
 <script>
 /* ---- footer injected into every page ---- */
 const FOOT = `<footer class="foot"><div class="wrap">
   <div class="cols">
     <div style="max-width:260px">
       <div class="brand" style="display:flex;gap:11px;align-items:center;cursor:pointer" onclick="go('home')">
-        <div class="mark" style="width:38px;height:38px;border-radius:12px;background:linear-gradient(150deg,#D9954B,#BE7B33 60%,#566248);display:grid;place-items:center"><svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M4 19l5-9 3 5 2-3 6 7z" fill="#fff"/><circle cx="17" cy="6.5" r="2.4" fill="#fff"/></svg></div>
+        <img src="images/logo.png" alt="Christmas Valley Park &amp; Recreation" style="width:48px;height:48px;object-fit:contain;flex:none;display:block" />
         <div><b style="font-family:Fraunces,serif;font-size:16px">Christmas Valley</b><span style="display:block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#DDE3D0">Park &amp; Recreation</span></div>
       </div>
       <p style="margin-top:16px;font-size:13.5px;opacity:.75">A special taxing district preserving the assets of Christmas Valley for this generation and the next. Established 1963.</p>
     </div>
     <div><h5>Explore</h5>
-      <a onclick="go('home')">Home</a><a onclick="go('golf')">Golf Course</a><a onclick="go('news')">Desert Whispers</a>
+      <a onclick="go('parks')">Parks &amp; Facilities</a><a onclick="go('golf')">Golf Course</a><a onclick="go('lake')">Baert Lake</a><a onclick="go('visit')">Visit Christmas Valley</a>
     </div>
-    <div><h5>District</h5>
-      <a onclick="go('board')">Board &amp; Minutes</a><a onclick="go('board')">Transparency</a><a onclick="go('contact')">Contact</a>
+    <div><h5>Community</h5>
+      <a onclick="go('events')">Events</a><a onclick="go('rentals')">Rentals</a><a onclick="go('news')">Desert Whispers</a>
     </div>
-    <div><h5>Office</h5>
-      <a>(541) 576-2216</a><a>cvparkrec@yahoo.com</a><a>Tue–Fri · 9–2</a>
+    <div><h5>The District</h5>
+      <a onclick="go('district')">Board &amp; Minutes</a><a onclick="go('links')">Links &amp; Resources</a><a onclick="go('contact')">Contact</a><a>(541) 576-2216</a><a>Tue–Fri · 10–2</a>
     </div>
   </div>
   <div class="bottom"><span>© 2026 Christmas Valley Park &amp; Recreation District. All rights reserved.</span><span>Christmas Valley, Oregon 97641</span></div>
 </div></footer>`;
-['home','golf','news','board','contact'].forEach(p=>{document.getElementById('footer-'+p).innerHTML=FOOT;});
+['home','parks','lake','golf','events','rentals','visit','news','district','contact','links','hall','rodeo','airport','field'].forEach(p=>{var el=document.getElementById('footer-'+p); if(el) el.innerHTML=FOOT;});
 
 /* ---- page nav ---- */
 function go(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
-  document.getElementById(id).classList.add('show');
+  var pg=document.getElementById(id); if(!pg) return;
+  pg.classList.add('show');
   document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('active',a.dataset.nav===id));
   document.body.classList.remove('menu-open');
   window.scrollTo({top:0,behavior:'instant'});
@@ -611,37 +1246,38 @@ function toggleMenu(){document.body.classList.toggle('menu-open');}
 const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
 function runReveals(){document.querySelectorAll('.page.show .reveal:not(.in)').forEach(el=>io.observe(el));}
 
-/* ---- Desert Whispers data ---- */
-const ISSUES=[
-  {y:'2024',t:'Dec · Holiday Edition',d:'2020',c:'#8FB3C6'},
-  {y:'2024',t:'Jun · Summer at the Lake',d:'2020',c:'#7E8E6A'},
-  {y:'2023',t:'Nov · Fall Roundup',d:'2020',c:'#D9954B'},
-  {y:'2022',t:'Apr · Spring Opening',d:'2020',c:'#7E8E6A'},
-  {y:'2020',t:'Jul · Mid-Summer',d:'2020',c:'#8FB3C6'},
-  {y:'2019',t:'Dec · Year in Review',d:'2010',c:'#566248'},
-  {y:'2016',t:'Aug · Rodeo Special',d:'2010',c:'#D9954B'},
-  {y:'2014',t:'May · Budget Notes',d:'2010',c:'#7E8E6A'},
-  {y:'2012',t:'Mar · Course Reopens',d:'2010',c:'#8FB3C6'},
-  {y:'1987',t:'Spring Quarterly',d:'1980',c:'#BE7B33'},
-  {y:'1982',t:'Jan / Feb Issue',d:'1980',c:'#566248'},
-  {y:'1981',t:'Oct · Special Issue',d:'1980',c:'#7E8E6A'},
-  {y:'1980',t:'Sep · Autumn',d:'1980',c:'#8FB3C6'},
-  {y:'1967',t:'CV Gazette · Feb',d:'1960',c:'#D9954B'},
-  {y:'1963',t:'CV Gazette · Oct',d:'1960',c:'#566248'},
-  {y:'1962',t:'CV Gazette · Aug',d:'1960',c:'#BE7B33'},
-];
-function renderIssues(f='all'){
-  const wrap=document.getElementById('issues');
-  wrap.innerHTML=ISSUES.filter(i=>f==='all'||i.d===f).map(i=>`
-    <div class="issue reveal">
-      <div class="cover" style="background:linear-gradient(150deg,${i.c},${shade(i.c)})"><span class="yr">${i.y}</span></div>
-      <div class="meta"><b>${i.t}</b><span>Desert Whispers</span><br><span class="dl">↓ Open PDF</span></div>
-    </div>`).join('');
+/* ---- Archive (real files from archive-data.js) ---- */
+function fileCard(it){
+  return '<a class="filecard" href="'+it.file+'" target="_blank" rel="noopener">'
+    +'<span class="fc-ic">▦</span>'
+    +'<span class="fc-t"><b>'+it.label+'</b>'+(it.tag?'<span>'+it.tag+'</span>':'')+'</span>'
+    +'<span class="fc-dl">PDF ↓</span></a>';
+}
+function renderArchive(id,groups){
+  var c=document.getElementById(id); if(!c||!groups) return;
+  c.innerHTML=groups.map(function(g){
+    return '<div class="yrblock" data-year="'+g.year+'"><h3 class="yrhead">'+g.year
+      +'<span>'+g.items.length+(g.items.length===1?' issue':' issues')+'</span></h3>'
+      +'<div class="filegrid">'+g.items.map(fileCard).join('')+'</div></div>';
+  }).join('');
   runReveals();
 }
-function shade(hex){const n=parseInt(hex.slice(1),16);const r=Math.max(0,(n>>16)-40),g=Math.max(0,((n>>8)&255)-40),b=Math.max(0,(n&255)-40);return `rgb(${r},${g},${b})`;}
-function filterIssues(f,el){document.querySelectorAll('#chips .chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderIssues(f);}
-renderIssues();
+function renderChips(chipId,contId,groups){
+  var c=document.getElementById(chipId); if(!c||!groups) return;
+  c.innerHTML='<span class="chip active" onclick="jumpYear(\''+contId+'\',\'all\',this)">All</span>'
+    +groups.map(function(g){return '<span class="chip" onclick="jumpYear(\''+contId+'\',\''+g.year+'\',this)">'+g.year+'</span>';}).join('');
+}
+function jumpYear(contId,year,el){
+  var siblings=el.parentNode.querySelectorAll('.chip');
+  for(var i=0;i<siblings.length;i++) siblings[i].classList.remove('active');
+  el.classList.add('active');
+  var blocks=document.getElementById(contId).querySelectorAll('.yrblock');
+  for(var j=0;j<blocks.length;j++){ blocks[j].style.display=(year==='all'||blocks[j].dataset.year===year)?'':'none'; }
+}
+var A=window.ARCHIVE||{minutes:[],whispers:[],gazette:[]};
+var papers=(A.whispers||[]).concat(A.gazette||[]);
+renderArchive('archive-minutes',A.minutes);  renderChips('min-years','archive-minutes',A.minutes);
+renderArchive('archive-news',papers);        renderChips('news-years','archive-news',papers);
 
 window.addEventListener('load',runReveals);
 runReveals();
@@ -652,6 +1288,16 @@ document.querySelectorAll('[data-photo]').forEach(function(el){
   img.onload=function(){img.className='photo';img.alt='';el.appendChild(img);el.classList.add('has-photo');};
   img.onerror=function(){if(!img._png){img._png=1;img.src='images/'+name+'.png';}};
   img.src='images/'+name+'.jpg';
+});
+
+/* ---- keyboard accessibility for clickable cards/rows (non-button elements) ---- */
+document.querySelectorAll('[onclick]').forEach(function(el){
+  if(el.tagName==='BUTTON'||el.tagName==='A') return;
+  if(!el.hasAttribute('tabindex')) el.setAttribute('tabindex','0');
+  el.setAttribute('role','button');
+  el.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click();}
+  });
 });
 </script>
 </body>
