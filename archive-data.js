@@ -661,6 +661,26 @@ window.ARCHIVE={
    "year": "2026",
    "items": [
     {
+     "label": "September 15, 2026",
+     "tag": "",
+     "file": "documents/desert-whispers/2026/2026-09-15.pdf"
+    },
+    {
+     "label": "September 1, 2026",
+     "tag": "",
+     "file": "documents/desert-whispers/2026/2026-09-01.pdf"
+    },
+    {
+     "label": "August 15, 2026",
+     "tag": "",
+     "file": "documents/desert-whispers/2026/2026-08-15.pdf"
+    },
+    {
+     "label": "August 1, 2026",
+     "tag": "",
+     "file": "documents/desert-whispers/2026/2026-08-01.pdf"
+    },
+    {
      "label": "May 15, 2026",
      "tag": "",
      "file": "documents/desert-whispers/2026/2026-05-15.pdf"
