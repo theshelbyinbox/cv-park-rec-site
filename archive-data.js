@@ -906,6 +906,11 @@ window.ARCHIVE={
      "file": "documents/desert-whispers/2024/2024-06-15.pdf"
     },
     {
+     "label": "June 1, 2024",
+     "tag": "",
+     "file": "documents/desert-whispers/2024/2024-06-01.pdf"
+    },
+    {
      "label": "May 15, 2024",
      "tag": "",
      "file": "documents/desert-whispers/2024/2024-05-15.pdf"
@@ -979,6 +984,11 @@ window.ARCHIVE={
      "label": "November 1, 2023",
      "tag": "",
      "file": "documents/desert-whispers/2023/2023-11-01.pdf"
+    },
+    {
+     "label": "October 15, 2023",
+     "tag": "",
+     "file": "documents/desert-whispers/2023/2023-10-15.pdf"
     },
     {
      "label": "October 1, 2023",
@@ -1129,6 +1139,11 @@ window.ARCHIVE={
      "label": "August 1, 2022",
      "tag": "",
      "file": "documents/desert-whispers/2022/2022-08-01.pdf"
+    },
+    {
+     "label": "July 15, 2022",
+     "tag": "",
+     "file": "documents/desert-whispers/2022/2022-07-15.pdf"
     },
     {
      "label": "July 1, 2022",
