@@ -60,7 +60,7 @@
     <div class="wrap">
       <div class="photoblock subhero">
         <img class="photoblock__media" src="images/newspaper.jpg" alt="Desert Whispers front pages" />
-        <div class="photoblock__scrim"></div>
+        <div class="photoblock__scrim photoblock__scrim--busy"></div>
         <div class="photoblock__body">
           <div class="photoblock__main">
             <div class="rulemark">
@@ -111,7 +111,7 @@
           <div class="eyebrow eyebrow--accent">Jump to a year</div>
           <h2 class="h2">Pick a year and start reading.</h2>
         </div>
-        <p class="sec-head__aside lead">Each issue opens as a PDF. A handful of the oldest are missing from our shelves and are marked as such rather than sending you to a dead link.</p>
+        <p class="sec-head__aside lead">Tap a year to open it, and tap again to close it. Each issue opens as a PDF. A handful of the oldest are missing from our shelves and are marked as such rather than sending you to a dead link.</p>
       </div>
       <div class="yearnav">
         <a class="yearnav__link" href="#w-2026">2026</a>
@@ -134,10 +134,14 @@
         <a class="yearnav__link" href="#g-1962">1962</a>
       </div>
       <div class="yeargroup" id="w-2026">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">2026</div>
-          <div class="yeargroup__count">11 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-w-2026" checked />
+        <label class="yeargroup__head" for="y-w-2026">
+          <span class="yeargroup__year">2026</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">11 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/desert-whispers/2026/2026-09-15.pdf"><span class="doc__label">September 15, 2026</span></a>
           <a class="doc" href="documents/desert-whispers/2026/2026-09-01.pdf"><span class="doc__label">September 1, 2026</span></a>
@@ -153,10 +157,14 @@
         </div>
       </div>
       <div class="yeargroup" id="w-2025">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">2025</div>
-          <div class="yeargroup__count">23 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-w-2025" />
+        <label class="yeargroup__head" for="y-w-2025">
+          <span class="yeargroup__year">2025</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">23 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/desert-whispers/2025/2025-12-15.pdf"><span class="doc__label">December 15, 2025</span></a>
           <a class="doc" href="documents/desert-whispers/2025/2025-12-01.pdf"><span class="doc__label">December 1, 2025</span></a>
@@ -184,10 +192,14 @@
         </div>
       </div>
       <div class="yeargroup" id="w-2024">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">2024</div>
-          <div class="yeargroup__count">24 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-w-2024" />
+        <label class="yeargroup__head" for="y-w-2024">
+          <span class="yeargroup__year">2024</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">24 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/desert-whispers/2024/2024-12-15.pdf"><span class="doc__label">December 15, 2024</span></a>
           <a class="doc" href="documents/desert-whispers/2024/2024-12-01.pdf"><span class="doc__label">December 1, 2024</span></a>
@@ -216,10 +228,14 @@
         </div>
       </div>
       <div class="yeargroup" id="w-2023">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">2023</div>
-          <div class="yeargroup__count">24 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-w-2023" />
+        <label class="yeargroup__head" for="y-w-2023">
+          <span class="yeargroup__year">2023</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">24 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/desert-whispers/2023/2023-12-15.pdf"><span class="doc__label">December 15, 2023</span></a>
           <a class="doc" href="documents/desert-whispers/2023/2023-12-01.pdf"><span class="doc__label">December 1, 2023</span></a>
@@ -248,10 +264,14 @@
         </div>
       </div>
       <div class="yeargroup" id="w-2022">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">2022</div>
-          <div class="yeargroup__count">24 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-w-2022" />
+        <label class="yeargroup__head" for="y-w-2022">
+          <span class="yeargroup__year">2022</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">24 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/desert-whispers/2022/2022-12-15.pdf"><span class="doc__label">December 15, 2022</span></a>
           <a class="doc" href="documents/desert-whispers/2022/2022-12-01.pdf"><span class="doc__label">December 1, 2022</span></a>
@@ -280,10 +300,14 @@
         </div>
       </div>
       <div class="yeargroup" id="w-2021">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">2021</div>
-          <div class="yeargroup__count">24 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-w-2021" />
+        <label class="yeargroup__head" for="y-w-2021">
+          <span class="yeargroup__year">2021</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">24 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/desert-whispers/2021/2021-12-15.pdf"><span class="doc__label">December 15, 2021</span></a>
           <a class="doc" href="documents/desert-whispers/2021/2021-12-01.pdf"><span class="doc__label">December 1, 2021</span></a>
@@ -312,10 +336,14 @@
         </div>
       </div>
       <div class="yeargroup" id="w-2020">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">2020</div>
-          <div class="yeargroup__count">24 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-w-2020" />
+        <label class="yeargroup__head" for="y-w-2020">
+          <span class="yeargroup__year">2020</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">24 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/desert-whispers/2020/2020-12-15.pdf"><span class="doc__label">December 15, 2020</span></a>
           <a class="doc" href="documents/desert-whispers/2020/2020-12-01.pdf"><span class="doc__label">December 1, 2020</span></a>
@@ -344,10 +372,14 @@
         </div>
       </div>
       <div class="yeargroup" id="w-2019">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">2019</div>
-          <div class="yeargroup__count">24 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-w-2019" />
+        <label class="yeargroup__head" for="y-w-2019">
+          <span class="yeargroup__year">2019</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">24 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/desert-whispers/2019/2019-12-15.pdf"><span class="doc__label">December 15, 2019</span></a>
           <a class="doc" href="documents/desert-whispers/2019/2019-12-01.pdf"><span class="doc__label">December 1, 2019</span></a>
@@ -376,20 +408,28 @@
         </div>
       </div>
       <div class="yeargroup" id="w-2018">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">2018</div>
-          <div class="yeargroup__count">2 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-w-2018" />
+        <label class="yeargroup__head" for="y-w-2018">
+          <span class="yeargroup__year">2018</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">2 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/desert-whispers/2018/2018-01-15.pdf"><span class="doc__label">January 15, 2018</span></a>
           <a class="doc" href="documents/desert-whispers/2018/2018-01-01.pdf"><span class="doc__label">January 1, 2018</span></a>
         </div>
       </div>
       <div class="yeargroup" id="w-2016">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">2016</div>
-          <div class="yeargroup__count">22 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-w-2016" />
+        <label class="yeargroup__head" for="y-w-2016">
+          <span class="yeargroup__year">2016</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">22 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <div class="doc doc--missing"><span class="doc__label">December 15, 2016</span><span class="doc__tag">Not available</span></div>
           <div class="doc doc--missing"><span class="doc__label">December 1, 2016</span><span class="doc__tag">Not available</span></div>
@@ -416,10 +456,14 @@
         </div>
       </div>
       <div class="yeargroup" id="w-2014">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">2014</div>
-          <div class="yeargroup__count">5 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-w-2014" />
+        <label class="yeargroup__head" for="y-w-2014">
+          <span class="yeargroup__year">2014</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">5 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/desert-whispers/2014/2014-03-01.pdf"><span class="doc__label">March 1, 2014</span></a>
           <a class="doc" href="documents/desert-whispers/2014/2014-02-15.pdf"><span class="doc__label">February 15, 2014</span></a>
@@ -429,10 +473,14 @@
         </div>
       </div>
       <div class="yeargroup" id="w-1987">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">1987</div>
-          <div class="yeargroup__count">3 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-w-1987" />
+        <label class="yeargroup__head" for="y-w-1987">
+          <span class="yeargroup__year">1987</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">3 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/desert-whispers/1987/1987-01.pdf"><span class="doc__label">1987 January</span></a>
           <a class="doc" href="documents/desert-whispers/1987/1987-02.pdf"><span class="doc__label">1987 February</span></a>
@@ -440,10 +488,14 @@
         </div>
       </div>
       <div class="yeargroup" id="w-1982">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">1982</div>
-          <div class="yeargroup__count">3 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-w-1982" />
+        <label class="yeargroup__head" for="y-w-1982">
+          <span class="yeargroup__year">1982</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">3 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/desert-whispers/1982/1982-01.pdf"><span class="doc__label">1982 January / February</span></a>
           <a class="doc" href="documents/desert-whispers/1982/1982-03.pdf"><span class="doc__label">1982 March</span></a>
@@ -451,10 +503,14 @@
         </div>
       </div>
       <div class="yeargroup" id="w-1981">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">1981</div>
-          <div class="yeargroup__count">13 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-w-1981" />
+        <label class="yeargroup__head" for="y-w-1981">
+          <span class="yeargroup__year">1981</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">13 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/desert-whispers/1981/1981-10-28-special.pdf"><span class="doc__label">1981 October 28 - Special Issue (Christmas Stamp)</span></a>
           <a class="doc" href="documents/desert-whispers/1981/1981-01.pdf"><span class="doc__label">1981 January</span></a>
@@ -472,10 +528,14 @@
         </div>
       </div>
       <div class="yeargroup" id="w-1980">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">1980</div>
-          <div class="yeargroup__count">4 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-w-1980" />
+        <label class="yeargroup__head" for="y-w-1980">
+          <span class="yeargroup__year">1980</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">4 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/desert-whispers/1980/1980-09.pdf"><span class="doc__label">1980 September</span></a>
           <div class="doc doc--missing"><span class="doc__label">1980 October</span><span class="doc__tag">Not available</span></div>
@@ -496,10 +556,14 @@
         <p class="sec-head__aside lead">Christmas Valley&rsquo;s first paper, published as the town was being built. 20 issues survive.</p>
       </div>
       <div class="yeargroup" id="g-1967">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">1967</div>
-          <div class="yeargroup__count">5 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-g-1967" checked />
+        <label class="yeargroup__head" for="y-g-1967">
+          <span class="yeargroup__year">1967</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">5 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/gazette/1967/1967-12.pdf"><span class="doc__label">Dec 1966 / Jan 1967</span></a>
           <a class="doc" href="documents/gazette/1967/1967-02.pdf"><span class="doc__label">February 1967</span></a>
@@ -509,10 +573,14 @@
         </div>
       </div>
       <div class="yeargroup" id="g-1963">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">1963</div>
-          <div class="yeargroup__count">8 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-g-1963" />
+        <label class="yeargroup__head" for="y-g-1963">
+          <span class="yeargroup__year">1963</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">8 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/gazette/1963/1963-02.pdf"><span class="doc__label">February 1963</span></a>
           <a class="doc" href="documents/gazette/1963/1963-03.pdf"><span class="doc__label">March 1963</span></a>
@@ -525,10 +593,14 @@
         </div>
       </div>
       <div class="yeargroup" id="g-1962">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">1962</div>
-          <div class="yeargroup__count">7 issues</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="y-g-1962" />
+        <label class="yeargroup__head" for="y-g-1962">
+          <span class="yeargroup__year">1962</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">7 issues</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
           <a class="doc" href="documents/gazette/1962/1962-03.pdf"><span class="doc__label">March 1962</span></a>
           <a class="doc" href="documents/gazette/1962/1962-04.pdf"><span class="doc__label">April 1962</span></a>

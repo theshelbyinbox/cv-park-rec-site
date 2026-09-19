@@ -143,13 +143,13 @@ FOOTER = """
 </html>
 """
 
-def subhero(photo, alt, label, h1, blurb):
+def subhero(photo, alt, label, h1, blurb, busy=False):
     return f"""
   <section class="section section--hero-top section--flush-bottom">
     <div class="wrap">
       <div class="photoblock subhero">
         <img class="photoblock__media" src="images/{photo}" alt="{alt}" />
-        <div class="photoblock__scrim"></div>
+        <div class="photoblock__scrim{" photoblock__scrim--busy" if busy else ""}"></div>
         <div class="photoblock__body">
           <div class="photoblock__main">
             <div class="rulemark">
@@ -211,11 +211,19 @@ def groups(key, prefix, noun="issue"):
                     f'<span class="doc__label">{it["label"]}</span>'
                     f'<span class="doc__tag">Not available</span></div>')
         n = len(g["items"])
+        # the newest year of each collection starts open; the rest are closed
+        # so the page does not run for thousands of pixels
+        first = " checked" if not out else ""
+        tid = f"y-{prefix}-{g['year']}"
         out.append(f"""      <div class="yeargroup" id="{prefix}-{g['year']}">
-        <div class="yeargroup__head">
-          <div class="yeargroup__year">{g['year']}</div>
-          <div class="yeargroup__count">{n} {noun if n == 1 else noun + 's'}</div>
-        </div>
+        <input class="yeartoggle" type="checkbox" id="{tid}"{first} />
+        <label class="yeargroup__head" for="{tid}">
+          <span class="yeargroup__year">{g['year']}</span>
+          <span class="yeargroup__meta">
+            <span class="yeargroup__count">{n} {noun if n == 1 else noun + 's'}</span>
+            <span class="yeargroup__chev"></span>
+          </span>
+        </label>
         <div class="doccols">
 {chr(10).join(rows)}
         </div>
@@ -234,7 +242,8 @@ whis = (head("The Desert Whispers",
  + '\n<main id="main">\n'
  + subhero("newspaper.jpg", "Desert Whispers front pages", "The Desert Whispers",
            "Six decades of the Desert Whispers, in one place.",
-           "The Desert Whispers has chronicled life in Christmas Valley since the 1960s. Every issue we have is free to open, on any device.")
+           "The Desert Whispers has chronicled life in Christmas Valley since the 1960s. Every issue we have is free to open, on any device.",
+           busy=True)
  + strip([("Issues online", f"{wn + gn}", "Every one we could find", True),
           ("Spanning", f"{min(wyears)}&ndash;{max(wyears)}", "The Gazette came first", True),
           ("Cost to read", "Free", "No account, no sign-in", False),
@@ -247,7 +256,7 @@ whis = (head("The Desert Whispers",
           <div class="eyebrow eyebrow--accent">Jump to a year</div>
           <h2 class="h2">Pick a year and start reading.</h2>
         </div>
-        <p class="sec-head__aside lead">Each issue opens as a PDF. A handful of the oldest are missing from our shelves and are marked as such rather than sending you to a dead link.</p>
+        <p class="sec-head__aside lead">Tap a year to open it, and tap again to close it. Each issue opens as a PDF. A handful of the oldest are missing from our shelves and are marked as such rather than sending you to a dead link.</p>
       </div>
       <div class="yearnav">
 {wnav}
@@ -368,7 +377,7 @@ mins = (head("Board &amp; Minutes",
           <div class="eyebrow eyebrow--accent">The record</div>
           <h2 class="h2">Minutes, by year.</h2>
         </div>
-        <p class="sec-head__aside lead">Every set of minutes the District holds in digital form. Anything older lives on paper at the office.</p>
+        <p class="sec-head__aside lead">Tap a year to open it, and tap again to close it. Every set of minutes the District holds in digital form. Anything older lives on paper at the office.</p>
       </div>
       <div class="yearnav">
 {mnav}

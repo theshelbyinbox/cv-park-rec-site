@@ -44,10 +44,10 @@
   --rule-dark-strong: rgba(255,255,255,.55);  /* outlined button on photo */
 
   /* ---- Photo scrims: white text must always be readable ---- */
-  --scrim-hero:  linear-gradient(to top, rgba(10,13,8,.86) 0%, rgba(10,13,8,.62) 36%, rgba(10,13,8,.30) 70%, rgba(10,13,8,.24) 100%);
+  --scrim-hero:  linear-gradient(to top, rgba(10,13,8,.88) 0%, rgba(10,13,8,.68) 36%, rgba(10,13,8,.42) 70%, rgba(10,13,8,.32) 100%);
   --scrim-card:  linear-gradient(to top, rgba(10,13,8,.86) 0%, rgba(10,13,8,.47) 52%, rgba(10,13,8,.10) 82%);
   --scrim-tall:  linear-gradient(to top, rgba(10,13,8,.86) 0%, rgba(10,13,8,.48) 46%, rgba(10,13,8,.10) 78%);
-  --scrim-band:  linear-gradient(to top, rgba(10,13,8,.86) 0%, rgba(10,13,8,.50) 52%, rgba(10,13,8,.12) 84%);
+  --scrim-band:  linear-gradient(to top, rgba(10,13,8,.90) 0%, rgba(10,13,8,.66) 46%, rgba(10,13,8,.44) 74%, rgba(10,13,8,.30) 100%);
   --scrim-flat:  rgba(8,10,6,.66);
 
   /* ---- Type: one family, three weights ---- */
@@ -504,6 +504,19 @@ a:hover{ color:var(--ink); }
   object-fit:cover; z-index:0;
 }
 .photoblock__scrim{ position:absolute; inset:0; z-index:1; background:var(--scrim-band); }
+/* Some photos are bright and busy all over — the wall of newspaper covers is
+   the worst of them — and a gradient alone cannot hold white text on that.
+   These get a flat wash underneath the gradient as well. */
+.photoblock__scrim--busy{ background:var(--scrim-band), rgba(10,13,8,.34); }
+
+/* On a phone the hero is tall and the words cover most of it, so every photo
+   gets the flat wash, not just the busy ones. Measured against the actual
+   images: this is what keeps white text above 4.5:1 on all of them. */
+@media (max-width:860px){
+  .photoblock__scrim{ background:var(--scrim-band), rgba(10,13,8,.34); }
+  .photoblock__scrim--busy{ background:var(--scrim-band), rgba(10,13,8,.46); }
+  .hero .photoblock__scrim{ background:var(--scrim-hero), rgba(10,13,8,.28); }
+}
 .photoblock__body{
   position:relative; z-index:2; padding:var(--pad-photo);
   display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between;
@@ -645,6 +658,14 @@ a.datacell__figure:hover{ color:var(--forest); }
   flex:0 1 200px; font-size:var(--t-micro); font-weight:var(--w-body);
   color:var(--ink); text-align:right; line-height:var(--lh-body);
 }
+/* Once the row wraps, the place and time sit on their own line. Right-aligned
+   text inside a 200px box then reads as a random indent, so it goes left with
+   everything else. */
+@media (max-width:820px){
+  .event{ gap:4px 0; }
+  .event__where{ flex:1 1 100%; text-align:left; color:var(--sage); margin-top:2px; }
+  .event__date{ flex:1 1 100%; }
+}
 
 /* --------------------------------------------------------------------------
    10b. ARCHIVE — year index and document lists
@@ -662,10 +683,40 @@ a.datacell__figure:hover{ color:var(--forest); }
 .yearnav__link:hover{ color:var(--ink); border-color:var(--rule-strong); }
 
 .yeargroup{ padding-top:clamp(30px,3.6vw,48px); scroll-margin-top:96px; }
+
+/* The year opens and closes on a checkbox, the same trick the menu uses, so
+   the archive stays scrollable instead of running for thousands of pixels.
+   The box stays focusable rather than hidden, so it works from the keyboard. */
+.yeartoggle{
+  position:absolute; width:1px; height:1px; margin:-1px; padding:0; border:0;
+  clip:rect(0 0 0 0); clip-path:inset(50%); overflow:hidden; white-space:nowrap;
+}
 .yeargroup__head{
   display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between;
   gap:6px 16px; border-bottom:1px solid var(--rule-strong); padding-bottom:13px;
+  cursor:pointer; -webkit-tap-highlight-color:transparent;
+  transition:border-color .3s var(--ease);
 }
+.yeargroup__head:hover{ border-bottom-color:var(--forest); }
+.yeargroup__meta{ display:flex; align-items:baseline; gap:14px; }
+.yeargroup__chev{
+  display:inline-block; width:9px; height:9px; flex:0 0 auto;
+  border-right:2px solid var(--sage); border-bottom:2px solid var(--sage);
+  transform:rotate(45deg) translateY(-3px);
+  transition:transform .28s var(--ease);
+}
+.yeartoggle:checked + .yeargroup__head .yeargroup__chev{
+  transform:rotate(-135deg) translateY(-1px);
+}
+.yeartoggle:focus-visible + .yeargroup__head{
+  outline:2px solid var(--forest); outline-offset:4px;
+}
+
+/* closed by default; open when ticked, and open when linked to from the
+   year list above so "jump to a year" still lands somewhere useful */
+.yeargroup > .doccols{ display:none; }
+.yeartoggle:checked ~ .doccols,
+.yeargroup:target > .doccols{ display:grid; }
 .yeargroup__year{
   font-size:var(--t-h3); font-weight:var(--w-body);
   letter-spacing:var(--track-tight-xs); line-height:1;
