@@ -76,11 +76,23 @@ figcaption{
   font-size:16px; color:var(--sage); line-height:1.5;
   margin-top:11px; max-width:62ch;
 }
-.pair{display:grid; grid-template-columns:1fr 1fr; gap:26px; margin:32px 0 0;}
-.pair figure{margin:0;}
-.pair__label{
-  font-size:12.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
-  color:var(--sage); margin-bottom:10px;
+
+/* ---------- two-column section ---------- */
+.twocol{
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);
+  gap:44px; align-items:start;
+}
+.twocol__media{margin:0;}
+.twocol__body > :first-child{margin-top:0;}
+.twocol .lede{max-width:none;}
+.twocol p{max-width:none;}
+.caplabel{
+  font-weight:600; font-size:17.5px; color:var(--sage-deep);
+  margin:30px 0 5px; line-height:1.4;
+}
+.capnote{
+  font-size:16.5px; font-style:italic; color:var(--sage); line-height:1.5;
+  margin:0; max-width:none;
 }
 
 /* ---------- data strip ---------- */
@@ -151,9 +163,15 @@ figcaption{
 @media (max-width:720px){
   .data{grid-template-columns:1fr 1fr;}
   .data__cell{padding:18px 14px 0 0;}
-  .pair{grid-template-columns:1fr; gap:30px;}
+  .twocol{grid-template-columns:1fr; gap:24px;}
   section{padding:40px 0;}
   .panel{padding:26px 22px;}
+}
+
+/* on a stacked phone screen the words come before the screenshot */
+@media screen and (max-width:720px){
+  .twocol__body{order:1;}
+  .twocol__media{order:2;}
 }
 
 /* ---------- print ---------- */
@@ -185,9 +203,11 @@ figcaption{
   figure{margin-top:12pt; break-inside:avoid; text-align:center;}
   figure img{border:.5pt solid #ccc; max-height:64mm; width:auto; max-width:100%; margin:0 auto;}
   figcaption{font-size:10.5pt; margin-top:6pt; text-align:left;}
-  .pair{gap:14pt; break-inside:avoid; grid-template-columns:1fr 1fr;}
-  .pair figure img{max-height:86mm;}
-  .pair__label{text-align:left;}
+  .twocol{gap:16pt; break-inside:avoid; grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);}
+  .twocol__media{margin:0;}
+  .twocol__media img{max-height:none; width:100%;}
+  .caplabel{font-size:11.5pt; margin:12pt 0 3pt;}
+  .capnote{font-size:10.5pt; font-style:italic;}
   .data{margin-top:14pt; break-inside:avoid;}
   .data__figure{font-size:18pt;}
   .data__note{font-size:10.5pt;}
@@ -286,7 +306,6 @@ section{ scroll-margin-top:24px; }
     <ol>
       <li><a href="#why">Why this exists</a></li>
       <li><a href="#archive">Sixty-four years of the paper, in one place</a></li>
-      <li><a href="#phone">The same page, on the same phone</a></li>
       <li><a href="#audit">What the current site does today</a></li>
       <li><a href="#tour">What&rsquo;s on the rebuilt site</a></li>
       <li><a href="#keeping">How the District would keep it current</a></li>
@@ -316,53 +335,36 @@ section{ scroll-margin-top:24px; }
 
 <!-- ============================ THE ARCHIVE ============================ -->
 <section id="archive">
-  <div class="eyebrow">The part that matters most</div>
-  <h2>Sixty-four years of the paper, in one place.</h2>
-  <p class="lede">
-    Every issue I could locate is on the site as a PDF that opens on any device, with no
-    account and no sign-in. A lot of the <em>Desert Whispers</em> issues from 2020 onward were
-    rebuilt page by page from the image uploads on Facebook, even the ones I had to track
-    down in Facebook groups. Issues from the 1960s through the 1980s came back from the
-    Internet Archive.
-  </p>
-  <p>
-    All together there are <strong>244 newspaper issues</strong> archived on the site, the
-    September 15, 2026 issue being the newest, and the first issue of the
-    <em>Christmas Valley Gazette</em> from 1962 being the oldest.
-  </p>
+  <div class="twocol">
 
-  <figure>
-    <img src="images/board/new-whispers.jpg" alt="The Desert Whispers archive page on the rebuilt site, showing a wall of newspaper covers" />
-    <figcaption>
-      The archive page. Issues are grouped by year, and every one listed is a link to the
-      actual file, stored on the site itself.
-    </figcaption>
-  </figure>
-</section>
-
-<!-- ============================ ON A PHONE ============================ -->
-<section id="phone">
-  <div class="eyebrow">On a phone</div>
-  <h2>The same page, on the same phone.</h2>
-  <p class="lede">
-    The current site was built at a fixed desktop width, so a phone shrinks the whole
-    layout down rather than reflowing it. The rebuilt site is laid out for the screen
-    it&rsquo;s actually on.
-  </p>
-
-  <div class="pair">
-    <figure>
-      <div class="pair__label">Current site</div>
-      <img src="images/board/phone-old.jpg" alt="The current District website viewed on a phone, with a shrunken desktop layout and small text" />
+    <figure class="twocol__media">
+      <img src="images/board/new-whispers-full.jpg" alt="The Desert Whispers archive page on the rebuilt site, showing the header, the count of issues online, the year buttons and the 2026 issues listed as links" />
     </figure>
-    <figure>
-      <div class="pair__label">Rebuilt site</div>
-      <img src="images/board/phone-new.jpg" alt="The rebuilt District website viewed on the same phone, laid out for a phone screen" />
-    </figure>
+
+    <div class="twocol__body">
+      <div class="eyebrow">The part that matters most</div>
+      <h2>Sixty-four years of the paper, in one place.</h2>
+      <p class="lede">
+        Every issue I could locate is on the site as a PDF that opens on any device, with no
+        account and no sign-in. A lot of the <em>Desert Whispers</em> issues from 2020 onward were
+        rebuilt page by page from the image uploads on Facebook, even the ones I had to track
+        down in Facebook groups. Issues from the 1960s through the 1980s came back from the
+        Internet Archive.
+      </p>
+      <p>
+        All together there are <strong>244 newspaper issues</strong> archived on the site, the
+        September 15, 2026 issue being the newest, and the first issue of the
+        <em>Christmas Valley Gazette</em> from 1962 being the oldest.
+      </p>
+
+      <div class="caplabel">The Desert Whispers Archive Page.</div>
+      <p class="capnote">
+        Each of the issues grouped by year. Listed as links to the actual newspaper file,
+        stored on the site itself.
+      </p>
+    </div>
+
   </div>
-  <p style="margin-top:14px; font-size:16px; color:var(--sage); max-width:62ch;">
-    Both screenshots taken at the same phone size on September 18, 2026.
-  </p>
 </section>
 
 <!-- ============================ THE AUDIT ============================ -->

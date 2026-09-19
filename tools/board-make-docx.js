@@ -205,6 +205,11 @@ for (const b of BLOCKS) {
         new TextRun({ text: b.text.toUpperCase(), bold: true, size: 17, color: PALE, characterSpacing: 40, font: 'Calibri' })] }));
       break;
 
+    case 'caplabel':
+      kids.push(new Paragraph({ spacing: { before: 200, after: 40 }, children: [
+        new TextRun({ text: b.text, bold: true, size: 23, color: SAGE, font: 'Calibri' })] }));
+      break;
+
     case 'figcaption':
       kids.push(new Paragraph({ spacing: { after: 140 }, children: [
         new TextRun({ text: b.text, size: 20, color: SAGE, italics: true, font: 'Calibri' })] }));
@@ -213,7 +218,7 @@ for (const b of BLOCKS) {
     case 'image': {
       const f = path.join(IMGDIR, b.src);
       if (!fs.existsSync(f)) { console.log('   missing image', b.src); break; }
-      const wide = /phone-/.test(b.src) ? 2.4 : 5.6;
+      const wide = /phone-/.test(b.src) ? 2.4 : (/-full/.test(b.src) ? 3.4 : 5.6);
       kids.push(new Paragraph({
         spacing: { before: 80, after: 80 }, alignment: AlignmentType.CENTER,
         children: [new ImageRun({ type: 'jpg', data: fs.readFileSync(f), transformation: imgSize(f, wide) })] }));

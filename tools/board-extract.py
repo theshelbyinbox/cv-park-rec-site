@@ -55,12 +55,15 @@ for sec in soup.find_all("section"):
 
         if el.name == "div" and "eyebrow" in cls:
             add("eyebrow", txt(el))
+        elif el.name == "div" and "caplabel" in cls:
+            add("caplabel", txt(el))
         elif el.name == "h2":
             add("h2", txt(el))
         elif el.name == "h3":
             add("h3", txt(el))
         elif el.name == "p":
             if "tour__text" in cls:      add("tour_text", txt(el))
+            elif "capnote" in cls:       add("figcaption", txt(el))
             elif "lede" in cls:          add("lede_p", txt(el))
             elif el.find_parent(class_="panel"): add("panel_p", txt(el))
             else:                        add("p", txt(el))
