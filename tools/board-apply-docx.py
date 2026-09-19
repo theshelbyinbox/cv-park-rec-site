@@ -82,7 +82,7 @@ lines = [re.sub(r"\s+", " ", l).strip() for l in raw.split("\n")]
 # pandoc writes a bare [] where each picture sits; those are not text
 lines = [l for l in lines if l and not re.fullmatch(r"\[\s*\]", l)]
 # the .docx draws its own bullet before each finding; that glyph is not content
-lines = [re.sub(r"^[•\-\*]\s+", "", l) for l in lines]
+lines = [re.sub(r"^[\u2022\u2013\-\*]\s+", "", l) for l in lines]
 
 # drop everything before the kicker, which is the instruction block
 first = norm(units[0]["text"])

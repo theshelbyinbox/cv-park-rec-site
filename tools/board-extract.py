@@ -43,6 +43,10 @@ for sp in mh.find(class_="byline").find_all("span", recursive=False):
     add("byline", txt(sp))
 
 # ---- each section ---------------------------------------------------------
+toc = soup.find(class_="toc")
+if toc:
+    toc.decompose()          # generated from the headings; nothing to edit here
+
 for sec in soup.find_all("section"):
     for el in sec.descendants:
         if not getattr(el, "name", None):
@@ -66,6 +70,12 @@ for sec in soup.find_all("section"):
             add("finding_why", txt(el))
         elif el.name == "li" and el.find_parent(class_="panel"):
             add("panel_li", txt(el))
+        elif el.name == "li" and el.find_parent(class_="steps"):
+            add("step", txt(el))
+        elif el.name == "li" and el.find_parent(class_="ticks"):
+            add("tick", txt(el))
+        elif el.name == "div" and "note" in cls:
+            add("note", txt(el))
         elif el.name == "div" and "data__label" in cls:
             add("data_label", txt(el))
         elif el.name == "div" and "data__figure" in cls:

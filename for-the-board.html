@@ -159,6 +159,18 @@ figcaption{
 /* ---------- print ---------- */
 @page{size:letter; margin:16mm 14mm;}
 @media print{
+  .toc{ background:#F4F4F1 !important; padding:14pt 16pt; margin-top:14pt;
+        -webkit-print-color-adjust:exact; print-color-adjust:exact; break-inside:avoid; }
+  .toc__head{ font-size:9pt; }
+  .toc a{ font-size:11.5pt; padding:5pt 0; }
+  .toc a::before{ font-size:9pt; }
+  .steps li{ font-size:11.5pt; padding-bottom:7pt; padding-left:26pt; }
+  .steps li::before{ width:16pt; height:16pt; font-size:9pt;
+                     -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .ticks li{ font-size:11.5pt; padding-bottom:6pt; }
+  .note{ background:#F4F4F1 !important; padding:10pt 12pt; font-size:11pt; margin-top:12pt;
+         -webkit-print-color-adjust:exact; print-color-adjust:exact; break-inside:avoid; }
+
   html,body{font-size:12.5pt; line-height:1.5;}
   body{background:#fff;}
   .wrap{max-width:none; padding:0;}
@@ -196,6 +208,58 @@ figcaption{
   a{color:#2C4A34; text-decoration:none;}
   .page-break{break-before:page;}
 }
+
+/* ---------- contents ---------- */
+.toc{
+  margin:34px 0 0; padding:26px 30px;
+  background:var(--surface); border-left:2px solid var(--forest);
+}
+.toc__head{
+  font-size:12.5px; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--forest); margin-bottom:16px;
+}
+.toc ol{ margin:0; padding:0; list-style:none; counter-reset:toc; }
+.toc li{ counter-increment:toc; border-top:1px solid var(--rule-soft); }
+.toc li:first-child{ border-top:0; }
+.toc a{
+  display:flex; align-items:baseline; gap:14px;
+  padding:11px 0; text-decoration:none; color:var(--ink); font-size:18px;
+}
+.toc a::before{
+  content:counter(toc,decimal-leading-zero);
+  font-size:13.5px; font-weight:600; color:var(--sage-pale);
+  font-variant-numeric:tabular-nums; flex:0 0 auto;
+}
+.toc a:hover{ color:var(--forest); }
+
+/* ---------- the lists inside a section ---------- */
+.steps{ margin:20px 0 0; padding:0; list-style:none; counter-reset:step; }
+.steps li{
+  counter-increment:step; position:relative;
+  padding:0 0 14px 42px; font-size:19px; line-height:1.55; max-width:60ch;
+}
+.steps li::before{
+  content:counter(step); position:absolute; left:0; top:1px;
+  width:27px; height:27px; display:flex; align-items:center; justify-content:center;
+  background:var(--forest); color:#fff;
+  font-size:13.5px; font-weight:600; font-variant-numeric:tabular-nums;
+}
+.ticks{ margin:18px 0 0; padding:0; list-style:none; }
+.ticks li{
+  position:relative; padding:0 0 12px 24px;
+  font-size:19px; line-height:1.55; max-width:62ch;
+}
+.ticks li::before{
+  content:''; position:absolute; left:0; top:11px;
+  width:9px; height:2px; background:var(--forest);
+}
+.note{
+  margin-top:26px; padding:18px 22px; background:var(--surface);
+  border-left:2px solid var(--sage-pale); font-size:18px; color:var(--sage-deep);
+  max-width:62ch;
+}
+h2{ scroll-margin-top:24px; }
+section{ scroll-margin-top:24px; }
 </style>
 </head>
 <body>
@@ -207,66 +271,65 @@ figcaption{
   <div class="masthead__kicker">Prepared for the Board of Directors &middot; September 2026</div>
   <h1>A rebuilt website for the District.</h1>
   <p class="masthead__lede">
-    Over the past few months I rebuilt the District's website as a personal project,
+    Over the past few months I rebuilt the District&rsquo;s website as a personal project,
     including gathering every issue of the <em>Desert Whispers</em> I could find into one
-    place. This is a walkthrough of what's there, so the board can look it over together.
+    place. This is a walkthrough of what&rsquo;s there, so the board can look it over together.
   </p>
   <div class="byline">
     <span><b>Shelby Manzano</b> &middot; Christmas Valley</span>
     <span>(541) 419-1973</span>
     <span>shelby.danielle@hotmail.com</span>
   </div>
+
+  <nav class="toc">
+    <div class="toc__head">What&rsquo;s in here</div>
+    <ol>
+      <li><a href="#why">Why this exists</a></li>
+      <li><a href="#archive">Sixty-four years of the paper, in one place</a></li>
+      <li><a href="#phone">The same page, on the same phone</a></li>
+      <li><a href="#audit">What the current site does today</a></li>
+      <li><a href="#tour">What&rsquo;s on the rebuilt site</a></li>
+      <li><a href="#keeping">How the District would keep it current</a></li>
+      <li><a href="#knowing">Things worth knowing</a></li>
+      <li><a href="#live">The site is live and open</a></li>
+    </ol>
+  </nav>
 </header>
 
 <!-- ============================ WHY ============================ -->
-<section>
+<section id="why">
   <div class="eyebrow">Why this exists</div>
-  <h2>I grew up here, and the paper mattered to me.</h2>
+  <h2>I grew up here, and the paper means something to me.</h2>
   <p class="lede">
-    When the District lost access to its Facebook page, six years of the
-    <em>Desert Whispers</em> went with it. Copies were scattered across community groups,
-    old servers and the Internet Archive. I started pulling them back together, and
-    once I had them, they needed somewhere to live.
+    When the District lost access to its Facebook page at the beginning of the year and the
+    paper started being shared in Facebook groups instead, I had the urge to start pulling
+    them all back together into one place again. I&rsquo;m an organization freak. But once I
+    began that project, then they needed somewhere to live, and there started the beginning
+    of the Park &amp; Rec website build. That escalated quickly.
   </p>
+  <p>None of this was asked for and none of it obligates the District to anything.</p>
   <p>
-    So the rest of the site followed. None of this was asked for and none of it obligates
-    the District to anything. It seemed better to build the thing and show it than to
-    describe it, so that's what this is.
+    It seemed better to build the thing and show it than to describe it, so that&rsquo;s what
+    this is.
   </p>
 </section>
 
 <!-- ============================ THE ARCHIVE ============================ -->
-<section>
+<section id="archive">
   <div class="eyebrow">The part that matters most</div>
   <h2>Sixty-four years of the paper, in one place.</h2>
   <p class="lede">
     Every issue I could locate is on the site as a PDF that opens on any device, with no
-    account and no sign-in. Issues from 2020 onward were rebuilt page by page from scans.
-    Issues from the 1960s through the 1980s came back from the Internet Archive.
+    account and no sign-in. A lot of the <em>Desert Whispers</em> issues from 2020 onward were
+    rebuilt page by page from the image uploads on Facebook, even the ones I had to track
+    down in Facebook groups. Issues from the 1960s through the 1980s came back from the
+    Internet Archive.
   </p>
-
-  <div class="data">
-    <div class="data__cell">
-      <div class="data__label">Newspaper issues</div>
-      <div class="data__figure">244</div>
-      <div class="data__note">That open, 1962 to 2026</div>
-    </div>
-    <div class="data__cell">
-      <div class="data__label">Board minutes</div>
-      <div class="data__figure">117</div>
-      <div class="data__note">That open, 2013 to 2024</div>
-    </div>
-    <div class="data__cell">
-      <div class="data__label">Newest issue</div>
-      <div class="data__figure">Sep 2026</div>
-      <div class="data__note">September 15, 2026</div>
-    </div>
-    <div class="data__cell">
-      <div class="data__label">Cost to read</div>
-      <div class="data__figure">Free</div>
-      <div class="data__note">No account, no sign-in</div>
-    </div>
-  </div>
+  <p>
+    All together there are <strong>244 newspaper issues</strong> archived on the site, the
+    September 15, 2026 issue being the newest, and the first issue of the
+    <em>Christmas Valley Gazette</em> from 1962 being the oldest.
+  </p>
 
   <figure>
     <img src="images/board/new-whispers.jpg" alt="The Desert Whispers archive page on the rebuilt site, showing a wall of newspaper covers" />
@@ -278,13 +341,13 @@ figcaption{
 </section>
 
 <!-- ============================ ON A PHONE ============================ -->
-<section>
+<section id="phone">
   <div class="eyebrow">On a phone</div>
   <h2>The same page, on the same phone.</h2>
   <p class="lede">
     The current site was built at a fixed desktop width, so a phone shrinks the whole
     layout down rather than reflowing it. The rebuilt site is laid out for the screen
-    it's actually on.
+    it&rsquo;s actually on.
   </p>
 
   <div class="pair">
@@ -297,34 +360,37 @@ figcaption{
       <img src="images/board/phone-new.jpg" alt="The rebuilt District website viewed on the same phone, laid out for a phone screen" />
     </figure>
   </div>
-  <p style="margin-top:14px; font-size:13.5px; color:var(--sage); max-width:62ch;">
+  <p style="margin-top:14px; font-size:16px; color:var(--sage); max-width:62ch;">
     Both screenshots taken at the same phone size on September 18, 2026.
   </p>
 </section>
 
-<!-- ============================ WHAT THE CURRENT SITE DOES ============================ -->
-<section class="page-break">
+<!-- ============================ THE AUDIT ============================ -->
+<section id="audit" class="page-break">
   <div class="eyebrow">Checked September 18, 2026</div>
   <h2>What the current site does today.</h2>
   <p class="lede">
-    I went through every page of cvparkandrec.com again this week rather than relying on
-    older notes. These are the things a resident runs into. Most of them come from the
-    website builder the site sits on, which is a discontinued product, not from anything
-    anyone did wrong.
+    I ran an audit on every page of cvparkandrec.com this week, just to get an accurate
+    read on where it stands right now.
+  </p>
+  <p>
+    Here are some of the things that came out of it. Most of them come from the website
+    builder the site sits on, which is a discontinued product, not from anything anyone
+    did wrong.
   </p>
 
   <ul class="findings">
     <li>
-      <span class="findings__what">121 of the 229 newspaper issues listed can't be opened.</span>
+      <span class="findings__what">121 of the 229 newspaper issues listed can&rsquo;t be opened.</span>
       <span class="findings__why">They appear on the year pages as plain text with no link behind them. All of 2012, 2013 and 2015 are like this, and 22 of the 24 issues in 2018.</span>
     </li>
     <li>
       <span class="findings__what">The 2021, 2022, 2023 and 2024 newspaper pages are empty.</span>
-      <span class="findings__why">The pages load, but there's nothing on them. The newest issue that opens anywhere on the site is June 15, 2020.</span>
+      <span class="findings__why">The pages load, but there&rsquo;s nothing on them. The newest issue that opens anywhere on the site is June 15, 2020.</span>
     </li>
     <li>
-      <span class="findings__what">The newest board minutes posted are June 11, 2024.</span>
-      <span class="findings__why">There's no 2022 page, and no 2025 or 2026 page. Nine older meeting dates are listed without links.</span>
+      <span class="findings__what">The most recent board minutes posted are from June 2024.</span>
+      <span class="findings__why">There&rsquo;s no 2022 page, and no 2025 or 2026 page. Nine older meeting dates are listed without links.</span>
     </li>
     <li>
       <span class="findings__what">The September 12, 2023 minutes link opens the December 12 file.</span>
@@ -339,31 +405,30 @@ figcaption{
       <span class="findings__why">A redirect currently carries them through, so they work today. If that older registration ever lapses, most of the archive stops opening at once.</span>
     </li>
     <li>
-      <span class="findings__what">Four pages still carry the builder's placeholder footer.</span>
-      <span class="findings__why">Most of the site now reads "&copy; 2026. Christmas Valley Park and Recreation District," which is recent. About Us, Links, Airport and Multipurpose Field still say "My company."</span>
+      <span class="findings__what">Four pages still carry the builder&rsquo;s placeholder footer.</span>
+      <span class="findings__why">Most of the site now reads &ldquo;&copy; 2026. Christmas Valley Park and Recreation District,&rdquo; which is recent. About Us, Links, Airport and Multipurpose Field still say &ldquo;My company.&rdquo;</span>
     </li>
     <li>
       <span class="findings__what">A browser warning banner shows to every visitor.</span>
-      <span class="findings__why">"Your browser version is outdated." It's part of the old builder's template and appears no matter what browser someone is using.</span>
+      <span class="findings__why">&ldquo;Your browser version is outdated.&rdquo; It&rsquo;s part of the old builder&rsquo;s template and appears no matter what browser someone is using.</span>
     </li>
   </ul>
 
   <figure>
     <img src="images/board/old-2015.jpg" alt="The 2015 Desert Whispers page on the current site, listing all 24 issues as plain text with no links" />
     <figcaption>
-      The 2015 <em>Desert Whispers</em> page as it is today. All 24 issues are listed with
-      their file sizes, but none of them are clickable.
+      Issues are listed, even with their file sizes, but none of them are clickable.
     </figcaption>
   </figure>
 </section>
 
 <!-- ============================ THE TOUR ============================ -->
-<section class="page-break">
+<section id="tour" class="page-break">
   <div class="eyebrow">A look around</div>
-  <h2>What's on the rebuilt site.</h2>
+  <h2>What&rsquo;s on the rebuilt site.</h2>
   <p class="lede">
-    Fifteen pages. Every facility the District looks after has a page of its own, with
-    its real rates and details carried over from the current site.
+    Fifteen pages. Every facility the District looks after has a page of its own, with its
+    real rates and details carried over from the current site.
   </p>
 
   <div class="tour">
@@ -372,7 +437,8 @@ figcaption{
       <div class="tour__head"><span class="tour__num">01</span><h3>Home</h3></div>
       <p class="tour__text">
         Office hours, phone, the next board meeting and hall rental rates are the first
-        things on the page, because those are what people come looking for.
+        things on the page, because I assume that, aside from the <em>Desert Whispers</em>
+        archive, those are what people come looking for most often.
       </p>
       <figure><img src="images/board/new-home.jpg" alt="The rebuilt home page" /></figure>
     </div>
@@ -380,8 +446,7 @@ figcaption{
     <div class="tour__item">
       <div class="tour__head"><span class="tour__num">02</span><h3>Facilities</h3></div>
       <p class="tour__text">
-        The six properties the District looks after, each one opening to a page of its
-        own rather than a shared list.
+        The six property and facility pages the District looks after.
       </p>
       <figure><img src="images/board/new-facilities.jpg" alt="The facilities page on the rebuilt site" /></figure>
     </div>
@@ -425,8 +490,9 @@ figcaption{
     <div class="tour__item">
       <div class="tour__head"><span class="tour__num">07</span><h3>Advertise in the Whispers</h3></div>
       <p class="tour__text">
-        The display ad rate card, deadlines, how to submit, and the free classified policy,
-        so an advertiser can find it without calling the office first.
+        The display ad rate card, deadlines, how to submit, and the policy for classified
+        ads. More information online and available for residents means fewer calls that
+        Park &amp; Rec staff have to spend their time answering.
       </p>
       <figure><img src="images/board/new-advertise.jpg" alt="The advertising page on the rebuilt site" /></figure>
     </div>
@@ -434,87 +500,103 @@ figcaption{
   </div>
 </section>
 
-<!-- ============================ MAINTENANCE ============================ -->
-<section>
+<!-- ============================ KEEPING IT UP ============================ -->
+<section id="keeping" class="page-break">
   <div class="eyebrow">Keeping it up</div>
   <h2>How the District would keep it current.</h2>
   <p class="lede">
-    This is usually a board's second question, and it deserves a real answer
-    rather than a promise. The three things that change often each have a way
-    to change them that takes a minute and needs no training in software.
+    When this is your website and I&rsquo;ve handed over the controls to you, how are the
+    edits and updates going to get made without me there to do them? Good question.
+  </p>
+  <p>There are three things that will need updating on a recurring basis:</p>
+
+  <ul class="ticks">
+    <li>Adding each new <em>Desert Whispers</em> issue to the archive, every two weeks.</li>
+    <li>Adding board minutes to the archive, each month.</li>
+    <li>Updating events, rental and advertising rates, and other general changes.</li>
+  </ul>
+
+  <p style="margin-top:26px;">
+    I&rsquo;ve made the process as easy and straightforward as possible, so as to remove any
+    resistance an employee might feel towards keeping it updated.
   </p>
 
-  <h3 style="margin-top:30px;">A new issue of the paper, twice a month</h3>
+  <h3 style="margin-top:34px;">For each new issue of the paper, twice a month</h3>
+  <ol class="steps">
+    <li>Name the PDF as its date, like <strong>2026-10-01.pdf</strong></li>
+    <li>Log in to a free file-sharing account.</li>
+    <li>Put the PDF into the <em>Desert Whispers</em> folder for that year.</li>
+  </ol>
   <p>
-    Name the PDF as its date, <strong>2026-10-01.pdf</strong>, and put it in the
-    Desert Whispers folder for that year. That is the entire job. About a minute
-    later it appears on the archive page, filed under the right year, with the
-    date written out properly. Nobody types the date anywhere, and nobody
-    touches a page of the website.
+    That is the entire job. About a minute later it appears on the archive page, filed under
+    the right year, with the date written out properly. No coding, no technical expertise
+    required, none of that. Anyone could do it.
   </p>
 
-  <h3 style="margin-top:26px;">Board minutes, once a month</h3>
+  <h3 style="margin-top:30px;">Board minutes, once a month</h3>
+  <p>The same process as above.</p>
+
+  <h3 style="margin-top:30px;">Events, rates, the roster, a seasonal notice</h3>
   <p>
-    The same, in the minutes folder. Adding a word to the end of the file name
-    labels it, so <strong>2026-10-13-special.pdf</strong> shows up on the site as
-    a Special Meeting without anyone saying so.
+    These live in small text files written in plain words, one subject per file. Here is
+    what the Events file looks like.
+  </p>
+  <p>
+    It is a list of the events, with the date, the name, a sentence, the place and the time.
+    To change the events, delete the old date, title and text, and type in a new one.
   </p>
 
-  <h3 style="margin-top:26px;">Events, rates, the roster, a seasonal notice</h3>
-  <p>
-    These live in small files written in plain words, one subject per file. The
-    events file reads like a list of events, with the date, the name, a
-    sentence, the place and the time. Changing an event means typing over the
-    words. A notice across the top of the site, for the lake freezing or a
-    cancelled meeting, is one word changed from <strong>false</strong> to
-    <strong>true</strong>.
-  </p>
+  <figure>
+    <img src="images/board/new-eventsfile.jpg" alt="The events text file, showing a plain list of events with date, title, text, place and time" />
+  </figure>
 
   <p>
-    There is no content system to log into, no plugins to keep updated, and no
-    software subscription behind any of it that can be discontinued the way the
-    current one was. Every change is kept and every change can be undone, so
+    There is no content system to log into, no plugins to keep updated, and no software
+    subscription behind any of it. Every change is kept and every change can be undone, so
     nothing anyone does in the office can break the site permanently.
   </p>
   <p>
-    A written handbook covers all of it, one page per task, in plain language.
-    If the District would rather not do any of this, it can be handed off
-    instead. The point is that the choice belongs to the board rather than to
-    whoever built the website.
+    There will also be a written instruction sheet for each update task, along with a
+    screen-recorded walkthrough for each one. So down the road when a new employee is
+    hired, hand them the instructions and the videos and they will be good to go in ten
+    minutes.
   </p>
+
+  <div class="note">
+    If the District would rather not have to worry about any of it, you can hand it back to
+    me for a small recurring monthly fee. The point is that the choice belongs to the board
+    rather than to whoever built the website.
+  </div>
 </section>
 
-<!-- ============================ HONEST NOTES ============================ -->
-<section>
+<!-- ============================ THINGS WORTH KNOWING ============================ -->
+<section id="knowing">
   <div class="panel">
-    <h3>Things worth knowing before anyone leans on it</h3>
-    <p>
-      I'd rather say these up front than have the board find them:
-    </p>
+    <h3>Things worth knowing</h3>
     <ul>
-      <li>The board roster on the site came from the current District website and should
-          be confirmed against the 2026 board before it's shown to the public.</li>
-      <li>Nine documents could not be recovered from anywhere. Four 2016 issues of the
-          paper, October 1980, October 15 2019, and three sets of 2016 minutes. Those
-          issues appear to be genuinely gone.</li>
-      <li>The advertising rates were read from the rate charts printed in two different
-          issues and cross-checked against each other, but they should still be confirmed
-          by the office before anyone relies on them.</li>
-      <li>Minutes from July 2024 forward aren't on the site, because they aren't published
-          anywhere I could find them.</li>
-      <li>The site is built and working, but it's mine, not the District's. Nothing here
-          changes anything about the current website.</li>
+      <li>There are still nine documents I could not find anywhere: six issues of the
+          <em>Desert Whispers</em> and three sets of minutes. Maybe you have them. Either
+          way, I started out with more than seventy needing to be recovered, so nine is a
+          pretty good number if you ask me.</li>
+      <li>The site is not finished or complete until you say it is. This is a working first
+          draft. Everything from the content to the pages to the way the site works is in
+          your hands, and I can change any of it, quickly.</li>
     </ul>
   </div>
 </section>
 
 <!-- ============================ THE LINK ============================ -->
-<section>
+<section id="live">
   <div class="eyebrow">See it yourself</div>
   <h2>The site is live and open.</h2>
   <p class="lede">
-    Screenshots only go so far. The archive in particular is worth opening, because the
-    point of it is that the files actually load.
+    Screenshots only go so far. Here is a link to the real working thing, so you can scroll
+    through every page. Try it on both a phone and a computer.
+  </p>
+  <p>
+    The <em>Desert Whispers</em> archive page is personally my favourite, and I think that
+    one is certainly worth opening, just to see every issue listed on the page, where anyone
+    on any device can open the actual PDF with one tap.
   </p>
   <div class="linkline">
     <a href="https://theshelbyinbox.github.io/cv-park-rec-site/">theshelbyinbox.github.io/cv-park-rec-site</a>
@@ -524,10 +606,13 @@ figcaption{
 <!-- ============================ CLOSER ============================ -->
 <section class="closer">
   <p>
-    That's all of it. I'm not asking the board for anything, and there's nothing to decide.
-    I built it because the paper is worth keeping and because I care about this place. If it's
-    useful to look at, look at it. If it's useful for more than that someday, you know
-    where to find me.
+    That&rsquo;s all of it. I&rsquo;m not asking the board for anything, and there&rsquo;s
+    nothing to decide. I built it because the paper is worth keeping and I like this
+    community.
+  </p>
+  <p style="margin-top:18px;">
+    If it&rsquo;s useful to look at, look at it. If it&rsquo;s useful for more than that
+    someday, you know where to find me.
   </p>
   <div class="sign">
     <b>Shelby Manzano</b>

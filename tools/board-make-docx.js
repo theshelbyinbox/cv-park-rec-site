@@ -172,6 +172,25 @@ for (const b of BLOCKS) {
         children: [new TextRun({ text: b.text, size: 23, color: SAGE, font: 'Calibri' })] }));
       break;
 
+    case 'step':
+      kids.push(new Paragraph({ spacing: { after: 90 }, indent: { left: 420, hanging: 220 }, children: [
+        new TextRun({ text: '\u2013  ', size: 23, color: FOREST, font: 'Calibri' }),
+        new TextRun({ text: b.text, size: 23, color: INK, font: 'Calibri' })] }));
+      break;
+
+    case 'tick':
+      kids.push(new Paragraph({ spacing: { after: 80 }, indent: { left: 420, hanging: 220 }, children: [
+        new TextRun({ text: '\u2013  ', size: 23, color: FOREST, font: 'Calibri' }),
+        new TextRun({ text: b.text, size: 23, color: INK, font: 'Calibri' })] }));
+      break;
+
+    case 'note':
+      kids.push(new Paragraph({
+        spacing: { before: 140, after: 140 }, indent: { left: 200, right: 200 },
+        shading: { type: ShadingType.CLEAR, fill: SURF },
+        children: [new TextRun({ text: b.text, size: 23, color: SAGE, font: 'Calibri' })] }));
+      break;
+
     case 'panel_li':
       kids.push(new Paragraph({
         spacing: { after: 90 }, indent: { left: 460, hanging: 220 },
