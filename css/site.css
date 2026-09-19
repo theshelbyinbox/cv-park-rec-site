@@ -57,28 +57,28 @@
   --w-brand:   700;
 
   /* ---- Type scale: fluid, no breakpoints needed ---- */
-  --t-display:    clamp(36px,5.4vw,74px);   /* hero h1, once per site */
-  --t-h2-xl:      clamp(30px,4.2vw,58px);   /* centred closing CTA */
-  --t-h2:         clamp(29px,3.6vw,50px);   /* main section heading */
-  --t-h2-sm:      clamp(29px,3.4vw,46px);   /* split-layout heading */
-  --t-h2-photo:   clamp(27px,3.2vw,44px);   /* heading over a photo */
-  --t-stat:       clamp(26px,2.6vw,38px);   /* big number */
-  --t-h3-lg:      clamp(22px,2.2vw,30px);   /* large card title */
-  --t-h3:         clamp(20px,1.8vw,25px);   /* standard card title */
-  --t-h3-wide:    clamp(20px,1.8vw,26px);   /* full-width card title */
-  --t-figure:     clamp(19px,1.5vw,23px);   /* data-strip figure */
-  --t-h5:         clamp(17px,1.4vw,21px);   /* list-row title */
-  --t-lead-lg:    clamp(15px,1.15vw,18px);  /* centred intro paragraph */
-  --t-lead:       clamp(15px,1.1vw,17px);   /* standard intro paragraph */
-  --t-body:       15px;
-  --t-body-sm:    14.5px;
-  --t-meta:       14px;
-  --t-meta-sm:    13.5px;
-  --t-micro:      13px;
-  --t-micro-sm:   12.5px;
-  --t-fine:       12px;
-  --t-eyebrow:    10.5px;
-  --t-brand-sub:  8.5px;
+  --t-display:    clamp(38px,5.4vw,74px);   /* hero h1, once per site */
+  --t-h2-xl:      clamp(32px,4.2vw,58px);   /* centred closing CTA */
+  --t-h2:         clamp(31px,3.6vw,50px);   /* main section heading */
+  --t-h2-sm:      clamp(31px,3.4vw,46px);   /* split-layout heading */
+  --t-h2-photo:   clamp(29px,3.2vw,44px);   /* heading over a photo */
+  --t-stat:       clamp(28px,2.7vw,40px);   /* big number */
+  --t-h3-lg:      clamp(24px,2.3vw,32px);   /* large card title */
+  --t-h3:         clamp(22px,1.9vw,27px);   /* standard card title */
+  --t-h3-wide:    clamp(22px,1.9vw,28px);   /* full-width card title */
+  --t-figure:     clamp(21px,1.6vw,25px);   /* data-strip figure */
+  --t-h5:         clamp(19px,1.5vw,23px);   /* list-row title */
+  --t-lead-lg:    clamp(17px,1.3vw,20px);  /* centred intro paragraph */
+  --t-lead:       clamp(17px,1.25vw,19px);   /* standard intro paragraph */
+  --t-body:       17px;
+  --t-body-sm:    16px;
+  --t-meta:       15.5px;
+  --t-meta-sm:    15px;
+  --t-micro:      14.5px;
+  --t-micro-sm:   14px;
+  --t-fine:       13.5px;
+  --t-eyebrow:    11.5px;
+  --t-brand-sub:  9.5px;
 
   /* ---- Tracking: wide on small caps, tight on big type ---- */
   --track-label:      .2em;
@@ -345,6 +345,129 @@ a:hover{ color:var(--ink); }
 /* Keyboard users on any device still get the menu */
 .navitem--menu:focus-within .navmenu{ opacity:1; visibility:visible; transform:translateY(0); }
 
+
+
+/* --------------------------------------------------------------------------
+   5b. MOBILE MENU  (no JavaScript)
+   --------------------------------------------------------------------------
+   A checkbox drives the menu. The label is the button. On a narrow screen
+   the nav collapses behind it; on a wide screen the checkbox is inert and
+   the nav behaves exactly as before. Keyboard users can tab to the button
+   and press Space, because the checkbox stays focusable rather than hidden.
+   -------------------------------------------------------------------------- */
+.navtoggle{
+  position:absolute; width:1px; height:1px; margin:-1px;
+  padding:0; border:0; clip:rect(0 0 0 0); clip-path:inset(50%);
+  overflow:hidden; white-space:nowrap;
+}
+.burger{
+  display:none; align-items:center; gap:9px;
+  padding:9px 12px 9px 10px; cursor:pointer;
+  border:1px solid var(--rule-strong); border-radius:2px;
+  background:var(--paper); color:var(--ink);
+  font-size:var(--t-micro-sm); font-weight:var(--w-strong);
+  letter-spacing:.06em; text-transform:uppercase;
+  -webkit-tap-highlight-color:transparent;
+}
+.burger__box{
+  position:relative; display:block; width:19px; height:13px; flex:0 0 auto;
+}
+.burger__box::before,
+.burger__box::after,
+.burger__bar{
+  content:''; position:absolute; left:0; width:19px; height:2px;
+  background:currentColor; transition:transform .3s var(--ease), opacity .2s var(--ease);
+}
+.burger__box::before{ top:0; }
+.burger__bar{ top:50%; margin-top:-1px; }
+.burger__box::after{ bottom:0; }
+
+.navtoggle:checked + .burger .burger__box::before{ transform:translateY(5.5px) rotate(45deg); }
+.navtoggle:checked + .burger .burger__box::after{ transform:translateY(-5.5px) rotate(-45deg); }
+.navtoggle:checked + .burger .burger__bar{ opacity:0; }
+.navtoggle:focus-visible + .burger{ outline:2px solid var(--forest); outline-offset:3px; }
+
+@media (max-width:860px){
+  /* one tidy row: name on the left, phone and menu on the right */
+  .site-head__inner{ flex-wrap:wrap; gap:10px; padding:13px 0; }
+  .brand{ order:1; flex:1 1 auto; min-width:0; }
+  .site-head__actions{ order:2; flex:0 0 auto; margin-left:auto; gap:8px; }
+  .burger{ display:inline-flex; order:3; flex:0 0 auto; }
+  .cta-phone{ padding:10px 13px; }
+
+  .nav{
+    order:4; flex-basis:100%; width:100%;
+    flex-wrap:nowrap;
+    display:none; flex-direction:column; align-items:stretch;
+    gap:0; padding:4px 0 10px;
+  }
+  .navtoggle:checked ~ .nav{ display:flex; }
+
+  .navitem{ display:block; border-top:1px solid var(--rule); }
+  .nav-link{
+    display:block; padding:16px 2px; font-size:var(--t-h5);
+    color:var(--ink); white-space:normal;
+  }
+
+  /* the Facilities list is just part of the menu here, always open */
+  .navitem--menu > .nav-link::after{ display:none; }
+  .navmenu{
+    position:static; opacity:1; visibility:visible; transform:none;
+    padding-top:0;
+  }
+  .navmenu__inner{
+    min-width:0; border:0; border-radius:0; padding:0 0 10px;
+    background:transparent;
+  }
+  .navmenu__link{
+    padding:12px 0 12px 20px; font-size:var(--t-meta);
+    white-space:normal;
+  }
+}
+
+/* A narrow phone: the icon carries the menu on its own, and the district
+   line under the name is dropped to buy the width back. */
+@media (max-width:460px){
+  .cta-phone{ padding:9px 11px; font-size:var(--t-fine); }
+  .brand__name{ letter-spacing:.035em; }
+}
+
+@media (max-width:540px){
+  .burger{ padding:10px; gap:0; }
+  .burger__text{ display:none; }
+  .brand__sub{ display:none; }
+  .cta-phone{ padding:10px 12px; font-size:var(--t-micro-sm); }
+}
+
+/* The smallest phones still in use. Everything shrinks a shade so the bar
+   stays on one line rather than stacking. */
+/* The smallest phones cannot hold the name, the number and the button on one
+   line, so the bar becomes two deliberate rows rather than an awkward wrap:
+   the name, then the number and the menu button together beneath it. */
+@media (max-width:370px){
+  .site-head__inner{ gap:10px 8px; padding:12px 0 13px; }
+  .brand{ flex:0 0 100%; }
+  .site-head__actions{ margin-left:0; }
+  .burger{ margin-left:auto; padding:9px 11px; }
+  .cta-phone{ padding:9px 12px; font-size:var(--t-micro-sm); }
+}
+
+/* --------------------------------------------------------------------------
+   5c. A ROW THAT CARRIES MORE THAN ONE NUMBER
+   -------------------------------------------------------------------------- */
+.row__value--multi{
+  display:flex; flex-direction:column; align-items:flex-end; gap:5px;
+}
+.row__tel{
+  display:flex; align-items:baseline; justify-content:flex-end;
+  gap:8px; text-decoration:none; color:var(--sage);
+  transition:color .3s var(--ease);
+}
+.row__tel:hover{ color:var(--forest); }
+.row__tel-lbl{
+  font-size:var(--t-fine); color:var(--sage-pale);
+  letter-spacing:.04em; white-space:nowrap;
+}
 
 .cta-phone{
   display:inline-flex; align-items:center;
