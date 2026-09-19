@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Design System &middot; Christmas Valley Park &amp; Recreation District</title>
+<meta name="description" content="The design formula behind the Christmas Valley Park & Recreation District website: tokens, type scale, components and the rules that keep every page consistent." />
+<meta name="robots" content="noindex" />
+<link rel="icon" href="images/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/site.css" />
+<style>
+  /* Guide chrome only. The page itself is built from site.css. */
+  .g-shell{ display:flex; align-items:flex-start; gap:var(--gap-col); }
+  .g-toc{
+    position:sticky; top:96px; flex:0 0 200px; align-self:flex-start;
+    border-left:1px solid var(--rule); padding-left:20px;
+  }
+  .g-toc a{
+    display:block; font-size:var(--t-micro); color:var(--sage);
+    padding:6px 0; transition:color .3s var(--ease);
+  }
+  .g-toc a:hover{ color:var(--ink); }
+  .g-body{ flex:1 1 auto; min-width:0; }
+  .g-block{ padding-top:clamp(40px,5vw,72px); }
+  .g-block + .g-block{ border-top:1px solid var(--rule); margin-top:clamp(40px,5vw,72px); }
+  .g-num{
+    font-size:var(--t-eyebrow); font-weight:var(--w-brand);
+    letter-spacing:var(--track-label); text-transform:uppercase;
+    color:var(--forest); margin-bottom:14px;
+  }
+  .g-grid{ display:flex; flex-wrap:wrap; gap:var(--gap-card); }
+  .g-note{
+    border-left:2px solid var(--forest); padding:2px 0 2px 18px;
+    margin:24px 0; max-width:var(--m-row);
+  }
+  .g-note p{ margin:0; font-size:var(--t-body-sm); line-height:var(--lh-prose); color:var(--sage-deep); }
+
+  /* Swatches */
+  .sw{ flex:1 1 168px; }
+  .sw__chip{ height:84px; border-radius:var(--radius); border:1px solid var(--rule); }
+  .sw__name{ font-size:var(--t-micro); font-weight:var(--w-strong); color:var(--ink); margin-top:10px; }
+  .sw__hex{ font-size:var(--t-fine); color:var(--sage); font-variant-numeric:tabular-nums; margin-top:2px; }
+  .sw__use{ font-size:var(--t-fine); color:var(--sage); margin-top:4px; line-height:1.45; }
+
+  /* Specimens */
+  .spec{ border-top:1px solid var(--rule); padding:22px 0; }
+  .spec__meta{
+    font-size:var(--t-eyebrow); font-weight:var(--w-strong);
+    letter-spacing:var(--track-label); text-transform:uppercase;
+    color:var(--sage); margin-bottom:12px;
+  }
+  .spec__val{ font-size:var(--t-fine); color:var(--sage); font-variant-numeric:tabular-nums; margin-top:10px; }
+
+  /* Code */
+  .g-code{
+    background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius);
+    padding:18px 20px; overflow-x:auto; margin:18px 0;
+  }
+  .g-code pre{
+    margin:0; font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    font-size:12.5px; line-height:1.7; color:var(--ink);
+  }
+  .g-list{ margin:0; padding:0; list-style:none; }
+  .g-list li{
+    border-bottom:1px solid var(--rule); padding:13px 0;
+    font-size:var(--t-body-sm); line-height:var(--lh-prose); color:var(--sage-deep);
+  }
+  .g-list li b{ color:var(--ink); font-weight:var(--w-strong); }
+  .g-list li code{ font-family:ui-monospace,Menlo,monospace; font-size:12.5px; background:var(--surface); border:1px solid var(--rule); border-radius:2px; padding:1px 5px; }
+  .g-do{ flex:1 1 300px; }
+  .g-do__head{
+    font-size:var(--t-micro); font-weight:var(--w-strong);
+    letter-spacing:var(--track-date); text-transform:uppercase;
+    padding-bottom:12px; border-bottom:1px solid var(--rule); margin-bottom:6px;
+  }
+  .g-do--yes .g-do__head{ color:var(--forest); }
+  .g-do--no .g-do__head{ color:var(--sage); }
+  @media (max-width:860px){ .g-toc{ display:none; } }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <div class="site-head__inner">
+      <a class="brand" href="index.html">
+        <div class="brand__name">Christmas Valley</div>
+        <div class="brand__sub">Park &amp; Recreation District</div>
+      </a>
+      <nav class="nav">
+        <a class="nav-link" href="#dna">DNA</a>
+        <a class="nav-link" href="#color">Colour</a>
+        <a class="nav-link" href="#type">Type</a>
+        <a class="nav-link" href="#components">Components</a>
+        <a class="nav-link" href="#build">Build</a>
+      </nav>
+      <div class="site-head__actions">
+        <a class="cta-phone" href="_page-template.html">Page template</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Opening -->
+  <section class="section section--hero-top section--flush-bottom">
+    <div class="wrap">
+      <div class="photoblock subhero">
+        <img class="photoblock__media" src="images/table-rock.jpg" alt="Table Rock at sunset above the sage flats" />
+        <div class="photoblock__scrim"></div>
+        <div class="photoblock__body">
+          <div class="photoblock__main">
+            <div class="rulemark">
+              <span class="rulemark__line"></span>
+              <span class="rulemark__text">Internal Reference</span>
+            </div>
+            <h1 class="display on-photo">The design formula, written down.</h1>
+          </div>
+          <div class="photoblock__aside">
+            <p class="lead lead--light measure-36">Every rule behind the homepage, extracted so the other fourteen pages can be built the same way without guessing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--strip">
+    <div class="wrap">
+      <div class="datastrip">
+        <div class="datacell">
+          <div class="datacell__label">Corner radius</div>
+          <div class="datacell__figure tabular">2px</div>
+          <div class="datacell__note">Everywhere, no exceptions</div>
+        </div>
+        <div class="datacell">
+          <div class="datacell__label">Shadows</div>
+          <div class="datacell__figure tabular">0</div>
+          <div class="datacell__note">Depth comes from hairlines</div>
+        </div>
+        <div class="datacell">
+          <div class="datacell__label">Typefaces</div>
+          <div class="datacell__figure tabular">1</div>
+          <div class="datacell__note">Schibsted Grotesk, three weights</div>
+        </div>
+        <div class="datacell">
+          <div class="datacell__label">Media queries</div>
+          <div class="datacell__figure tabular">0</div>
+          <div class="datacell__note">Fluid sizing instead of breakpoints</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="g-shell">
+
+      <nav class="g-toc">
+        <a href="#dna">1. Design DNA</a>
+        <a href="#layout">2. Layout system</a>
+        <a href="#color">3. Colour</a>
+        <a href="#type">4. Typography</a>
+        <a href="#imagery">5. Imagery</a>
+        <a href="#components">6. Components</a>
+        <a href="#build">7. Build rules</a>
+        <a href="#adapt">8. Adapting it</a>
+      </nav>
+
+      <div class="g-body">
+
+        <!-- 1 -->
+        <section class="g-block" id="dna">
+          <div class="g-num">01</div>
+          <h2 class="h2 h2--sm mb-18">What makes it feel the way it does.</h2>
+          <p class="lead mb-lead">This design reads as a trusted public institution rather than a brochure, and it does that through restraint. Four mechanisms carry almost all of the feeling.</p>
+
+          <ul class="g-list">
+            <li><b>Near-square corners at 2px.</b> Not sharp, not rounded. Rounded corners read as consumer software; sharp corners read as a legal notice. Two pixels sits between them and reads as printed matter.</li>
+            <li><b>No shadows at all.</b> Nothing floats. Every edge is either a one-pixel hairline or the natural boundary of a photograph. Flatness is what keeps it from looking like a template.</li>
+            <li><b>Opposing letter-spacing.</b> Tiny uppercase labels are stretched wide at <b>.2em</b>. Large headlines are pulled tight at <b>-.032em</b>. That tension between the two is the single most recognisable move in the system.</li>
+            <li><b>Photography does the emotional work.</b> The palette is almost monochrome, so colour arrives only through the landscape. The design gets out of the way of the place.</li>
+          </ul>
+
+          <div class="g-note">
+            <p>The emotional target is <b>stewardship</b>. Quiet, careful, permanent. Anything that reads as urgent, promotional or clever is off-brand here, because this is a District that holds land in trust, not a business selling something.</p>
+          </div>
+        </section>
+
+        <!-- 2 -->
+        <section class="g-block" id="layout">
+          <div class="g-num">02</div>
+          <h2 class="h2 h2--sm mb-18">Layout system.</h2>
+          <p class="lead mb-lead">One container, one gutter, one vertical rhythm. Pages differ by which blocks they use, never by how wide or how padded they are.</p>
+
+          <ul class="g-list">
+            <li><b>Container.</b> 1320px maximum width, centred, with a fluid side gutter of <b>clamp(20px, 4vw, 40px)</b>. Nothing on the site sits outside this except full-bleed photo sections.</li>
+            <li><b>Vertical rhythm.</b> Standard section padding is <b>clamp(58px, 8vw, 116px)</b> top and bottom. Sections that butt against a dark panel drop their adjoining padding to zero so the panel touches the section above it.</li>
+            <li><b>The section right after a hero or a data strip takes <code>section--tight-top</code></b>, which drops the top padding to <b>clamp(44px, 5.5vw, 86px)</b>. Full padding there leaves a hole, because the strip already carries its own bottom padding.</li>
+            <li><b>Column behaviour.</b> Everything is flexbox with <b>flex-wrap</b> and a basis in pixels. Columns reflow on their own when the space runs out, and there are no width breakpoints to maintain.</li>
+            <li><b>One exception: the archive lists use CSS grid</b> (<code>repeat(auto-fill, minmax(250px, 1fr))</code>). A wrapping flex row lets the last partial row stretch, which knocks the final few entries of each year out of column. Grid keeps them aligned.</li>
+            <li><b>Line length is capped in characters.</b> Body copy stops at <b>46ch</b>, list rows at <b>58ch</b>, headlines between <b>17ch</b> and <b>22ch</b>. This is why nothing sprawls on a wide monitor.</li>
+            <li><b>Above the fold.</b> One photograph, one headline of ten words or fewer, one supporting sentence, one action. Never two competing actions.</li>
+          </ul>
+
+          <h3 class="h3 mt-lead mb-18">The page skeleton</h3>
+          <p class="lead mb-lead">Every interior page is assembled from this order. Drop any block that has nothing to say, but never reorder them.</p>
+          <ul class="g-list">
+            <li><b>1. Header.</b> Identical site-wide.</li>
+            <li><b>2. Subhero.</b> Photo, label, page headline, one sentence, one button.</li>
+            <li><b>3. Data strip.</b> Two to four hard facts on hairline-topped columns.</li>
+            <li><b>4. Body blocks.</b> Splits, card grids, rate lists or row lists, in whatever order the content needs.</li>
+            <li><b>5. Dark panel.</b> Optional, for official or District-level content.</li>
+            <li><b>6. Closer.</b> Full-bleed photo, centred question, phone and email.</li>
+            <li><b>7. Footer.</b> Identical site-wide.</li>
+          </ul>
+        </section>
+
+        <!-- 3 -->
+        <section class="g-block" id="color">
+          <div class="g-num">03</div>
+          <h2 class="h2 h2--sm mb-18">Colour.</h2>
+          <p class="lead mb-lead">A warm near-monochrome. One green does all the accent work. Everything else is ink, paper, or a sage-tinted grey.</p>
+
+          <h3 class="h3 mb-20">Core</h3>
+          <div class="g-grid mb-lead">
+            <div class="sw">
+              <div class="sw__chip" style="background:#14170F"></div>
+              <div class="sw__name">Ink</div>
+              <div class="sw__hex">#14170F</div>
+              <div class="sw__use">All primary text. Dark panels. Footer. Warm and olive-tinted, never pure black.</div>
+            </div>
+            <div class="sw">
+              <div class="sw__chip" style="background:#FFFFFF"></div>
+              <div class="sw__name">Paper</div>
+              <div class="sw__hex">#FFFFFF</div>
+              <div class="sw__use">Page background. Text and buttons on photographs.</div>
+            </div>
+            <div class="sw">
+              <div class="sw__chip" style="background:#2C4A34"></div>
+              <div class="sw__name">Forest</div>
+              <div class="sw__hex">#2C4A34</div>
+              <div class="sw__use">The only accent. Links, eyebrow labels, event dates, primary action.</div>
+            </div>
+            <div class="sw">
+              <div class="sw__chip" style="background:#6E7268"></div>
+              <div class="sw__name">Sage</div>
+              <div class="sw__hex">#6E7268</div>
+              <div class="sw__use">Secondary text on white. Captions, notes, supporting paragraphs.</div>
+            </div>
+          </div>
+
+          <h3 class="h3 mb-20">Supporting</h3>
+          <div class="g-grid mb-lead">
+            <div class="sw">
+              <div class="sw__chip" style="background:#5B5F55"></div>
+              <div class="sw__name">Sage deep</div>
+              <div class="sw__hex">#5B5F55</div>
+              <div class="sw__use">Body copy on tinted surfaces</div>
+            </div>
+            <div class="sw">
+              <div class="sw__chip" style="background:#A8B3A2"></div>
+              <div class="sw__name">Sage pale</div>
+              <div class="sw__hex">#A8B3A2</div>
+              <div class="sw__use">Labels and meta on dark</div>
+            </div>
+            <div class="sw">
+              <div class="sw__chip" style="background:#D5D8D0"></div>
+              <div class="sw__name">Mist</div>
+              <div class="sw__hex">#D5D8D0</div>
+              <div class="sw__use">Body copy on dark</div>
+            </div>
+            <div class="sw">
+              <div class="sw__chip" style="background:#F4F4F1"></div>
+              <div class="sw__name">Surface</div>
+              <div class="sw__hex">#F4F4F1</div>
+              <div class="sw__use">Tinted section background</div>
+            </div>
+            <div class="sw">
+              <div class="sw__chip" style="background:#E4E4DE"></div>
+              <div class="sw__name">Rule</div>
+              <div class="sw__hex">#E4E4DE</div>
+              <div class="sw__use">Default hairline divider</div>
+            </div>
+            <div class="sw">
+              <div class="sw__chip" style="background:#C9C9C0"></div>
+              <div class="sw__name">Rule strong</div>
+              <div class="sw__hex">#C9C9C0</div>
+              <div class="sw__use">Outlined button border</div>
+            </div>
+          </div>
+
+          <div class="g-note">
+            <p>The warm tan from the earlier brand direction (<b>#c9ae77</b>) is deliberately absent. Adding a second accent breaks the near-monochrome logic and makes the landscape photography compete instead of lead. If tan is ever needed for print, keep it out of the web palette.</p>
+          </div>
+
+          <h3 class="h3 mb-20">Photo scrims</h3>
+          <p class="lead mb-lead">White text only sits on a photograph through a bottom-up dark wash. The wash is always built from <b>rgba(10, 13, 8, x)</b>, a near-black with a green cast that matches the ink.</p>
+          <ul class="g-list">
+            <li><b>Hero.</b> .86 at the base, holding .24 at the top, so a tall image stays readable throughout.</li>
+            <li><b>Cards.</b> .86 at the base falling to .10 by 82 percent, so most of the photo stays clean.</li>
+            <li><b>Full-bleed closer.</b> A flat <b>rgba(8, 10, 6, .66)</b> across the whole image, because the text is centred rather than sitting at the bottom.</li>
+          </ul>
+        </section>
+
+        <!-- 4 -->
+        <section class="g-block" id="type">
+          <div class="g-num">04</div>
+          <h2 class="h2 h2--sm mb-18">Typography.</h2>
+          <p class="lead mb-lead">Schibsted Grotesk at three weights. Hierarchy comes from size and letter-spacing, never from adding another typeface.</p>
+
+          <ul class="g-list mb-lead">
+            <li><b>500 is the workhorse.</b> Every headline uses it. Large type at a medium weight reads as editorial; large type at bold reads as advertising.</li>
+            <li><b>600 is for small emphasis.</b> Labels, buttons, row titles, names.</li>
+            <li><b>700 appears three times on the whole site.</b> The wordmark and the notice label. Nothing else.</li>
+            <li><b>Numbers use tabular figures</b> so prices, dates and statistics align in columns.</li>
+          </ul>
+
+          <h3 class="h3 mb-20">The scale</h3>
+
+          <div class="spec">
+            <div class="spec__meta">Eyebrow &middot; 600 &middot; uppercase</div>
+            <div class="eyebrow eyebrow--accent" style="margin:0">Facilities &amp; Properties</div>
+            <div class="spec__val">10.5px &middot; letter-spacing .2em</div>
+          </div>
+
+          <div class="spec">
+            <div class="spec__meta">Display &middot; hero h1, once per page</div>
+            <div class="display">Your high desert, kept wild and welcoming.</div>
+            <div class="spec__val">clamp(36px, 5.4vw, 74px) &middot; weight 500 &middot; tracking -.035em &middot; leading .98</div>
+          </div>
+
+          <div class="spec">
+            <div class="spec__meta">Heading 2 &middot; section heading</div>
+            <div class="h2">Six places that make this valley home.</div>
+            <div class="spec__val">clamp(29px, 3.6vw, 50px) &middot; weight 500 &middot; tracking -.032em &middot; leading 1.04</div>
+          </div>
+
+          <div class="spec">
+            <div class="spec__meta">Heading 3 &middot; card title</div>
+            <div class="h3">Community Hall</div>
+            <div class="spec__val">clamp(20px, 1.8vw, 25px) &middot; weight 500 &middot; tracking -.02em &middot; leading 1.1</div>
+          </div>
+
+          <div class="spec">
+            <div class="spec__meta">Lead paragraph</div>
+            <p class="lead">Every one is open to the public and maintained by the District. Two are free to use any day of the year; four can be reserved for your event.</p>
+            <div class="spec__val">clamp(15px, 1.1vw, 17px) &middot; leading 1.6 &middot; max-width 46ch</div>
+          </div>
+
+          <div class="spec">
+            <div class="spec__meta">Body &middot; row and card text</div>
+            <p class="event__text">Thirteen games, thirteen prizes, and a cash pot on the blackout game. Food and beverages available.</p>
+            <div class="spec__val">14.5px &middot; leading 1.55 &middot; max-width 58ch</div>
+          </div>
+        </section>
+
+        <!-- 5 -->
+        <section class="g-block" id="imagery">
+          <div class="g-num">05</div>
+          <h2 class="h2 h2--sm mb-18">Imagery.</h2>
+          <p class="lead mb-lead">Full colour, never filtered, always local. The photography is the only place colour enters the design, so it has to carry weight.</p>
+
+          <ul class="g-list mb-lead">
+            <li><b>Subject.</b> Real Christmas Valley: the landscape, the facilities, and people using them. No stock photography, ever. A slightly imperfect local photo beats a polished generic one every time.</li>
+            <li><b>Treatment.</b> No filters, no duotone, no desaturation. The high-desert light already does the work.</li>
+            <li><b>Framing.</b> <b>object-fit: cover</b> with an explicit <b>object-position</b> tuned per image so the subject survives cropping at every width.</li>
+            <li><b>Credit.</b> Community photographs are named in the caption and in the footer. That attribution is part of the brand, not a formality.</li>
+            <li><b>Weight.</b> Resize to 2400px on the long edge before committing. Rural connections are the constraint that matters here.</li>
+          </ul>
+        </section>
+
+        <!-- 6 -->
+        <section class="g-block" id="components">
+          <div class="g-num">06</div>
+          <h2 class="h2 h2--sm mb-18">Components, live.</h2>
+          <p class="lead mb-lead">Everything below is rendered by the real stylesheet. If it looks right here, it will look right on the page.</p>
+
+          <h3 class="h3 mb-20">Buttons</h3>
+          <div class="btnrow mb-lead">
+            <a class="btn btn--forest" href="#components">Primary <span class="btn__arrow">&#8594;</span></a>
+            <a class="btn btn--ink" href="#components">Ink <span class="btn__arrow">&#8594;</span></a>
+            <a class="btn btn--hairline" href="#components">Outlined</a>
+          </div>
+          <ul class="g-list mb-lead">
+            <li><b>Forest</b> for the main action on a light background. <b>Ink</b> when forest would compete with a nearby green label. <b>White</b> on photographs and dark panels.</li>
+            <li><b>Outlined</b> is always the second option, never the first. One solid button per block.</li>
+            <li>Hover lifts the button <b>2px</b> over <b>.4s</b>. Nothing changes colour on hover except outlined borders.</li>
+            <li>The arrow is a real character, <b>&amp;#8594;</b>, not an icon font.</li>
+          </ul>
+
+          <h3 class="h3 mb-20">Card</h3>
+          <div class="cardgrid mb-lead">
+            <a class="card card--w5" href="#components">
+              <img class="card__media" src="images/community-hall.jpg" alt="Community Hall" loading="lazy" />
+              <div class="card__scrim"></div>
+              <div class="card__chip">Free &middot; No reservation</div>
+              <div class="card__body">
+                <h3 class="card__title">Community Hall</h3>
+                <p class="card__text">About 2,100 square feet with a kitchen. Available to rent.</p>
+              </div>
+            </a>
+            <a class="card card--w4" href="#components">
+              <img class="card__media" src="images/rodeo.jpg" alt="Rodeo grounds" loading="lazy" />
+              <div class="card__scrim"></div>
+              <div class="card__body">
+                <h3 class="card__title">Rodeo Grounds</h3>
+                <p class="card__text">Horse shows, rodeos and clinics.</p>
+              </div>
+            </a>
+          </div>
+          <ul class="g-list mb-lead">
+            <li>Cards are sized with <b>card--w7</b>, <b>card--w5</b> and <b>card--w4</b>. Mixing widths is what stops a grid looking like a template.</li>
+            <li>The white chip is for status only: free, public, seasonal. Never for marketing copy.</li>
+            <li>The whole card is the link. There is no separate button inside it.</li>
+          </ul>
+
+          <h3 class="h3 mb-20">Rate row</h3>
+          <div class="ratelist mb-lead">
+            <div class="rate">
+              <div class="rate__main">
+                <div class="rate__name">Non-profit &middot; up to 5 hours</div>
+                <div class="rate__note">Clubs, churches, school groups</div>
+              </div>
+              <div class="rate__price">$15</div>
+            </div>
+            <div class="rate">
+              <div class="rate__main">
+                <div class="rate__name">Cleaning deposit</div>
+                <div class="rate__note">Returned if the hall is left in the same condition</div>
+              </div>
+              <div class="rate__price">$50</div>
+            </div>
+          </div>
+
+          <h3 class="h3 mb-20">Event row</h3>
+          <div class="eventlist mb-lead">
+            <div class="event">
+              <div class="event__date tabular">18 Jun</div>
+              <div class="event__main">
+                <h3 class="event__title">Bingo Night</h3>
+                <p class="event__text">Thirteen games, thirteen prizes, and a cash pot on the blackout game. Every first and third Thursday.</p>
+              </div>
+              <div class="event__where">Community Hall<br />6:00 p.m.</div>
+            </div>
+          </div>
+
+          <h3 class="h3 mb-20">Dark panel</h3>
+          <div class="panel mb-lead">
+            <div class="panel__cols">
+              <div class="panel__col">
+                <div class="eyebrow eyebrow--pale">The District</div>
+                <h2 class="h2 h2--sm h2--dark mb-20">Established 1963, run by your neighbors.</h2>
+                <div class="stats">
+                  <div class="stat">
+                    <div class="stat__figure tabular">60+</div>
+                    <div class="stat__label">Years of the<br />Desert Whispers</div>
+                  </div>
+                  <div class="stat">
+                    <div class="stat__figure tabular">6</div>
+                    <div class="stat__label">Properties in<br />District care</div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel__col">
+                <div class="eyebrow eyebrow--pale">Board &amp; Staff</div>
+                <div class="roster">
+                  <div class="roster__row">
+                    <div class="roster__name">Scott Batson</div>
+                    <div class="roster__role">Chairperson</div>
+                  </div>
+                  <div class="roster__row">
+                    <div class="roster__name">David Uran</div>
+                    <div class="roster__role">Vice Chairperson</div>
+                  </div>
+                </div>
+                <div class="btnrow mt-26">
+                  <a class="btn btn--white btn--sm" href="#components">Meeting minutes <span class="btn__arrow">&#8594;</span></a>
+                  <a class="btn btn--hairline-light btn--sm" href="#components">Agendas</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7 -->
+        <section class="g-block" id="build">
+          <div class="g-num">07</div>
+          <h2 class="h2 h2--sm mb-18">Build rules.</h2>
+          <p class="lead mb-lead">Four rules keep fifteen pages consistent without anyone policing them.</p>
+
+          <ul class="g-list mb-lead">
+            <li><b>Never type a colour, size or spacing value into a page.</b> Every value lives in <b>css/site.css</b> as a named token. If a page needs a value the system does not have, add a token rather than an inline style.</li>
+            <li><b>Start every new page by copying <b>_page-template.html</b>.</b> Delete the blocks you do not need. Never start from a finished page, because you will inherit its content decisions.</li>
+            <li><b>Header and footer are never edited per page.</b> The only per-page change is adding <b>aria-current="page"</b> to the active nav link.</li>
+            <li><b>No JavaScript unless a page genuinely cannot work without it.</b> The archive needs it. Nothing else does. Pages that work without JavaScript stay fast and never break silently.</li>
+          </ul>
+
+          <h3 class="h3 mb-20">Starting a new page</h3>
+          <div class="g-code"><pre>cp _page-template.html golf.html
+# then, in golf.html:
+#   1. set the title, description and og:image
+#   2. swap images/REPLACE.jpg for the real photographs
+#   3. delete every block the page does not need
+#   4. add aria-current="page" to the matching nav link</pre></div>
+
+          <h3 class="h3 mb-20">Accessibility floor</h3>
+          <ul class="g-list mb-lead">
+            <li>Every image needs real alt text describing what is in it, not the filename.</li>
+            <li>The skip link stays at the top of every page.</li>
+            <li>Focus rings are forest green at 2px with 3px offset. Never remove them.</li>
+            <li>All motion is disabled under <b>prefers-reduced-motion</b>. Do not add animation that ignores it.</li>
+          </ul>
+        </section>
+
+        <!-- 8 -->
+        <section class="g-block" id="adapt">
+          <div class="g-num">08</div>
+          <h2 class="h2 h2--sm mb-18">Adapting it, and what not to copy.</h2>
+          <p class="lead mb-lead">This system belongs to the District. The thinking behind it travels; the specifics do not.</p>
+
+          <div class="g-grid mb-lead">
+            <div class="g-do g-do--yes">
+              <div class="g-do__head">Worth carrying anywhere</div>
+              <ul class="g-list">
+                <li>The 2px radius and the refusal to use shadows.</li>
+                <li>Wide tracking on small caps against tight tracking on large display type.</li>
+                <li>Capping measure in <b>ch</b> units rather than pixels.</li>
+                <li>One accent colour, earning its place by being rare.</li>
+                <li>Fluid <b>clamp()</b> sizing instead of breakpoints.</li>
+              </ul>
+            </div>
+            <div class="g-do g-do--no">
+              <div class="g-do__head">Belongs to this District only</div>
+              <ul class="g-list">
+                <li>The exact greens and sage greys. Another client needs their own.</li>
+                <li>Schibsted Grotesk as the single face.</li>
+                <li>The high-desert photography and the photographer credits.</li>
+                <li>The stewardship voice. A retail client would sound evasive using it.</li>
+                <li>The specific section order, which follows what this District's visitors ask for.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="g-note">
+            <p>To reuse the formula for another client, keep the <b>structure</b> of <b>site.css</b> and replace the values in the token block at the top. The component classes below it will keep working. That token block is the portable part; everything under it is just plumbing.</p>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="site-foot__cols">
+      <div class="site-foot__brand">
+        <div class="site-foot__name">Christmas Valley</div>
+        <div class="site-foot__sub">Park &amp; Recreation District</div>
+        <p class="site-foot__blurb">Internal design reference. Extracted from the homepage and maintained alongside the site itself.</p>
+      </div>
+      <div class="site-foot__col">
+        <div class="site-foot__head">Files</div>
+        <div class="site-foot__links">
+          <a class="foot-link" href="css/site.css">css/site.css</a>
+          <a class="foot-link" href="_page-template.html">_page-template.html</a>
+          <a class="foot-link" href="index.html">index.html</a>
+        </div>
+      </div>
+    </div>
+    <div class="site-foot__base">
+      <span>Design system reference &middot; not linked from the public site</span>
+      <span>Photography by Robert Petitt, Hunter Kittredge, Shelly Leehmann, Julie Peterson &amp; neighbors</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+# ---------------------------------------------------------------------------
+# ARCHIVE LABEL EXCEPTIONS
+# ---------------------------------------------------------------------------
+# Almost every document names itself. A file called 2026-10-01.pdf shows up on
+# the site as "October 1, 2026" with no help from anyone.
+#
+# A few of the oldest Gazette issues covered two months at once and need a
+# label written by hand. Those live here. You will almost certainly never need
+# to touch this file.
+# ---------------------------------------------------------------------------
+
+overrides:
+  # "documents/gazette/1967/1967-12.pdf":
+  #   label: "Dec 1966 / Jan 1967"

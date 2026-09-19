@@ -1,0 +1,18 @@
+# ---------------------------------------------------------------------------
+# NOTICE BAR
+# ---------------------------------------------------------------------------
+# A single line that appears across the top of the home page and the Events
+# page. Use it for things like the lake freezing over, the course closing for
+# the season, or a cancelled meeting.
+#
+# To turn it ON  change  show: false  to  show: true
+# To turn it OFF change  show: true   to  show: false
+#
+# Change the words any time. Turn it off when it stops being true, otherwise
+# people stop reading it.
+# ---------------------------------------------------------------------------
+
+notice:
+  show: false
+  label: "District Notice"
+  text: "Baert Lake is open for the season."

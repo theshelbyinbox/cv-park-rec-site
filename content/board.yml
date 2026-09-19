@@ -1,0 +1,34 @@
+# ---------------------------------------------------------------------------
+# BOARD AND STAFF
+# ---------------------------------------------------------------------------
+# The roster shown on the District Board page.
+#
+# After an election, edit the names below and save. Keep the dash and the
+# indenting exactly as they are.
+#
+#   name   the person's name
+#   role   Chairperson, Vice Chairperson, Director, and so on
+#   phone  optional. Leave the whole phone line out if it is not published.
+# ---------------------------------------------------------------------------
+
+board:
+  - name: "Scott Batson"
+    role: "Chairperson"
+    phone: "(458) 281-5925"
+
+  - name: "David Uran"
+    role: "Vice Chairperson"
+    phone: "(541) 576-4177"
+
+  - name: "Glenna Wade"
+    role: "Director"
+
+  - name: "Terry Crawford"
+    role: "Director"
+
+  - name: "Gari Merrifield"
+    role: "Director"
+
+staff:
+  - name: "Ashley Anderson"
+    role: "Office Manager and Editor, Desert Whispers"
