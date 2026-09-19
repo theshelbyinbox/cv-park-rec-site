@@ -112,7 +112,7 @@ FOOTER = """
           <a class="foot-link" href="facilities.html">Facilities &amp; Properties</a>
           <a class="foot-link" href="rentals.html">Rentals</a>
           <a class="foot-link" href="events.html">Events</a>
-          <a class="foot-link" href="legacy.html">Visit Christmas Valley</a>
+          <a class="foot-link" href="visit.html">Things to See Nearby</a>
         </div>
       </div>
       <div class="site-foot__col">
@@ -233,8 +233,8 @@ whis = (head("The Desert Whispers",
  + header("whispers")
  + '\n<main id="main">\n'
  + subhero("newspaper.jpg", "Desert Whispers front pages", "The Desert Whispers",
-           "Sixty years of valley news, in one place.",
-           "Our community newspaper has chronicled life here since the 1960s. Every issue we have is free to open, on any device.")
+           "Six decades of the Desert Whispers, in one place.",
+           "The Desert Whispers has chronicled life in Christmas Valley since the 1960s. Every issue we have is free to open, on any device.")
  + strip([("Issues online", f"{wn + gn}", "Every one we could find", True),
           ("Spanning", f"{min(wyears)}&ndash;{max(wyears)}", "The Gazette came first", True),
           ("Cost to read", "Free", "No account, no sign-in", False),
@@ -264,7 +264,7 @@ whis = (head("The Desert Whispers",
           <div class="eyebrow eyebrow--accent">Before the Whispers</div>
           <h2 class="h2 h2--sm">The Christmas Valley Gazette.</h2>
         </div>
-        <p class="sec-head__aside lead">The valley&rsquo;s first paper, published as the town was being built. {gn} issues survive.</p>
+        <p class="sec-head__aside lead">Christmas Valley&rsquo;s first paper, published as the town was being built. {gn} issues survive.</p>
       </div>
 {gbody}
     </div>
