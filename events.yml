@@ -1,0 +1,51 @@
+# ---------------------------------------------------------------------------
+# EVENTS
+# ---------------------------------------------------------------------------
+# This is the "This month in the valley" list on the Events page.
+#
+# To change it: edit the lines below, save, and the site rebuilds itself.
+# Write plain words. No web code, no special characters needed.
+#
+# Each event needs a dash and then five lines, indented exactly like the
+# examples. Keep the two spaces before "date", "title" and the rest.
+#
+#   date   the day it happens next, like  13 Oct
+#   title  the name of the event
+#   text   a sentence or two. Say who to call if people need to sign up.
+#   where  the building or place
+#   time   what time it starts. Leave the quote marks empty if it varies.
+#
+# Put them in date order, soonest first. Delete an event by removing its
+# whole block. Copy an existing block to add a new one.
+# ---------------------------------------------------------------------------
+
+events:
+  - date: "23 Sep"
+    title: "Bountiful Blessings Food Bank"
+    text: "A free food bank at Well in the Wilderness Church. Sign-ups are required, so call Carmen Cardwell at 541-419-2826 first. Every second and fourth Wednesday."
+    where: "Well in the Wilderness"
+    time: "1 to 4 p.m."
+
+  - date: "1 Oct"
+    title: "Bingo Night"
+    text: "Thirteen games, thirteen prizes, and a cash pot on the blackout game. Food and drinks are available. Every first and third Thursday."
+    where: "Community Hall"
+    time: "6:00 p.m."
+
+  - date: "7 Oct"
+    title: "High Desert Stitch Rippers"
+    text: "Sewing, knitting, crochet and crafts. All crafters are welcome, $4 at the door. Every first and third Wednesday."
+    where: "CV Boosters Building"
+    time: ""
+
+  - date: "12 Oct"
+    title: "Christmas Valley Boosters Meeting"
+    text: "The community boosters get together, and everyone is welcome to sit in. Every second Monday."
+    where: "Boosters Building"
+    time: "6:00 p.m."
+
+  - date: "13 Oct"
+    title: "Park & Recreation Board Meeting"
+    text: "The monthly public meeting of the District Board. Agendas are posted at the office beforehand, and public comment is always welcome."
+    where: "Community Hall"
+    time: "9:00 a.m."
